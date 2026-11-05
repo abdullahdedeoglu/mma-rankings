@@ -29,6 +29,23 @@ def score(ds: Dataset, model: ModelParams) -> dict:
             "valid": backtest.metrics([p.p_a for p in va]).log_loss}
 
 
+def prior_grid(ds: Dataset, ks=(3, 10, 30), offsets=(0, 100, 200)) -> list[dict]:
+    """Debut-prior variants: off (everyone starts at 1500) vs promotion prior."""
+    variants = [replace(MODEL, promo_prior=False, debut_offset=0.0)]
+    variants += [replace(MODEL, promo_prior=False, debut_offset=float(o)) for o in offsets if o]
+    variants += [replace(MODEL, promo_prior=True, promo_prior_k=float(k), debut_offset=float(o))
+                 for k in ks for o in offsets]
+    out = []
+    for m in variants:
+        r = score(ds, m)
+        row = {"promo_prior": m.promo_prior, "k": m.promo_prior_k, "offset": m.debut_offset,
+               **{k: round(v, 5) for k, v in r.items()}}
+        print(row, flush=True)
+        out.append(row)
+    out.sort(key=lambda r: r["train"])
+    return out
+
+
 def grid(ds: Dataset, cs=(10, 20, 35, 50), rds=(250, 350), schemes=tuple(DECISION_SCHEMES)) -> list[dict]:
     out = []
     for c, rd, sch in itertools.product(cs, rds, schemes):

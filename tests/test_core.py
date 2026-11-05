@@ -55,8 +55,10 @@ def test_parse_basic_and_women():
 def test_pride_and_pre2001_ufc_overrides():
     assert label_key("Middleweight Bout", "PRIDE", "2005-08-28")[0] == "LIGHTHEAVY"
     assert label_key("Welterweight Bout", "PRIDE", "2006-05-05")[0] == "MIDDLE"
-    # UFC 16-30 'Lightweight' meant up to 170 lb
-    assert label_key("Lightweight Bout", "UFC", "1999-05-07")[0] == "WELTER"
+    # UFC 16-30 'Lightweight' is ambiguous (170 lb original vs 155 lb retro-fitted): ignored
+    assert label_key("Lightweight Bout", "UFC", "1999-05-07")[0] is None
+    # UFC 12-15 'Lightweight' meant under 200 lb
+    assert label_key("Lightweight Bout", "UFC", "1997-05-30")[0] == "LIGHTHEAVY"
     # ... but retro-fitted title labels keep their modern meaning
     assert label_key("UFC Light Heavyweight Title Bout", "UFC", "1999-05-07")[0] == "LIGHTHEAVY"
     assert label_key("Middleweight Bout", "UFC", "2010-01-01")[0] == "MIDDLE"
@@ -104,3 +106,42 @@ def test_division_uses_past_then_future():
     assert tl.division_key(7, "2003-06-30", RULES) == ("LIGHT", "future")
     assert tl.division_key(7, "2010-06-30", RULES) == ("WELTER", "past")
     assert tl.division_key(7, "2020-06-30", RULES) == ("WELTER", "old")
+
+
+def test_big9_labels_outvote_regional_ones():
+    regional = [_b(i, i, f"1999-0{i}-01", 7, 20 + i) for i in range(1, 4)]
+    for b in regional:
+        b.div_key = "WELTER"  # promotion 'X' is not a Big-9 org
+    ufc = _b(9, 9, "2001-02-23", 7, 30)
+    ufc.promotion, ufc.div_key = "UFC", "LIGHT"
+    tl = _Timeline(_DS(regional + [ufc]))
+    assert tl.division_key(7, "2001-06-30", RULES) == ("LIGHT", "past")
+    assert tl.division_key(7, "2000-06-30", RULES) == ("WELTER", "past")
+
+
+# ---------- debut prior: newcomers start near their promotion's established fighters
+def test_debut_prior_uses_promotion_strength():
+    from dataclasses import replace
+    from mmarank import engine
+    from mmarank.config import MODEL
+
+    def bout(fid, date, promo, a, b):
+        x = _b(fid, fid, date, a, b, "Decision (Unanimous)")
+        x.promotion = promo
+        return x
+
+    # fighter 1 builds a strong record in promotion 'BIG'; 99 debuts there afterwards,
+    # 98 debuts in 'SMALL' where nobody is established.
+    bouts = [bout(i, f"2000-0{i}-01", "BIG", 1, 10 + i) for i in range(1, 6)]
+    bouts += [bout(50, "2000-08-01", "BIG", 99, 60), bout(51, "2000-08-01", "SMALL", 98, 61)]
+
+    class DS:
+        pass
+    ds = DS(); ds.bouts = bouts; ds.sex = {}
+    m = replace(MODEL, promo_prior=True, promo_prior_k=1.0, debut_offset=0.0)
+    res = engine.run(ds, model=m, snapshots=False)
+    big_debut = [p for p in res.predictions if p.fight_id == 50][0]
+    small_debut = [p for p in res.predictions if p.fight_id == 51][0]
+    # both are debut vs debut, so 0.5 each, but the BIG debutants start higher
+    assert big_debut.p_a == pytest.approx(0.5) and small_debut.p_a == pytest.approx(0.5)
+    assert res.states[99].mu > res.states[98].mu

@@ -46,6 +46,14 @@ class ModelParams:
     )
     # Ranking display: conservative rating = mu - k * RD
     display_k: float = 2.0
+    # Debut prior (empirical Bayes, leak-free): a fighter's first rating is the mean
+    # rating of established fighters (>= 3 bouts) who fought in the same promotion
+    # in the previous `promo_window_months`, shrunk towards `initial_rating` with
+    # weight `promo_prior_k`, minus `debut_offset`.
+    promo_prior: bool = True
+    promo_prior_k: float = 10.0
+    promo_window_months: int = 24
+    debut_offset: float = 100.0  # newcomers start below a promotion's established fighters
 
 
 @dataclass(frozen=True)

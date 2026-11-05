@@ -55,6 +55,7 @@
       <h2>Yöntem</h2>
       <ul>
         <li><strong>Model:</strong> Glicko-1, tek global havuz. Bitiş yöntemine göre ağırlıklı sonuç (KO/SUB 1,0 · UD 0,9 · MD 0,6 · SD 0,55). DQ ve NC maçları dışarıda.</li>
+        <li><strong>Başlangıç puanı:</strong> Yeni bir dövüşçü, ilk maçını yaptığı organizasyonda son 24 ayda dövüşmüş deneyimli dövüşçülerin o tarihteki ortalama puanının 100 altından başlar (az veri varsa 1500'e doğru çekilir). Böylece küçük organizasyonlarda çok sayıda galibiyet toplamak puanı şişirmez.</li>
         <li><strong>Sıralama puanı:</strong> μ − 2·RD. Uzun süre dövüşmeyenlerin puanı düşmez; belirsizliği (RD) artar.</li>
         <li><strong>Liste şartları:</strong> En az 3 derecelendirilmiş maç, son 24 ayda maç. Organizasyon listeleri: son 18 ayda o organizasyonda maç yapmış olmak (bir dövüşçü birden fazla listede olabilir).</li>
         <li><strong>Sıklet:</strong> Dövüşçünün son 3 yıldaki son 3 etiketli maçının en sık sıkleti. Böyle maç yoksa <em>sonraki</em> ilk etiketli maçı kullanılır; bu durum listede <span class="mark">≈</span> ile işaretlenir (zayıf gelecek bilgisi).</li>

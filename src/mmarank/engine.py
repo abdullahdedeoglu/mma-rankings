@@ -89,12 +89,13 @@ class _Timeline:
     """Static per-fighter lookups: labelled divisions and Big-9 org appearances."""
 
     def __init__(self, ds: Dataset):
-        self.div: dict[int, list[tuple[str, str]]] = collections.defaultdict(list)
+        # (date, key, trusted): trusted = labelled by a Big-9 promotion
+        self.div: dict[int, list[tuple[str, str, bool]]] = collections.defaultdict(list)
         self.org: dict[int, list[tuple[str, str]]] = collections.defaultdict(list)
         for b in ds.bouts:
             for f in (b.a, b.b):
                 if b.div_key:
-                    self.div[f].append((b.date, b.div_key))
+                    self.div[f].append((b.date, b.div_key, b.org is not None))
                 if b.org:
                     self.org[f].append((b.date, b.org))
         for v in self.div.values():
@@ -106,10 +107,13 @@ class _Timeline:
         labels = self.div.get(f)
         if not labels:
             return None, "none"
-        i = bisect.bisect_right(labels, (t, "￿"))
+        i = bisect.bisect_right(labels, (t, "￿", True))
         past = labels[:i]
         lo = _shift_years(t, rules.division_lookback_years)
-        recent = [k for d, k in past if d >= lo][-rules.division_last_n:]
+        window = [(k, tr) for d, k, tr in past if d >= lo]
+        # Big-9 labels are more reliable than regional ones: use them alone when present.
+        trusted = [k for k, tr in window if tr]
+        recent = (trusted or [k for k, _ in window])[-rules.division_last_n:]
         if recent:
             counts = collections.Counter(recent)
             top = max(counts.values())
@@ -148,11 +152,32 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
         raise ValueError("no bouts to rate")
 
     next_snap = rules.first_published_month
+    # promotion -> {fighter: last date seen in that promotion}
+    promo_recent: dict[str, dict[int, str]] = collections.defaultdict(dict)
 
-    def state_at(f: int, t: str) -> FighterState:
+    def debut_rating(promotion: str, t: str) -> float:
+        base = model.initial_rating
+        if not model.promo_prior:
+            return base - model.debut_offset
+        recent = promo_recent.get(promotion)
+        total, n = 0.0, 0
+        if recent:
+            cutoff = _shift_months(t, model.promo_window_months)
+            for f, last in list(recent.items()):
+                if last < cutoff:
+                    del recent[f]
+                    continue
+                s = states[f]
+                if s.n >= 3:
+                    total += s.mu
+                    n += 1
+        k = model.promo_prior_k
+        return (k * base + total) / (k + n) - model.debut_offset
+
+    def state_at(f: int, t: str, promotion: str) -> FighterState:
         s = states.get(f)
         if s is None:
-            s = FighterState(model.initial_rating, model.initial_rd, t)
+            s = FighterState(debut_rating(promotion, t), model.initial_rd, t)
             states[f] = s
         return s
 
@@ -189,7 +214,7 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
         for b in bouts:
             for f in (b.a, b.b):
                 if f not in pre:
-                    s = state_at(f, day)
+                    s = state_at(f, day, b.promotion)
                     rd = glicko.inflate(s.rd, _months_between(s.last, day), model.c, model.initial_rd)
                     pre[f] = (s.mu, rd)
         games: dict[int, list[tuple[float, float, float]]] = collections.defaultdict(list)
@@ -211,6 +236,8 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
             s.mu, s.rd, s.last = new_mu, new_rd, day
             active[f] = day
         for b in bouts:
+            promo_recent[b.promotion][b.a] = day
+            promo_recent[b.promotion][b.b] = day
             if b.draw:
                 states[b.a].d += 1
                 states[b.b].d += 1

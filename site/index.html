@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MMA Rankings</title>
+  <meta name="description" content="Şeffaf, yeniden üretilebilir ve tarihsel olarak sorgulanabilir MMA derecelendirmeleri.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>MMA Rankings</h1>
+      <p class="sub">Matematiksel, şeffaf, geçmişe dönük sıralamalar. Her liste yalnızca o tarihe kadar olan maçlarla hesaplanır.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="controls" aria-label="Filtreler">
+      <label>Yıl
+        <select id="year"></select>
+      </label>
+      <label>Ay
+        <select id="month"></select>
+      </label>
+      <label>Kapsam
+        <select id="scope"></select>
+      </label>
+    </section>
+
+    <nav id="divisions" class="tabs" aria-label="Sıkletler"></nav>
+
+    <section>
+      <h2 id="list-title"></h2>
+      <p id="list-note" class="note"></p>
+      <div class="table-wrap">
+        <table id="table">
+          <thead>
+            <tr>
+              <th class="num">#</th>
+              <th>Dövüşçü</th>
+              <th class="num" title="Temkinli puan: μ − 2·RD">Puan</th>
+              <th class="num hide-sm" title="Tahmini güç ± belirsizlik">μ ± RD</th>
+              <th class="num">Rekor</th>
+              <th class="hide-sm">Son maç</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="empty" class="note" hidden>Bu ay ve kapsam için listelenecek dövüşçü yok.</p>
+    </section>
+
+    <section class="method">
+      <h2>Yöntem</h2>
+      <ul>
+        <li><strong>Model:</strong> Glicko-1, tek global havuz. Bitiş yöntemine göre ağırlıklı sonuç (KO/SUB 1,0 · UD 0,9 · MD 0,6 · SD 0,55). DQ ve NC maçları dışarıda.</li>
+        <li><strong>Sıralama puanı:</strong> μ − 2·RD. Uzun süre dövüşmeyenlerin puanı düşmez; belirsizliği (RD) artar.</li>
+        <li><strong>Liste şartları:</strong> En az 3 derecelendirilmiş maç, son 24 ayda maç. Organizasyon listeleri: son 18 ayda o organizasyonda maç yapmış olmak (bir dövüşçü birden fazla listede olabilir).</li>
+        <li><strong>Sıklet:</strong> Dövüşçünün son 3 yıldaki son 3 etiketli maçının en sık sıkleti. Böyle maç yoksa <em>sonraki</em> ilk etiketli maçı kullanılır; bu durum listede <span class="mark">≈</span> ile işaretlenir (zayıf gelecek bilgisi).</li>
+        <li><strong>Rekor:</strong> Yalnızca derecelendirilen maçlar (DQ/NC hariç), resmî rekordan farklı olabilir.</li>
+      </ul>
+      <div id="meta" class="note"></div>
+    </section>
+  </main>
+
+  <footer class="wrap note">
+    Veri: <a href="https://github.com/jadevit/fight-canon-db">Fight Canon</a> (UFC Stats, Sherdog, Sofascore ve diğerlerinden derlenmiştir).
+    Cinsiyet bilgisinin bir kısmı: <a href="https://www.wikidata.org/">Wikidata</a> (CC0). Resmî bir sıralama değildir.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+name: Update rankings
+
+on:
+  schedule:
+    - cron: "17 6 * * *" # daily, 06:17 UTC
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Fight Canon release tag (empty = latest)"
+        required: false
+      force:
+        description: "Rebuild even if nothing changed"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # archive canon.db snapshots as releases of this repo
+  pages: write
+  id-token: write
+
+concurrency:
+  group: rankings
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12 && uv sync --frozen
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Decide whether to rebuild
+        id: check
+        run: |
+          TAG="${{ inputs.tag }}"
+          [ -z "$TAG" ] && TAG=$(uv run mmarank latest-tag)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          LIVE=$(curl -fsS "${{ steps.pages.outputs.base_url }}/data/meta.json" | jq -r '.data_release + " " + .params_hash' || echo "none")
+          WANT="$TAG $(uv run python -c 'from mmarank.config import params_hash; print(params_hash())')"
+          echo "live: $LIVE | want: $WANT"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$LIVE" = "$WANT" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test
+        if: steps.check.outputs.changed == 'true'
+        run: uv run pytest -q
+
+      - name: Build (fails closed on validation errors)
+        if: steps.check.outputs.changed == 'true'
+        run: uv run mmarank build --tag "${{ steps.check.outputs.tag }}" ${{ inputs.force && '--force' || '' }}
+
+      - name: Archive the source database (one per month)
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          TAG="${{ steps.check.outputs.tag }}"
+          MONTH=$(echo "$TAG" | cut -d- -f2-3)
+          NAME="canon-$MONTH"
+          if ! gh release view "$NAME" >/dev/null 2>&1; then
+            gh release create "$NAME" "data/raw/$TAG/canon.db" \
+              --title "Fight Canon snapshot $MONTH ($TAG)" \
+              --notes "Source database used for rankings. Original: https://github.com/Jadevit/fight-canon-db/releases/tag/$TAG"
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.check.outputs.changed == 'true'
+        with:
+          path: build/site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

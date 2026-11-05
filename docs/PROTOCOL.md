@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.6 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.7 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -52,6 +52,14 @@ olasılıklarını belirleyen lojistik/normal bağlantı fonksiyonu üzerinden t
   7. Sıklet bilgisi döneme göre çok farklı: erkek kararlı maçların 2000–09'da %5'inde, 2010–19'da %69'unda, 2020'den beri %89'unda
      sıklet ataması var. Ardışık maçlar arasında ağır sıklet ile sinek sıklet arasında 25 doğrudan geçiş ve 25.985 tek maçlık
      A → B → A sıklet değişimi var; bu köprülerin bir kısmı etiket gürültüsüdür (§8 sıklet denetimi).
+- **Veri denetimi (Aşama 1):** ayrıntılar ve yeniden üretme komutu [AUDIT.md](AUDIT.md) dosyasında. Bu bölümü etkileyen bulgular:
+  1. 3+ sıklet atlayan ardışık geçişlerin pilot incelemesinde 8/8'i tek maçlık etiket tutarsızlığı çıktı; kimlik birleşmesi bulunmadı.
+  2. Derecelendirilen maçların 15.231'inde (%4,2) iki tarafın da cinsiyeti bilinmiyor; bu maçlar erkek popülasyonunun dışında kalır.
+     Kayıp rastgele değildir (rakip ağına az bağlı dövüşçüler).
+  3. Doğum tarihine göre 16 yaşından küçük ya da 55 yaşından büyük görünen maçlar (384) doğum tarihi hatası sayılır.
+  4. 11.045 maçın profesyonelliği kaynakta kontrol edilmemiş; birincil karşılaştırmalar bu maçlar çıkarılarak bir kez de tekrarlanır
+     (duyarlılık analizi).
+  5. "Vuruşlara teslim olma" (6.062 maç) araştırma kodunda KO/TKO olarak sınıflanır.
 - **Ek değişkenlerin kapsamı** (2010'dan beri maç yapmış dövüşçüler):
 
   | Değişken | Tüm dövüşçüler (145.986) | UFC dövüşçüleri (2.296) |
@@ -201,8 +209,8 @@ Sınama sırası aşağıdaki gibidir. Her biri, o ana kadar kabul edilmiş en i
 | H1b | Bitiş şekli bilgi taşır: sıralı model biçimi | Komşu kategoriler (AC) modeli, G-Elo türü (Szczecinski 2022). Kategoriler: bitiş (KO/TKO + SUB), oybirliği karar, split/majority karar; her biri iki yön için. Türü belirtilmemiş karar "herhangi bir karar" olarak olasılıkların toplamıyla girer. Katsayılar her eğitim penceresinde sıklıklardan hesaplanır. KO ile SUB ayrımı bir fark ölçüsü sayılmaz ve dahil edilmez | G-Elo'nun futbolda kazancı 0,006–0,008 nat/maç; MMA'da split/majority kararlar maçların yalnızca %4,4'ü |
 | H2 | İlk maç tahmini organizasyon düzeyine bağlıdır | Organizasyon önseli açık/kapalı, k ve ofset ayarı | Mevcut sistemde var, iç içe değerlendirmeyle yeniden sınanacak |
 | H3 | Uzun ara performansı düşürür | Ara süresi ortalamaya etki eden değişken olarak; alternatif: yalnızca RD artışı | Yok |
-| H4 | Sıklet değişimi performansı düşürür | Önceki sıkletten fark (±1, ±2+) değişken olarak. Sıklet değişimi yaş ve kariyer evresiyle karışır (Berry vd. 1999); H5 kabul edilirse H4 yaş kontrol edilerek yeniden raporlanır | E0.1'de yukarı ve aşağı simetrik −3/−7 puan |
-| H5 | Yaş performansı etkiler | İki biçim: (a) tahminde maç anındaki yaş (eğrisel) değişken olarak; (b) güç sürecinde yaşa bağlı ortalama kayma. Yalnızca doğum tarihi bilinen alt kümede; eksiklik yanlılığı raporlanır | Hakemli olmayan analizler 30'ların başından itibaren düşüş gösteriyor |
+| H4 | Sıklet değişimi performansı düşürür | Önceki sıkletten fark (±1, ±2+) değişken olarak. Tek maç etiketleri gürültülü olduğu için (AUDIT.md §5) değişken yalnızca geçmiş bilgiyle tanımlanır: maçın etiketi ile dövüşçünün **yerleşik sıkleti** (önceki son 3 etiketli maçının çoğunluğu) arasındaki fark. 3 ve daha fazla sıklet farkı büyük olasılıkla etiket hatası olduğundan eksik sayılır. Sonraki maçlara bakarak "kalıcı değişim" tanımlamak geleceği kullanır; yalnızca betimsel analizde kullanılabilir. Sıklet değişimi yaş ve kariyer evresiyle karışır (Berry vd. 1999); H5 kabul edilirse H4 yaş kontrol edilerek yeniden raporlanır | E0.1'de yukarı ve aşağı simetrik −3/−7 puan |
+| H5 | Yaş performansı etkiler | İki biçim: (a) tahminde maç anındaki yaş (eğrisel) değişken olarak; (b) güç sürecinde yaşa bağlı ortalama kayma. Yalnızca doğum tarihi bilinen alt kümede; eksiklik yanlılığı raporlanır. 16 yaşından küçük ya da 55'ten büyük yaşlar doğum tarihi hatası sayılıp dışarıda bırakılır | Hakemli olmayan analizler 30'ların başından itibaren düşüş gösteriyor |
 | H6 | Ev sahibi avantajı vardır | Uyruk ile etkinlik ülkesi eşleşmesi; uyruk kapsamı %51 olduğu için **keşif** düzeyinde | Yok |
 | H7 | DQ sonucu güç hakkında bilgi taşımaz | DQ'yu yok saymak (mevcut kural) ile normal galibiyet saymak karşılaştırılır; 1.787 maç (%0,5), **keşif** düzeyinde | Holmes vd. (2023) DQ'yu "bilgisiz sonuç" sayıyor |
 | H8 | Her sıklete yeni gelenlerin ortalama gücü farklıdır | İlk maç önselinin ortalaması sıklete göre ayrı tahmin edilir (eğitim penceresinde); ortak önsel (mevcut) ile karşılaştırılır. Berry vd. (1999)'un döneme özgü hiyerarşik dağılımlarının karşılığı. Bu düzeyler yalnızca sıklet değiştirenler üzerinden tanımlıdır | Yok; ortak önsel şu an yazılı olmayan bir varsayım |
@@ -219,7 +227,7 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | Liste puanı (μ − k·RD) | Politika + yorum | k'nın olasılık yorumu yazılır; alternatif: "1 numara olma olasılığı" gibi sonsal büyüklükler |
 | İnaktivite | H3'e bağlı | Etki varsa modele girer; yoksa ceza kaldırılır, inaktivite yalnızca liste şartı olur |
 | Liste şartları (3 maç, 24 ay, 18 ay) | Politika | Gerekçesiyle yazılır, duyarlılık gösterilir |
-| Sıklet ataması | Ölçüm | Dönemlere göre tabakalı rastgele 200 dövüşçü-ay elle dış kaynaklarla kontrol edilir; doğruluk oranı güven aralığıyla raporlanır. Ayrıca uzak sıkletler arasındaki (iki ve daha fazla sıklet atlayan) tüm ardışık geçişler ayrı bir örneklemle incelenir |
+| Sıklet ataması | Ölçüm | Dönemlere göre tabakalı rastgele 200 dövüşçü-ay elle dış kaynaklarla kontrol edilir (örneklem: AUDIT.md §7). Maç etiketleri büyük olasılıkla Sherdog'dan geldiği için doğrulama Sherdog dışı bir kaynakla yapılır (Tapology, organizasyon sayfası, Wikipedia). Sıralama katmanında dövüşçünün sıkleti tek maçın etiketiyle değil, son etiketli maçlarının çoğunluğuyla belirlenir; doğruluk oranı güven aralığıyla raporlanır. Ayrıca uzak sıkletler arasındaki (iki ve daha fazla sıklet atlayan) tüm ardışık geçişler ayrı bir örneklemle incelenir |
 | Sıklet listeleri (2010 öncesi) | Veri yeterliliği | Sıklet bilgisi bu dönemde maçların %5'inde var; sıklet listeleri ve sıklet hakimiyeti P4P'si 2010 öncesi için üretilmez ya da "yetersiz veri" olarak işaretlenir |
 | P4P | Tanım | İki açık tanım: global güç ve sıklet hakimiyeti; karışım kullanılmaz. Global güç listesi varsayımlarıyla (bağlantı, ortak ya da H8'deki önsel, etkileşim yok) ve sıkletler arası kalibrasyon tanısının (§3) sonucuyla birlikte yayımlanır. Vücut ağırlığına dayalı bir düzeltme formülü kullanılmaz (Batterham & George 1997; Vanderburgh & Batterham 1999) |
 
@@ -254,3 +262,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.4 | S1'den dışlama kuralı yerine bilgi kümesi kuralı; M4 (TTT, yalnızca geçmiş veriyle) ve fizibilite pilotu (§6); M3'te zamana bağlı γ; üç sonuçlu modellerde ikili log loss tanımı ve havuz düzeyi tanısı (§3); yumuşatmanın karşılaştırılabilirlik iddiasının sınırı (§9) | Okuma oturumu 3 ([notlar](notes/oturum-3-alternatif-modeller.md)). 0.3'teki dışlama gerekçesi yanlıştı: Coulom ve Landfried & Mocskos bu modelleri yalnızca geçmiş veriyle değerlendirmiş. Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.5 | Bitiş şekli sınıflama hatası ve dönemsel dağılım (§2); her model için tahmin anı ölçeği λ ve yakınsama tanısı (§6); H1'in H1a (kesirli skor + λ) ve H1b (sıralı AC modeli, kategoriler sabitlendi) olarak ayrılması; H7 (DQ kuralı, keşif) (§7); maç içi istatistik kapsamı sınırı (§9) | Okuma oturumu 4 ([notlar](notes/oturum-4-galibiyet-farki-mma.md)). Kovalchik 2020 ve Hvattum & Arntzen 2010 yalnızca özetten okundu; λ önerisinin dayanağı hakemli olmayan bir ön baskı (Szczecinski 2026). Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.6 | Sıklet bilgisinin dönemsel kapsamı ve uç sıklet geçişleri (§2); sıkletler arası kalibrasyon tanısı (§3); H8 (sıklete özgü ilk maç önseli) ve H4'e yaş karıştırıcısı notu (§7); P4P varsayımlarıyla yayım, ağırlık formülü yok, 2010 öncesi sıklet listeleri kuralı, uzak geçişlerin denetimi (§8); etkileşim yok varsayımı ve önselin sıklet düzeylerine etkisi (§9) | Okuma oturumu 5 ([notlar](notes/oturum-5-gruplar-arasi-p4p.md)). Ford 1957'nin orijinali okunmadı (sonuç Yan 2014'ten); Batterham & George ve Vanderburgh & Batterham yalnızca özetten. Henüz hiçbir deney yapılmadı. |
+| 2026-11-05 | 0.7 | Veri denetimi bulguları (§2); H4'te yalnızca geçmiş bilgiyle tanımlanan yerleşik sıklet ve 3+ sıklet farkının eksik sayılması; H5'te yaş aralığı kuralı; sıklet denetiminde bağımsız kaynak şartı (§8) | Aşama 1 veri denetimi ([AUDIT.md](AUDIT.md)). Yalnızca betimsel sayılar görüldü; henüz hiçbir model sonucu görülmedi. |

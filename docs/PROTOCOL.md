@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.4 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.5 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -45,6 +45,10 @@ olasılıklarını belirleyen lojistik/normal bağlantı fonksiyonu üzerinden t
   2. Kayıtlar geriye dönük eklenebilir (gecikmeli doldurma). Bu, ileriye dönük test tasarımını etkiler (§4.3).
   3. Sıklet etiketleri dönem ve organizasyona göre farklı anlamlar taşır (eşleme tablosu: `src/mmarank/mappings/weight_class_overrides.csv`).
   4. Cinsiyet kısmen çıkarımla belirlenir (Fight Canon, Wikidata, rakip ağı).
+  5. Bitiş şekli sınıflamasında hata: "TKO (Submission to Punches)" (3.268 maç) içinde "submission" geçtiği için SUB sayılıyor.
+     KO ve SUB şu an aynı değeri aldığı için dereceyi etkilemiyor; bitiş şeklini ayrı kullanan her analizden önce düzeltilir (Aşama 1).
+  6. Bitiş şekli dağılımı döneme göre değişir: submission %45 (2000–09) → %30 (2020+), karar %16 → %28. Sonuç kategorilerinden
+     tahmin edilen her katsayı yalnızca ilgili eğitim penceresinden hesaplanır.
 - **Ek değişkenlerin kapsamı** (2010'dan beri maç yapmış dövüşçüler):
 
   | Değişken | Tüm dövüşçüler (145.986) | UFC dövüşçüleri (2.296) |
@@ -162,6 +166,12 @@ Ek kurallar:
 Hepsine aynı veri, aynı ilk maç kuralı ve aynı değerlendirme uygulanır. Ayar parametreleri, Glickman'ın (1999 §4) yaptığı gibi
 tek adım ileri log loss toplamı en aza indirilerek seçilir (§4.2'deki iç içe düzende).
 
+**Tahmin anı ölçeği:** Puanlar gürültülü tahminler olduğu için, puanı üreten modelin ölçeğiyle hesaplanan olasılıklar tahmin gücünü
+abartabilir (Szczecinski 2026, hakemli değil). Bu nedenle her model iki biçimde raporlanır: olasılık modelin kendi formülüyle ve
+eğitim penceresinde tahmin edilen tek bir ölçek parametresiyle (p = lojistik(λ·Δ), Glicko'da g(RD) korunarak). λ bir parametre sayılır.
+Eğitim penceresindeki λ, yakınsama tanısı olarak da raporlanır: tahmin gürültüsü tek başına λ'yı 1'in altına çeker; λ'nın 1'in üzerinde
+çıkması puan farklarının "sıkışık" kaldığına, yani puanların henüz yakınsamadığına işaret eder.
+
 **Bilinen yaklaşım sorunu:** Glicko'nun yaklaşık filtresi dönem başına oyuncu başına 5–10 maç için önerilmiş ve en az 4 rakiple test edilmiştir.
 MMA'da dövüşçü başına dönemde çoğunlukla tek maç vardır. Bu nedenle kalibrasyon birleşik RD düzeylerine göre ayrıca raporlanır (§3).
 
@@ -180,12 +190,17 @@ Sınama sırası aşağıdaki gibidir. Her biri, o ana kadar kabul edilmiş en i
 
 | Kod | Hipotez | Sınama biçimi | Ön bulgu |
 |---|---|---|---|
-| H1 | Bitiş şekli (KO/SUB ve karar türü) bilgi taşır | Kesirli sonuç değerleri veya galibiyet farkı uzantısı (Kovalchik 2020); değerler veriden tahmin edilir. Kesirli sonuçlar tahmini "beklenen skor" ölçeğine kaydırdığı için, tahmin anında tek bir ölçek parametresi λ (p = lojistik(λ·Δ)) ile birlikte ve ayrı ayrı sınanır | E0.2'de "fightmatrix" şeması düz şemadan 0,0047 daha iyi (bkz. EXPERIMENTS.md) |
+| H1a | Bitiş şekli bilgi taşır: kesirli skor biçimi | Kesirli sonuç değerleri (bitiş / oybirliği / split-majority / türü belirtilmemiş karar) eğitim penceresinde ayarlanır; tahminde λ (§6) ile birlikte. Kesirli skorlar tahmini "beklenen skor" ölçeğine kaydırdığı için λ'sız sürüm ayrıca raporlanır | E0.2'de "fightmatrix" şeması düz şemadan 0,0047 daha iyi (bkz. EXPERIMENTS.md) |
+| H1b | Bitiş şekli bilgi taşır: sıralı model biçimi | Komşu kategoriler (AC) modeli, G-Elo türü (Szczecinski 2022). Kategoriler: bitiş (KO/TKO + SUB), oybirliği karar, split/majority karar; her biri iki yön için. Türü belirtilmemiş karar "herhangi bir karar" olarak olasılıkların toplamıyla girer. Katsayılar her eğitim penceresinde sıklıklardan hesaplanır. KO ile SUB ayrımı bir fark ölçüsü sayılmaz ve dahil edilmez | G-Elo'nun futbolda kazancı 0,006–0,008 nat/maç; MMA'da split/majority kararlar maçların yalnızca %4,4'ü |
 | H2 | İlk maç tahmini organizasyon düzeyine bağlıdır | Organizasyon önseli açık/kapalı, k ve ofset ayarı | Mevcut sistemde var, iç içe değerlendirmeyle yeniden sınanacak |
 | H3 | Uzun ara performansı düşürür | Ara süresi ortalamaya etki eden değişken olarak; alternatif: yalnızca RD artışı | Yok |
 | H4 | Sıklet değişimi performansı düşürür | Önceki sıkletten fark (±1, ±2+) değişken olarak | E0.1'de yukarı ve aşağı simetrik −3/−7 puan |
 | H5 | Yaş performansı etkiler | İki biçim: (a) tahminde maç anındaki yaş (eğrisel) değişken olarak; (b) güç sürecinde yaşa bağlı ortalama kayma. Yalnızca doğum tarihi bilinen alt kümede; eksiklik yanlılığı raporlanır | Hakemli olmayan analizler 30'ların başından itibaren düşüş gösteriyor |
 | H6 | Ev sahibi avantajı vardır | Uyruk ile etkinlik ülkesi eşleşmesi; uyruk kapsamı %51 olduğu için **keşif** düzeyinde | Yok |
+| H7 | DQ sonucu güç hakkında bilgi taşımaz | DQ'yu yok saymak (mevcut kural) ile normal galibiyet saymak karşılaştırılır; 1.787 maç (%0,5), **keşif** düzeyinde | Holmes vd. (2023) DQ'yu "bilgisiz sonuç" sayıyor |
+
+H1a ve H1b birbirinin alternatifidir; ikisi de kabul ölçütünü geçerse daha az parametreli olan seçilir (§5). İkisi de birincil hedefte
+(kararlı maçlarda ikili log loss) ölçülür: zengin sonuç modeli, mevcut modelle aynı soru üzerinde karşılaştırılır.
 
 ## 8. Sıralama katmanı
 
@@ -205,6 +220,8 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 - Veri eksikliği rastgele değildir; modelin bölgesel dövüşçüler için belirsizliği raporlanandan büyük olabilir.
 - Sıkletler arası karşılaştırma, sıklet değiştiren dövüşçülerin oluşturduğu bağlantılara dayanır; uzak sıkletler arasında hata birikebilir.
 - Bahis piyasası, modelin göremediği bilgiyi (sakatlık, kamp, kilo verme) kullanır.
+- Maç içi istatistikler (vuruş, takedown, kontrol süresi) maçların yalnızca %4,3'ünde var ve büyük organizasyonlarda yoğunlaşır.
+  Holmes vd. (2023) türü beceri modelleri bu yüzden S1'in dışındadır; ileride yalnızca UFC alt kümesinde keşif olarak denenebilir.
 - Tarihsel değerlendirme bugünkü veri sürümüyle yapılır; sonradan eklenen maçlar ve düzeltmeler o tarihte bilinmiyordu
   (Diebold 2015 §4.2'deki "vintage" sorunu). Bu, gerçek zamanlı başarıyı olduğundan iyi gösterebilir. Kasım 2026'dan itibaren
   her ayın veri sürümü arşivleniyor; sürüm farkının etkisi ileride ölçülebilir.
@@ -221,3 +238,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.2 | Log skorun marjinal olabilirlik yorumu (§3); dayanıklılık kontrolleri: Brier, ay bazlı kümeleme, en kötü 50 maçın incelenmesi (§3); tam dizi log skoru raporu (§4.2); veri sürümü ve bağımlılık sınırları (§9) | Okuma oturumu 1 ([notlar](notes/oturum-1-degerlendirme.md)). Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.3 | M1 ayarına min RD'nin kaldırılması seçeneği ve ayar yöntemi (§6); RD bantlarına göre kalibrasyon (§3, §6); H1'e ölçek parametresi λ; H5'e iki biçim; dönemler arası karşılaştırma sınırı (§9) | Okuma oturumu 2 ([notlar](notes/oturum-2-glicko.md)). Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.4 | S1'den dışlama kuralı yerine bilgi kümesi kuralı; M4 (TTT, yalnızca geçmiş veriyle) ve fizibilite pilotu (§6); M3'te zamana bağlı γ; üç sonuçlu modellerde ikili log loss tanımı ve havuz düzeyi tanısı (§3); yumuşatmanın karşılaştırılabilirlik iddiasının sınırı (§9) | Okuma oturumu 3 ([notlar](notes/oturum-3-alternatif-modeller.md)). 0.3'teki dışlama gerekçesi yanlıştı: Coulom ve Landfried & Mocskos bu modelleri yalnızca geçmiş veriyle değerlendirmiş. Henüz hiçbir deney yapılmadı. |
+| 2026-11-05 | 0.5 | Bitiş şekli sınıflama hatası ve dönemsel dağılım (§2); her model için tahmin anı ölçeği λ ve yakınsama tanısı (§6); H1'in H1a (kesirli skor + λ) ve H1b (sıralı AC modeli, kategoriler sabitlendi) olarak ayrılması; H7 (DQ kuralı, keşif) (§7); maç içi istatistik kapsamı sınırı (§9) | Okuma oturumu 4 ([notlar](notes/oturum-4-galibiyet-farki-mma.md)). Kovalchik 2020 ve Hvattum & Arntzen 2010 yalnızca özetten okundu; λ önerisinin dayanağı hakemli olmayan bir ön baskı (Szczecinski 2026). Henüz hiçbir deney yapılmadı. |

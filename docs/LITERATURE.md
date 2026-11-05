@@ -14,7 +14,7 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 | 1 ✓ | Bir tahmin sistemini nasıl dürüstçe değerlendiririz? | Gneiting & Raftery 2007; Tashman 2000; Diebold & Mariano 1995; Diebold 2015 → [notlar](notes/oturum-1-degerlendirme.md) |
 | 2 ✓ | Kullandığımız model tam olarak neyi varsayıyor? | Glickman 1999; Glickman 2001 → [notlar](notes/oturum-2-glicko.md) |
 | 3 ✓ | Alternatif modeller ve geçmiş/gelecek bilgisi | Herbrich vd. 2006; Coulom 2008; Landfried & Mocskos 2025 → [notlar](notes/oturum-3-alternatif-modeller.md) |
-| 4 | Galibiyet farkı ve MMA'ya özgü bilgi | Kovalchik 2020; Hvattum & Arntzen 2010; Holmes, McHale & Żychaluk 2023 |
+| 4 ✓ | Galibiyet farkı ve MMA'ya özgü bilgi | Kovalchik 2020; Hvattum & Arntzen 2010; Szczecinski 2022, 2026; Holmes, McHale & Żychaluk 2023 → [notlar](notes/oturum-4-galibiyet-farki-mma.md) |
 | 5 | Farklı gruplar ne zaman karşılaştırılabilir? (P4P) | Ford 1957; Berry, Reese & Larkey 1999; Batterham & George 1997 |
 
 ## Kaynaklar
@@ -46,9 +46,11 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 
 | Kaynak | Künye | Neden önemli |
 |---|---|---|
-| Kovalchik, S. (2020). Extension of the Elo rating system to margin of victory. *International Journal of Forecasting* 36(4), 1329–1341. | ~ (başka makalelerde atıf doğrulandı, cilt/sayfa doğrulanmadı) | Galibiyet farkını Elo'ya ilkeli şekilde eklemek. Bizim elle seçilmiş KO/UD/SD değerlerimizin alternatifi. |
-| Hvattum, L. M. & Arntzen, H. (2010). Using ELO ratings for match result prediction in association football. *International Journal of Forecasting* 26(3), 460–470. | ? | Elo'nun tahmin değişkeni olarak kullanımı ve farkla ölçeklenen güncelleme. |
-| Holmes, B., McHale, I. G. & Żychaluk, K. (2023). A Markov chain model for forecasting results of mixed martial arts contests. *International Journal of Forecasting* 39(2), 623–640. doi:10.1016/j.ijforecast.2022.01.007 [RePEc](https://econpapers.repec.org/RePEc:eee:intfor:v:39:y:2023:i:2:p:623-640) | ✓ | MMA'da hakemli tahmin çalışması; bahis piyasasıyla karşılaştırma yapıyor. Maç içi istatistik kullanıyor (bizde yalnızca UFC'de var). |
+| Kovalchik, S. (2020). Extension of the Elo rating system to margin of victory. *International Journal of Forecasting* 36(4), 1329–1341. [EconPapers](https://econpapers.repec.org/RePEc:eee:intfor:v:36:y:2020:i:4:p:1329-1341) | ✓ (yalnızca özet; tam metin ücretli) | Dört fark varyantı (doğrusal, ortak toplamsal, çarpımsal, lojistik); simülasyonda yalnızca ortak toplamsal model yansız. Bizim kesirli skorlarımızın sezgisel alternatifleri. |
+| Hvattum, L. M. & Arntzen, H. (2010). Using ELO ratings for match result prediction in association football. *International Journal of Forecasting* 26(3), 460–470. doi:10.1016/j.ijforecast.2009.10.002 [EconPapers](https://econpapers.repec.org/RePEc:eee:intfor:v:26:y::i:3:p:460-470) | ✓ (yalnızca özet; tam metin ücretli) | Elo'dan türetilen değişkenlerle sıralı lojit. Özet sonuç vermediği için hiçbir karara dayanak yapılmadı. |
+| Szczecinski, L. (2022). G-Elo: Generalization of the Elo algorithm by modeling the discretized margin of victory. *Journal of Quantitative Analysis in Sports*. [arXiv 2010.11187](https://arxiv.org/abs/2010.11187) | ~ (arXiv v3 okundu; dergi cilt/sayfa doğrulanmadı) | H1b'nin dayanağı: sıralı kategoriler için komşu kategoriler (AC) modeli, Elo biçiminde güncelleme, katsayıların sıklıklardan hesaplanması. |
+| Szczecinski, L. (2026). New insights into Elo algorithm for practitioners and statisticians. [arXiv 2604.03840](https://arxiv.org/abs/2604.03840) | ✓ (ana bölümler okundu; **hakemli değil**) | Tahmin anı ölçeği λ'nın (§6) gerekçesi: gürültülü puanlarla aynı ölçekte tahmin, tahmin gücünü abartır; λ yakınsama tanısı olarak da kullanılır. |
+| Holmes, B., McHale, I. G. & Żychaluk, K. (2023). A Markov chain model for forecasting results of mixed martial arts contests. *International Journal of Forecasting* 39(2), 623–640. doi:10.1016/j.ijforecast.2022.01.007 [RePEc](https://econpapers.repec.org/RePEc:eee:intfor:v:39:y:2023:i:2:p:623-640) | ✓ (okundu) | MMA'da hakemli tahmin çalışması. Değerlendirmesi zayıf (yalnızca doğruluk, 327 maç, örneklem belirsizliği yok); bizim için değeri MMA'ya özgü zorlukların listesi, DQ/split kararların "bilgisiz sonuç" sayılması ve piyasa karşılaştırma yöntemi. Maç içi istatistik bizde maçların %4,3'ünde var. |
 
 ### Gruplar arası karşılaştırma ve P4P (PROTOCOL §8)
 

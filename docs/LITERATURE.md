@@ -12,7 +12,7 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 | Oturum | Soru | Kaynaklar |
 |---|---|---|
 | 1 ✓ | Bir tahmin sistemini nasıl dürüstçe değerlendiririz? | Gneiting & Raftery 2007; Tashman 2000; Diebold & Mariano 1995; Diebold 2015 → [notlar](notes/oturum-1-degerlendirme.md) |
-| 2 | Kullandığımız model tam olarak neyi varsayıyor? | Glickman 1999; Glickman 2001 |
+| 2 ✓ | Kullandığımız model tam olarak neyi varsayıyor? | Glickman 1999; Glickman 2001 → [notlar](notes/oturum-2-glicko.md) |
 | 3 | Alternatif modeller ve geçmiş/gelecek bilgisi | Herbrich vd. 2006; Coulom 2008; Landfried & Mocskos 2025 |
 | 4 | Galibiyet farkı ve MMA'ya özgü bilgi | Kovalchik 2020; Hvattum & Arntzen 2010; Holmes, McHale & Żychaluk 2023 |
 | 5 | Farklı gruplar ne zaman karşılaştırılabilir? (P4P) | Ford 1957; Berry, Reese & Larkey 1999; Batterham & George 1997 |
@@ -34,8 +34,9 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 
 | Kaynak | Künye | Neden önemli |
 |---|---|---|
-| Glickman, M. E. (1999). Parameter estimation in large dynamic paired comparison experiments. *JRSS Series C (Applied Statistics)* 48(3), 377–394. [RePEc](https://ideas.repec.org/a/bla/jorssc/v48y1999i3p377-394.html) | ✓ | Glicko-1'in kaynağı (M1). Modelin durum-uzay varsayımı ve yaklaşık filtre. Kodumuz makaledeki sayısal örnekle test ediliyor. |
-| Glickman, M. E. (2001). Dynamic paired comparison models with stochastic variances. *Journal of Applied Statistics* 28(6), 673–689. [RePEc](https://ideas.repec.org/a/taf/japsta/v28y2001i6p673-689.html) | ✓ | Glicko-2 (M2): güçteki ani değişimleri (sakatlık, yaş) oynaklıkla yakalama. |
+| Glickman, M. E. (1999). Parameter estimation in large dynamic paired comparison experiments. *JRSS Series C (Applied Statistics)* 48(3), 377–394. [RePEc](https://ideas.repec.org/a/bla/jorssc/v48y1999i3p377-394.html) · [PDF](http://www.glicko.net/research/glicko.pdf) | ✓ (okundu) | Glicko-1'in kaynağı (M1). Modelin durum-uzay varsayımı ve yaklaşık filtre. Kodumuz makaledeki sayısal örnekle test ediliyor. |
+| Glickman, M. E. (2001). Dynamic paired comparison models with stochastic variances. *Journal of Applied Statistics* 28(6), 673–689. doi:10.1080/02664760120059219 [RePEc](https://ideas.repec.org/a/taf/japsta/v28y2001i6p673-689.html) · [PDF](http://www.glicko.net/research/dpcmsv.pdf) | ✓ (okundu) |
+| Glickman, M. E. The Glicko system (uygulama notu). [PDF](http://www.glicko.net/glicko/glicko.pdf) | ✓ (ilgili bölümler okundu) | Dönem başına 5–10 maç önerisi; RD üst sınırı 350; minimum RD yok; `r ± 2·RD`'nin %95 aralık olarak yorumu. | Glicko-2 (M2): güçteki ani değişimleri (sakatlık, yaş) oynaklıkla yakalama. |
 | Herbrich, R., Minka, T. & Graepel, T. (2006). TrueSkill: A Bayesian skill rating system. *NIPS 19*. | ? | M3; beraberliği modelin içinde ele alır. |
 | Coulom, R. (2008). Whole-History Rating: A Bayesian rating system for players of time-varying strength. *Computers and Games*, LNCS 5131. | ? | Yumuşatma yaklaşımı; neden "o tarihte bilinen" sorusuna uymadığını anlamak için. |
 | Landfried, G. & Mocskos, E. (2025). TrueSkill Through Time: Reliable initial skill estimates and historical comparability with Julia, Python, and R. *Journal of Statistical Software* 112(6), 1–41. [JSS](https://www.jstatsoft.org/article/view/v112i06) | ✓ | Elo/TrueSkill bilgiyi yalnızca ileri taşır; TTT geçmişi de kullanarak ilk tahminleri ve dönemler arası karşılaştırmayı iyileştirir. Olası "geriye dönük" liste için aday. Açık erişim, Python paketi var. |

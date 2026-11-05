@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.2 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.3 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -72,7 +72,8 @@ olasılıklarını belirleyen lojistik/normal bağlantı fonksiyonu üzerinden t
   normalize skorlar) genellikle uygun değildir; raporlanabilir ama karar ölçütü değildir.
 - **Birincil popülasyon:** her iki dövüşçünün de en az 3 önceki derecelendirilmiş maçı olan **erkek** maçları
   (yayımlanan listeler bu dövüşçülerle ilgilidir).
-- **İkincil popülasyonlar:** tüm maçlar; deneyim bantları (0, 1–2, 3–9, 10+ önceki maç); dönemler; bahis oranı olan alt küme.
+- **İkincil popülasyonlar:** tüm maçlar; deneyim bantları (0, 1–2, 3–9, 10+ önceki maç); dönemler; bahis oranı olan alt küme;
+  birleşik belirsizlik bantları (√(RD_A² + RD_B²): <100, 100–200, 200+).
 - **Model karşılaştırması:** maç bazında eşleştirilmiş log loss farkı. Belirsizlik, **etkinlik düzeyinde
   kümelenmiş bootstrap** ile ölçülür (B = 2000, tohum = 20261105), %95 güven aralığı raporlanır.
   Aynı etkinlikteki maçlar bağımsız sayılmaz.
@@ -149,11 +150,15 @@ Ek kurallar:
 | Kod | Model | Ayarlanacak parametreler | Not |
 |---|---|---|---|
 | M0 | Elo, sabit K | K, başlangıç puanı | Taban çizgisi |
-| M1 | Glicko-1 (mevcut) | c, başlangıç RD, min RD | Glickman 1999 |
+| M1 | Glicko-1 (mevcut) | c, başlangıç RD, min RD (yok seçeneği dahil; makalede yok, bizim eklememiz) | Glickman 1999 |
 | M2 | Glicko-2 | τ, başlangıç RD/oynaklık | Glickman 2001 |
 | M3 | TrueSkill (yalnızca ileri geçiş) | β, τ, beraberlik payı | Herbrich vd. 2006 |
 
-Hepsine aynı veri, aynı ilk maç kuralı ve aynı değerlendirme uygulanır.
+Hepsine aynı veri, aynı ilk maç kuralı ve aynı değerlendirme uygulanır. Ayar parametreleri, Glickman'ın (1999 §4) yaptığı gibi
+tek adım ileri log loss toplamı en aza indirilerek seçilir (§4.2'deki iç içe düzende).
+
+**Bilinen yaklaşım sorunu:** Glicko'nun yaklaşık filtresi dönem başına oyuncu başına 5–10 maç için önerilmiş ve en az 4 rakiple test edilmiştir.
+MMA'da dövüşçü başına dönemde çoğunlukla tek maç vardır. Bu nedenle kalibrasyon birleşik RD düzeylerine göre ayrıca raporlanır (§3).
 
 **Kapsam dışı (S1 için):** WHR ve TrueSkill Through Time gibi *yumuşatma* yöntemleri gelecekteki maçları
 kullanır, dolayısıyla "o tarihte bilinen" sorusunu cevaplamaz. İleride ayrı ve açıkça etiketlenmiş bir
@@ -165,11 +170,11 @@ Sınama sırası aşağıdaki gibidir. Her biri, o ana kadar kabul edilmiş en i
 
 | Kod | Hipotez | Sınama biçimi | Ön bulgu |
 |---|---|---|---|
-| H1 | Bitiş şekli (KO/SUB ve karar türü) bilgi taşır | Kesirli sonuç değerleri veya galibiyet farkı uzantısı (Kovalchik 2020); değerler veriden tahmin edilir | E0.2'de "fightmatrix" şeması düz şemadan 0,0047 daha iyi (bkz. EXPERIMENTS.md) |
+| H1 | Bitiş şekli (KO/SUB ve karar türü) bilgi taşır | Kesirli sonuç değerleri veya galibiyet farkı uzantısı (Kovalchik 2020); değerler veriden tahmin edilir. Kesirli sonuçlar tahmini "beklenen skor" ölçeğine kaydırdığı için, tahmin anında tek bir ölçek parametresi λ (p = lojistik(λ·Δ)) ile birlikte ve ayrı ayrı sınanır | E0.2'de "fightmatrix" şeması düz şemadan 0,0047 daha iyi (bkz. EXPERIMENTS.md) |
 | H2 | İlk maç tahmini organizasyon düzeyine bağlıdır | Organizasyon önseli açık/kapalı, k ve ofset ayarı | Mevcut sistemde var, iç içe değerlendirmeyle yeniden sınanacak |
 | H3 | Uzun ara performansı düşürür | Ara süresi ortalamaya etki eden değişken olarak; alternatif: yalnızca RD artışı | Yok |
 | H4 | Sıklet değişimi performansı düşürür | Önceki sıkletten fark (±1, ±2+) değişken olarak | E0.1'de yukarı ve aşağı simetrik −3/−7 puan |
-| H5 | Yaş performansı etkiler | Maç anındaki yaş (eğrisel). Yalnızca doğum tarihi bilinen alt kümede; eksiklik yanlılığı raporlanır | Hakemli olmayan analizler 30'ların başından itibaren düşüş gösteriyor |
+| H5 | Yaş performansı etkiler | İki biçim: (a) tahminde maç anındaki yaş (eğrisel) değişken olarak; (b) güç sürecinde yaşa bağlı ortalama kayma. Yalnızca doğum tarihi bilinen alt kümede; eksiklik yanlılığı raporlanır | Hakemli olmayan analizler 30'ların başından itibaren düşüş gösteriyor |
 | H6 | Ev sahibi avantajı vardır | Uyruk ile etkinlik ülkesi eşleşmesi; uyruk kapsamı %51 olduğu için **keşif** düzeyinde | Yok |
 
 ## 8. Sıralama katmanı
@@ -194,6 +199,8 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
   (Diebold 2015 §4.2'deki "vintage" sorunu). Bu, gerçek zamanlı başarıyı olduğundan iyi gösterebilir. Kasım 2026'dan itibaren
   her ayın veri sürümü arşivleniyor; sürüm farkının etkisi ileride ölçülebilir.
 - Maçlar arasındaki bağımlılık (aynı dövüşçünün farklı etkinliklerdeki maçları) kümelenmiş bootstrap ile yalnızca kısmen yakalanır.
+- Eşli karşılaştırma verisi tüm havuzun ortalama düzeyindeki değişimi göremez (Glickman 1999 §5). Farklı dönemlerin puanları mutlak güç olarak
+  karşılaştırılamaz; tarihsel listeler o dönemin rakiplerine görelidir.
 
 ## Değişiklik günlüğü
 
@@ -201,3 +208,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 |---|---|---|---|
 | 2026-11-05 | 0.1 | İlk taslak | — |
 | 2026-11-05 | 0.2 | Log skorun marjinal olabilirlik yorumu (§3); dayanıklılık kontrolleri: Brier, ay bazlı kümeleme, en kötü 50 maçın incelenmesi (§3); tam dizi log skoru raporu (§4.2); veri sürümü ve bağımlılık sınırları (§9) | Okuma oturumu 1 ([notlar](notes/oturum-1-degerlendirme.md)). Henüz hiçbir deney yapılmadı. |
+| 2026-11-05 | 0.3 | M1 ayarına min RD'nin kaldırılması seçeneği ve ayar yöntemi (§6); RD bantlarına göre kalibrasyon (§3, §6); H1'e ölçek parametresi λ; H5'e iki biçim; dönemler arası karşılaştırma sınırı (§9) | Okuma oturumu 2 ([notlar](notes/oturum-2-glicko.md)). Henüz hiçbir deney yapılmadı. |

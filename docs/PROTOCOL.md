@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.1 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.2 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -63,16 +63,24 @@ olasılıklarını belirleyen lojistik/normal bağlantı fonksiyonu üzerinden t
   Aynı gündeki tüm maçlar günün başındaki derecelerle tahmin edilir.
 - **Birincil metrik:** log loss (logaritmik skor), beraberlikler hariç sonuçlanmış maçlarda.
   Gerekçe: kesin uygun (strictly proper) bir skorlama kuralıdır; olasılıkların kendisini ödüllendirir
-  (Gneiting & Raftery 2007).
+  (Gneiting & Raftery 2007). Ayrıca veri zaman sırasıyla geldiğinde tek adım ileri log skorların toplamı modelin
+  log marjinal olabilirliğine eşittir (Dawid 1984; Gneiting & Raftery 2007 §7.1). Yani filtreleme modellerinde bu ölçüt
+  tam örneklem Bayesçi model karşılaştırmasıdır (Glicko gibi yaklaşık filtrelerde yaklaşık olarak).
 - **İkincil metrikler:** Brier skoru; kalibrasyon (güvenilirlik grafiği, ayrıca sonucun logit(p) üzerine
-  lojistik regresyonundan kalibrasyon eğimi ve kesişimi). İsabet oranı yalnızca betimleyici olarak
-  raporlanır, karar için kullanılmaz.
+  lojistik regresyonundan kalibrasyon eğimi ve kesişimi). İsabet oranı uygun ama kesin uygun olmayan bir
+  skordur; yalnızca betimleyici olarak raporlanır, karar için kullanılmaz. Beceri skorları (referansa göre
+  normalize skorlar) genellikle uygun değildir; raporlanabilir ama karar ölçütü değildir.
 - **Birincil popülasyon:** her iki dövüşçünün de en az 3 önceki derecelendirilmiş maçı olan **erkek** maçları
   (yayımlanan listeler bu dövüşçülerle ilgilidir).
 - **İkincil popülasyonlar:** tüm maçlar; deneyim bantları (0, 1–2, 3–9, 10+ önceki maç); dönemler; bahis oranı olan alt küme.
 - **Model karşılaştırması:** maç bazında eşleştirilmiş log loss farkı. Belirsizlik, **etkinlik düzeyinde
   kümelenmiş bootstrap** ile ölçülür (B = 2000, tohum = 20261105), %95 güven aralığı raporlanır.
   Aynı etkinlikteki maçlar bağımsız sayılmaz.
+- **Dayanıklılık kontrolleri** (her karşılaştırmada):
+  1. Brier skoru log loss ile aynı yönde mi? Farklıysa açıkça raporlanır.
+  2. Ay düzeyinde kümelenmiş bootstrap (aynı dövüşçünün yakın tarihli maçları arasındaki bağımlılığı kabaca yakalamak için).
+  3. Log loss uç olaylara çok sert olduğu için, en kötü skorlanan 50 maç veri hatası (yanlış kazanan, yanlış eşleşmiş dövüşçü) için elle incelenir.
+     Bulunan hatalar düzeltilmez ama kaydedilir ve hatalı maçlar çıkarılarak sonuç tekrar raporlanır.
 
 ## 4. Veri bölmeleri ve sızıntı
 
@@ -93,6 +101,12 @@ Filtreleme modelleri her maçı zaten yalnızca geçmiş bilgiyle tahmin eder; a
 3. Yıllar boyunca toplanan sonuç, "model + ayar seçme yöntemi"nin dürüst performans tahminidir. Kararlar bu sayıya göre verilir.
 
 2020 yılı (pandemi, düşük maç sayısı) dahil edilir ama ayrıca işaretlenir.
+
+Ayrıca her model için, ayarlar tüm geliştirme dönemi (2008–2025) üzerinden seçilerek **tam dizi log skoru** raporlanır.
+Hiperparametre sayısı az olduğunda (≤4) iki sonuç neredeyse aynı olmalıdır: BIC cezası parametre başına ½·ln(n) olup
+n ≈ 78.600 maçta maç başına ≈0,00007'dir (Diebold 2015; Gneiting & Raftery 2007 §7.1). İç içe değerlendirme asıl olarak
+çok parametreli bileşenlere (veriden tahmin edilen bitiş ağırlıkları, yaş eğrisi gibi) karşı koruma sağlar.
+İki sonuç çelişirse bu açıkça raporlanır ve karar iç içe sonuca göre verilir.
 
 ### 4.3 Doğrulama: ileriye dönük test
 
@@ -176,9 +190,14 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 - Veri eksikliği rastgele değildir; modelin bölgesel dövüşçüler için belirsizliği raporlanandan büyük olabilir.
 - Sıkletler arası karşılaştırma, sıklet değiştiren dövüşçülerin oluşturduğu bağlantılara dayanır; uzak sıkletler arasında hata birikebilir.
 - Bahis piyasası, modelin göremediği bilgiyi (sakatlık, kamp, kilo verme) kullanır.
+- Tarihsel değerlendirme bugünkü veri sürümüyle yapılır; sonradan eklenen maçlar ve düzeltmeler o tarihte bilinmiyordu
+  (Diebold 2015 §4.2'deki "vintage" sorunu). Bu, gerçek zamanlı başarıyı olduğundan iyi gösterebilir. Kasım 2026'dan itibaren
+  her ayın veri sürümü arşivleniyor; sürüm farkının etkisi ileride ölçülebilir.
+- Maçlar arasındaki bağımlılık (aynı dövüşçünün farklı etkinliklerdeki maçları) kümelenmiş bootstrap ile yalnızca kısmen yakalanır.
 
 ## Değişiklik günlüğü
 
 | Tarih | Sürüm | Değişiklik | Gerekçe |
 |---|---|---|---|
 | 2026-11-05 | 0.1 | İlk taslak | — |
+| 2026-11-05 | 0.2 | Log skorun marjinal olabilirlik yorumu (§3); dayanıklılık kontrolleri: Brier, ay bazlı kümeleme, en kötü 50 maçın incelenmesi (§3); tam dizi log skoru raporu (§4.2); veri sürümü ve bağımlılık sınırları (§9) | Okuma oturumu 1 ([notlar](notes/oturum-1-degerlendirme.md)). Henüz hiçbir deney yapılmadı. |

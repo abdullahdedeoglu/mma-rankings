@@ -7,11 +7,11 @@ Atıf yapmadan önce ? ve ~ işaretlileri kontrol edin.
 
 ## Okuma sırası
 
-Her oturum bir soruya cevap verir. Okuduktan sonra her kaynağa "bizim projede neyi değiştirir" notu eklenir.
+Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her not "bizim projede neyi değiştirir" bölümüyle biter.
 
 | Oturum | Soru | Kaynaklar |
 |---|---|---|
-| 1 | Bir tahmin sistemini nasıl dürüstçe değerlendiririz? | Gneiting & Raftery 2007; Tashman 2000; Diebold & Mariano 1995 |
+| 1 ✓ | Bir tahmin sistemini nasıl dürüstçe değerlendiririz? | Gneiting & Raftery 2007; Tashman 2000; Diebold & Mariano 1995; Diebold 2015 → [notlar](notes/oturum-1-degerlendirme.md) |
 | 2 | Kullandığımız model tam olarak neyi varsayıyor? | Glickman 1999; Glickman 2001 |
 | 3 | Alternatif modeller ve geçmiş/gelecek bilgisi | Herbrich vd. 2006; Coulom 2008; Landfried & Mocskos 2025 |
 | 4 | Galibiyet farkı ve MMA'ya özgü bilgi | Kovalchik 2020; Hvattum & Arntzen 2010; Holmes, McHale & Żychaluk 2023 |
@@ -23,9 +23,12 @@ Her oturum bir soruya cevap verir. Okuduktan sonra her kaynağa "bizim projede n
 
 | Kaynak | Künye | Neden önemli |
 |---|---|---|
-| Gneiting, T. & Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. *JASA* 102(477), 359–378. | ? | Log loss'u birincil metrik seçmemizin gerekçesi: uygun skorlama kuralları dürüst olasılığı ödüllendirir. |
-| Tashman, L. J. (2000). Out-of-sample tests of forecasting accuracy: an analysis and review. *International Journal of Forecasting* 16(4), 437–450. | ? | Kayan başlangıçlı değerlendirme ve örneklem dışı test tasarımı. |
-| Diebold, F. X. & Mariano, R. S. (1995). Comparing predictive accuracy. *Journal of Business & Economic Statistics* 13(3), 253–263. | ? | İki tahmin sisteminin farkının istatistiksel anlamlılığı (bizde kümelenmiş bootstrap ile). |
+| Gneiting, T. & Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. *JASA* 102(477), 359–378. doi:10.1198/016214506000001437 [PDF](https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf) | ✓ (okundu) | Log loss'u birincil metrik seçmemizin gerekçesi: uygun skorlama kuralları dürüst olasılığı ödüllendirir. |
+| Tashman, L. J. (2000). Out-of-sample tests of forecasting accuracy: an analysis and review. *International Journal of Forecasting* 16(4), 437–450. [RePEc](https://ideas.repec.org/a/eee/intfor/v16y2000i4p437-450.html) | ✓ (yalnızca özet okundu) | Kayan başlangıçlı değerlendirme ve örneklem dışı test tasarımı. |
+| Diebold, F. X. & Mariano, R. S. (1995). Comparing predictive accuracy. *Journal of Business & Economic Statistics* 13(3), 253–263. | ✓ (orijinal okunmadı) | İki tahmin sisteminin farkının istatistiksel anlamlılığı (bizde kümelenmiş bootstrap ile). |
+| Diebold, F. X. (2015). Comparing predictive accuracy, twenty years later: a personal perspective on the use and abuse of Diebold–Mariano tests. *Journal of Business & Economic Statistics* 33(1). [NBER w18391](https://www.nber.org/papers/w18391) | ✓ (okundu) | DM testi tahminleri karşılaştırır, modelleri değil; model seçiminde tam örneklem yöntemleri daha güçlüdür; veri sürümü (vintage) uyarısı. |
+| Dawid, A. P. (1984). Present position and potential developments: some personal views. Statistical theory: the prequential approach. *JRSS Series A* 147(2), 278–292. | ? (Gneiting & Raftery'deki atıftan) | Tek adım ileri tahminlerin çarpımı = marjinal olabilirlik; log loss'u model karşılaştırma ölçütü yapan sonuç. |
+| Inoue, A. & Kilian, L. In-sample or out-of-sample tests of predictability: which one should we use? (Çalışma makalesi 2002; *Econometric Reviews*'da yayımlandı) | ~ (dergi künyesi doğrulanmadı) | Örneklem içi testler en az o kadar güvenilir, çoğu durumda daha güçlü. |
 
 ### Derecelendirme modelleri (PROTOCOL §6)
 

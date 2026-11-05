@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.3 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.4 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -82,6 +82,10 @@ olasılıklarını belirleyen lojistik/normal bağlantı fonksiyonu üzerinden t
   2. Ay düzeyinde kümelenmiş bootstrap (aynı dövüşçünün yakın tarihli maçları arasındaki bağımlılığı kabaca yakalamak için).
   3. Log loss uç olaylara çok sert olduğu için, en kötü skorlanan 50 maç veri hatası (yanlış kazanan, yanlış eşleşmiş dövüşçü) için elle incelenir.
      Bulunan hatalar düzeltilmez ama kaydedilir ve hatalı maçlar çıkarılarak sonuç tekrar raporlanır.
+- **Beraberliği modelleyen modeller** (M3, M4) üç sonuç için olasılık üretir. İkili log loss için kazanma olasılığı, beraberlik dışı sonuçlara
+  koşullandırılır: P(A kazanır) / (P(A kazanır) + P(B kazanır)). Böylece tüm modeller aynı olay üzerinden karşılaştırılır.
+- **Havuz düzeyi tanısı:** En az 3 maçlı aktif dövüşçülerin ortalama puanı her model için zaman içinde çizilir. Yeni dövüşçülerin
+  sistematik kaybı havuzu aşağı kaydırabilir (Herbrich vd. 2006, §4.2); bu, ilk maç önselinin (H2) yan etkisi olarak izlenir.
 
 ## 4. Veri bölmeleri ve sızıntı
 
@@ -152,7 +156,8 @@ Ek kurallar:
 | M0 | Elo, sabit K | K, başlangıç puanı | Taban çizgisi |
 | M1 | Glicko-1 (mevcut) | c, başlangıç RD, min RD (yok seçeneği dahil; makalede yok, bizim eklememiz) | Glickman 1999 |
 | M2 | Glicko-2 | τ, başlangıç RD/oynaklık | Glickman 2001 |
-| M3 | TrueSkill (yalnızca ileri geçiş) | β, τ, beraberlik payı | Herbrich vd. 2006 |
+| M3 | TrueSkill (yalnızca ileri geçiş) | β, γ (geçen zamana bağlı, maç başına değil), beraberlik payı | Herbrich vd. 2006 |
+| M4 | TrueSkill Through Time, yalnızca *t* öncesi verilerle (her gün veri eklenip tek tur güncellenir) | önsel belirsizlik, γ, beraberlik olasılığı | Landfried & Mocskos 2025 |
 
 Hepsine aynı veri, aynı ilk maç kuralı ve aynı değerlendirme uygulanır. Ayar parametreleri, Glickman'ın (1999 §4) yaptığı gibi
 tek adım ileri log loss toplamı en aza indirilerek seçilir (§4.2'deki iç içe düzende).
@@ -160,9 +165,14 @@ tek adım ileri log loss toplamı en aza indirilerek seçilir (§4.2'deki iç i�
 **Bilinen yaklaşım sorunu:** Glicko'nun yaklaşık filtresi dönem başına oyuncu başına 5–10 maç için önerilmiş ve en az 4 rakiple test edilmiştir.
 MMA'da dövüşçü başına dönemde çoğunlukla tek maç vardır. Bu nedenle kalibrasyon birleşik RD düzeylerine göre ayrıca raporlanır (§3).
 
-**Kapsam dışı (S1 için):** WHR ve TrueSkill Through Time gibi *yumuşatma* yöntemleri gelecekteki maçları
-kullanır, dolayısıyla "o tarihte bilinen" sorusunu cevaplamaz. İleride ayrı ve açıkça etiketlenmiş bir
-"geriye dönük tarihsel değerlendirme" listesi için ele alınabilir; tahmin modeli seçiminde yer almaz.
+**Bilgi kümesi kuralı:** Sızıntıyı belirleyen algoritma değil, kullanılan bilgidir. Geçmişin tamamını yeniden tahmin eden yöntemler
+(WHR, TTT) yalnızca *t* anından önceki maçlarla çalıştırıldığında geleceği kullanmaz ve S1'e dahildir; Coulom (2008) ve
+Landfried & Mocskos (2025) tahminlerini böyle değerlendirmiştir. Ay *m*'nin listesi, bu modellerde de yalnızca *m* sonuna kadarki
+maçlarla üretilir. Tüm veriyle (gelecek dahil) yapılan tam yumuşatma S1'in dışındadır; ileride ayrı ve açıkça etiketlenmiş bir
+"bugünkü bilgiyle geçmiş" görünümü olarak sunulabilir. WHR, M4 ile aynı modelin başka bir çözümü olduğundan ayrıca aday yapılmamıştır.
+
+**M4 fizibilitesi:** M4'ün tam veri üzerindeki çalışma süresi önce bir pilotla ölçülür. Pilot yalnızca süreyi ölçer, tahmin başarısına bakılmaz;
+EXPERIMENTS.md'ye "fizibilite" olarak kaydedilir. Süre makul değilse M4'ün nasıl yaklaşıklanacağı bu belgeye bir değişiklik olarak yazılır.
 
 ## 7. Hipotezler (ek bilgiler)
 
@@ -200,7 +210,8 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
   her ayın veri sürümü arşivleniyor; sürüm farkının etkisi ileride ölçülebilir.
 - Maçlar arasındaki bağımlılık (aynı dövüşçünün farklı etkinliklerdeki maçları) kümelenmiş bootstrap ile yalnızca kısmen yakalanır.
 - Eşli karşılaştırma verisi tüm havuzun ortalama düzeyindeki değişimi göremez (Glickman 1999 §5). Farklı dönemlerin puanları mutlak güç olarak
-  karşılaştırılamaz; tarihsel listeler o dönemin rakiplerine görelidir.
+  karşılaştırılamaz; tarihsel listeler o dönemin rakiplerine görelidir. Yumuşatma modellerinin (TTT) "dönemler arası karşılaştırılabilirlik"
+  iddiası, her dövüşçünün gücünün yavaş ve bağımsız değiştiği varsayımına dayanır; havuz düzeyindeki ortak kaymayı veriden ölçmez.
 
 ## Değişiklik günlüğü
 
@@ -209,3 +220,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.1 | İlk taslak | — |
 | 2026-11-05 | 0.2 | Log skorun marjinal olabilirlik yorumu (§3); dayanıklılık kontrolleri: Brier, ay bazlı kümeleme, en kötü 50 maçın incelenmesi (§3); tam dizi log skoru raporu (§4.2); veri sürümü ve bağımlılık sınırları (§9) | Okuma oturumu 1 ([notlar](notes/oturum-1-degerlendirme.md)). Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.3 | M1 ayarına min RD'nin kaldırılması seçeneği ve ayar yöntemi (§6); RD bantlarına göre kalibrasyon (§3, §6); H1'e ölçek parametresi λ; H5'e iki biçim; dönemler arası karşılaştırma sınırı (§9) | Okuma oturumu 2 ([notlar](notes/oturum-2-glicko.md)). Henüz hiçbir deney yapılmadı. |
+| 2026-11-05 | 0.4 | S1'den dışlama kuralı yerine bilgi kümesi kuralı; M4 (TTT, yalnızca geçmiş veriyle) ve fizibilite pilotu (§6); M3'te zamana bağlı γ; üç sonuçlu modellerde ikili log loss tanımı ve havuz düzeyi tanısı (§3); yumuşatmanın karşılaştırılabilirlik iddiasının sınırı (§9) | Okuma oturumu 3 ([notlar](notes/oturum-3-alternatif-modeller.md)). 0.3'teki dışlama gerekçesi yanlıştı: Coulom ve Landfried & Mocskos bu modelleri yalnızca geçmiş veriyle değerlendirmiş. Henüz hiçbir deney yapılmadı. |

@@ -31,6 +31,7 @@ Rastgele örneklemlerin tohumu 20261105.
 | 7 | Aynı ad ve aynı doğum tarihine sahip 15 kimlik çifti (muhtemel bölünmüş kimlik) | Düşük | Kaydedildi; düzeltme Fight Canon'a bildirilebilir |
 | 8 | 11.045 maçın profesyonel olup olmadığı kontrol edilmemiş (`bout_type` boş) | Düşük-orta | Duyarlılık analizi: bu maçlar çıkarılınca sonuç değişiyor mu |
 | 9 | Yalnızca tek bir veri sürümü arşivde | Orta (vintage, §9) | Aylık arşiv devam ediyor; karşılaştırma ileride |
+| 10 | Maç sıklet etiketleri Tapology ile %89 uyumlu (109/122; %95 GA %82,5–94,2); uyumsuzlukların çoğu komşu sıklet. Örneklemin %39'u doğrulanamadı | Yüksek (H4, sıklet ataması) | Sıklet ataması çoğunluk kuralıyla; H4 tahmini ölçüm hatası nedeniyle küçülmüş (sıfıra yanlı) yorumlanır |
 
 ---
 
@@ -182,14 +183,63 @@ için, maç etiketlerini Sherdog ile doğrulamak döngüsel olur. Sekiz gözleml
   2021'den beri yılda 2.300–2.850.
 - Hakem kartları 6.617 maçta, maç içi istatistikler 16.080 maçta (%4,3).
 
-## 7. Sıklet denetimi örneklemi (PROTOCOL §8)
+## 7. Sıklet denetimi (PROTOCOL §8)
 
-`division_check_sample.csv`: 2010–14, 2015–19 ve 2020+ katmanlarından tohumla seçilmiş **200 dövüşçü-ay** (67/67/66). 2010 öncesi, sıklet
-bilgisi %5 olduğu için örneklenmedi.
+**Örneklem:** 2010–14, 2015–19 ve 2020+ katmanlarından tohumla seçilmiş **200 dövüşçü-ay** (67/67/66; erkekler). Her satır, o ayın
+sıklet etiketli bir maçı ve bizim atadığımız sıklettir. 2010 öncesi, sıklet bilgisi %5 olduğu için örneklenmedi.
 
-**Henüz kontrol edilmedi.** Doğrulama için Sherdog'dan **bağımsız** bir kaynak gerekiyor (Tapology, organizasyonun kendi sayfası, Wikipedia),
-çünkü maç etiketlerinin kaynağı büyük olasılıkla Sherdog. Her satır için `external_div` ve `agrees` sütunları doldurulacak; doğruluk oranı
-%95 güven aralığıyla raporlanacak.
+**Bağımsız kaynak:** Tapology. Maç etiketlerimiz büyük olasılıkla Sherdog'dan geldiği için Sherdog kullanılmadı. Tapology her maç için
+"Weight: Lightweight · 155 lbs" biçiminde sıklet ve kilo veriyor.
+
+**Yöntem** (karşılaştırma kuralı sonuçlar okunmadan sabitlendi):
+
+1. Kullanıcının Chrome tarayıcısında, Tapology'de dövüşçü adıyla arama; ilk en fazla 4 aday profil.
+2. Profilde maç eşleşmesi: tarih ±2 gün **ve** rakip adının en az bir parçasının (3+ harf) eşleşmesi.
+3. **Birincil ölçüt:** Tapology'nin verdiği sıklet **adı**, derecelerin kullandığı `parse_label()` ile ayrıştırılıp erkek sıkletine çevrilir ve
+   bizim atamamızla karşılaştırılır. Catchweight ve yalnızca kilo verilen satırlar birincil ölçütün dışında.
+4. **İkincil ölçüt:** catchweight ya da yalnızca kilo verilen satırlarda kilo en yakın standart sınıra eşlenir.
+5. İstekler arasında 2,5–4 saniye beklendi (toplam ≈ 45 dakika).
+
+Sonuçlar satır satır: [docs/audit/division_check_tapology.csv](audit/division_check_tapology.csv) (Tapology bağlantılarıyla).
+
+**Eşleşme durumu:**
+
+| Durum | Satır |
+|---|---|
+| Maç bulundu, sıklet adı var | 122 |
+| Maç bulundu, yalnızca catchweight ya da kilo | 8 |
+| Maç bulundu, sıklet bilgisi yok | 48 |
+| Profil bulundu, maç eşleşmedi | 10 |
+| Profil bulunamadı | 12 |
+
+**Uyum:**
+
+| Ölçüt | Uyum | %95 güven aralığı (Clopper–Pearson) |
+|---|---|---|
+| Birincil (sıklet adı) | **109/122 = %89,3** | %82,5 – %94,2 |
+| İkincil (ad + kilo) | 111/130 = %85,4 | %78,1 – %91,0 |
+| Birincil, 2010–14 | 33/37 = %89,2 | %74,6 – %97,0 |
+| Birincil, 2015–19 | 40/45 = %88,9 | %75,9 – %96,3 |
+| Birincil, 2020+ | 36/40 = %90,0 | %76,3 – %97,2 |
+
+- 19 uyumsuzluğun 17'si **komşu** sıklet (ör. FW ↔ BW, LW ↔ FW), 2'si iki sıklet farklı.
+- Katmanlar arasında belirgin fark yok.
+- UFC, Bellator, WEC, ONE ve PFL maçları doğrulanan 122 satırın yalnızca 18'i; geri kalanı bölgesel organizasyonlar.
+
+**Sınırlar:**
+
+- **Doğrulanamayan %39** rastgele değil (Tapology'de kilo bilgisi olmayan, çoğunlukla küçük organizasyonların maçları). Bu maçlarda hata oranı
+  daha yüksek olabilir; %89 bu yüzden **iyimser** bir tahmin.
+- Tapology mutlak doğru değil. Bir uyumsuzluk, hangi kaynağın yanlış olduğunu söylemez; iki kaynağın ortak hataları da görünmez.
+- Eşleştirme otomatik yapıldı. Tarih ve rakip adı birlikte arandığı için yanlış maç eşleşmesi olasılığı düşük ama sıfır değil.
+
+**Sonuç:** Tek bir maçın sıklet etiketi yaklaşık **her 10 maçta 1** bağımsız kaynakla uyuşmuyor ve hata çoğunlukla komşu sıklete. Bu:
+
+1. **H4'ü** doğrudan etkiler: komşu sıklete "değişim"lerin önemli bir kısmı ölçüm hatası olabilir. Ölçüm hatası etkiyi sıfıra doğru küçültür;
+   H4'ün tahmini, gerçek etkinin büyüklüğü için bir alt sınır gibi yorumlanmalı.
+2. **Sıklet atamasında** çoğunluk kuralını (son etiketli maçların çoğunluğu) destekler: bağımsız %10'luk hata, üç maçın çoğunluğunda
+   kabaca %3'e iner (hatalar bağımsızsa).
+3. **P4P sıklet hakimiyeti listesinde** bir dövüşçünün yanlış sıklette görünme olasılığını gösterir; liste bu belirsizlikle yayımlanmalı.
 
 ## 8. Yapılmayanlar ve sınırlar
 

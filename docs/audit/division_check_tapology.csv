@@ -1,0 +1,201 @@
+stratum,fighter_id,name,month,assigned_div,bout_date,promotion,label,fight_id,tapology_url,tapology_date,tapology_opponent,tapology_class,tapology_lbs,external_div,external_basis,agrees,lookup_status
+2010-14,38494,Chad Mendes,2010-04,FW,2010-04-24,WEC,Featherweight Bout,87812,https://www.tapology.com/fightcenter/fighters/chad-mendes-money,2010-04-24,,Featherweight,145,FW,named,yes,found
+2010-14,42672,George Sheppard,2012-07,LW,2012-07-14,Complete Devastation MMA,Lightweight,124022,https://www.tapology.com/fightcenter/fighters/george-sheppard-lights-out,2012-07-14,,Lightweight,155,LW,named,yes,found
+2010-14,32457,Mike Medrano,2014-08,LW,2014-08-09,Cage Fury Fighting Championships,Lightweight,162240,https://www.tapology.com/fightcenter/fighters/mike-medrano,2014-08-09,,Lightweight,155,LW,named,yes,found
+2010-14,71490,Dillin Wiggins,2013-02,LHW,2013-02-12,AK Entertainment,Light Heavyweight,134388,https://www.tapology.com/fightcenter/fighters/91822-dillin-wiggins-biggins,2013-02-12,,,,,,,no_weight
+2010-14,46002,Diogo Joaquim Silveira,2014-08,HW,2014-08-10,Nitrix Champion Fight,Heavyweight,162453,https://www.tapology.com/fightcenter/fighters/42194-diogo-bebezo,2014-08-10,,Heavyweight,265,HW,named,yes,found
+2010-14,72781,Alejandro Lopez,2013-02,WW,2013-02-16,Mexican Fighters Promotions,Welterweight,134570,,,,,,,,,no_bout_match
+2010-14,61344,Chris Wade,2014-01,LW,2014-01-24,Ring of Combat,Lightweight,152546,https://www.tapology.com/fightcenter/fighters/17954-chris-wade,2014-01-24,,Lightweight,155,LW,named,yes,found
+2010-14,46077,Daniel Sliwowski,2012-02,MW,2012-02-11,MMA Total Combat,Middleweight,116128,https://www.tapology.com/fightcenter/fighters/31843-daniel-sliwowski,2012-02-11,,,,,,,no_weight
+2010-14,75667,Riley Mallett,2014-11,FW,2014-11-01,Xtreme Fighting Championships (Australia),Featherweight,166823,https://www.tapology.com/fightcenter/fighters/48745-riley-mallett,2014-11-01,,Featherweight,145,FW,named,yes,found
+2010-14,62926,Chris du Pont,2013-06,LHW,2013-06-27,Extreme Fighting Championship (Africa),Light Heavyweight,141817,https://www.tapology.com/fightcenter/fighters/40330-chris-du-pont-danger,2013-06-27,,Light Heavyweight,205,LHW,named,yes,found
+2010-14,48085,Andy Enz,2014-02,MW,2014-02-01,UFC,Middleweight Bout,152939,https://www.tapology.com/fightcenter/fighters/41354-andy-enz-tank-mode,2014-02-01,,Middleweight,185,MW,named,yes,found
+2010-14,46042,Ray Lopez,2012-12,LHW,2012-12-08,Sugar Creek Showdown,Light Heavyweight,131945,https://www.tapology.com/fightcenter/fighters/ray-lopez,2012-12-08,,Light Heavyweight,205,LHW,named,yes,found
+2010-14,13107,Urijah Faber,2010-04,FW,2010-04-24,WEC,WEC Featherweight Title Bout,87804,https://www.tapology.com/fightcenter/fighters/urijah-faber-the-california-kid,2010-04-24,,Featherweight,145,FW,named,yes,found
+2010-14,62405,Takayuki Iijima,2014-05,FW,2014-05-25,Tribe Tokyo Fight,Featherweight,159018,https://www.tapology.com/fightcenter/fighters/31028-takayuki-ijima,2014-05-25,,,,,,,no_weight
+2010-14,58272,Benito Tavares Cavalcante,2014-09,LW,2014-09-21,Fatality Arena,Lightweight,164655,https://www.tapology.com/fightcenter/fighters/66508-benito-tavares-macap,2014-09-21,,Lightweight,154,LW,named,yes,found
+2010-14,65071,David Greaves,2014-02,FW,2014-02-21,Eternal MMA,Featherweight,153685,https://www.tapology.com/fightcenter/fighters/26467-david-greaves,2014-02-21,,Featherweight,145,FW,named,yes,found
+2010-14,19390,Matt Hamill,2013-10,LHW,2013-10-09,UFC,Light Heavyweight Bout,146964,https://www.tapology.com/fightcenter/fighters/matt-hamill-the-hammer,2013-10-09,,Light Heavyweight,205,LHW,named,yes,found
+2010-14,78671,Marcin Pawlowski,2013-09,MW,2013-09-21,Adrenalin Fight (Poland),Middleweight,145855,https://www.tapology.com/fightcenter/fighters/67800-marcin-pawowski,2013-09-21,,Middleweight,185,MW,named,yes,found
+2010-14,24263,Anthony Johnson,2012-08,LHW,2012-08-24,Titan Fighting Championship,Light Heavyweight,125741,https://www.tapology.com/fightcenter/fighters/anthony-johnson-rumble,2012-08-24,,Light Heavyweight,205,LHW,named,yes,found
+2010-14,77821,Fred Moncaio,2013-08,WW,2013-08-23,Fight Time Promotions,Welterweight,144287,https://www.tapology.com/fightcenter/fighters/37622-frederico-moncaio,2013-08-23,,Welterweight,170,WW,named,yes,found
+2010-14,88911,Kyril Kolomcec,2014-11,LHW,2014-11-08,We Love MMA (Free Fight Association Germany),Light Heavyweight,167229,https://www.tapology.com/fightcenter/fighters/73777-kirill-kolomycev,2014-11-08,,Light Heavyweight,205,LHW,named,yes,found
+2010-14,48270,Ariel Smolarski,2012-04,FW,2012-04-28,Dzierzoniow Boxing Club,Featherweight,120049,,,,,,,,,no_search_result
+2010-14,78064,Joao Paulo Silva,2014-03,MW,2014-03-22,Personal Open Fight,Middleweight,155262,https://www.tapology.com/fightcenter/fighters/73663-joao-paulo-silva-babalu,2014-03-22,,,,,,,no_weight
+2010-14,44718,Ben Robinson,2013-09,MW,2013-09-28,Showdown Fights,Middleweight,146377,https://www.tapology.com/fightcenter/fighters/20182-ben-robinson,2013-09-28,,Middleweight,185,MW,named,yes,found
+2010-14,88173,Jan Kronschnabl,2014-10,MW,2014-10-11,Shooto Europe,Middleweight,165793,https://www.tapology.com/fightcenter/fighters/84545-jan-kronschnabl,2014-10-11,,Catchweight,176,WW,lbs_catchweight,no,found
+2010-14,68686,Juliano Paes,2014-04,BW,2014-04-20,Costa Combat,Bantamweight,157009,https://www.tapology.com/fightcenter/fighters/127976-juliano-paes-marreta,2014-04-20,,,,,,,no_weight
+2010-14,35023,Paata Robakidze,2012-11,LW,2012-11-09,Oplot Challenge,Lightweight,129822,https://www.tapology.com/fightcenter/fighters/69597-paata-robakidze-robocop,2012-11-09,,Featherweight,146,FW,named,no,found
+2010-14,80001,Paulo Castro,2013-11,FW,2013-11-08,Xtreme Fisiomaq Combat,Featherweight,148746,https://www.tapology.com/fightcenter/fighters/69730-paulo-castro-pirulito,2013-11-08,,,,,,,no_weight
+2010-14,58285,Ken Saotome,2013-07,BW,2013-07-15,Grachan,Bantamweight,142754,https://www.tapology.com/fightcenter/fighters/24910-ken-saotome,2013-07-15,,,,,,,no_weight
+2010-14,86175,Alexander Zhuk,2014-07,FW,2014-07-19,Altay Republic MMA League,Featherweight,161433,https://www.tapology.com/fightcenter/fighters/127595-alexander-zhuk,2014-07-19,,Bantamweight,132,BW,named,no,found
+2010-14,73345,Emerson Augusto de Lima,2013-12,FW,2013-12-13,Grand Fighting Championship,Featherweight,151036,,,,,,,,,no_search_result
+2010-14,18963,Andreas Kraniotakes,2013-11,HW,2013-11-29,Fight Nights Global,Heavyweight,149968,https://www.tapology.com/fightcenter/fighters/14896-Andreas-Kraniotakes-Big-Daddy,2013-11-29,,Heavyweight,265,HW,named,yes,found
+2010-14,82278,Tuan Nguen,2014-02,WW,2014-02-06,Twins MMA,Welterweight,153041,https://www.tapology.com/fightcenter/fighters/82007-tuan-nguen,2014-02-06,,,,,,,no_weight
+2010-14,89770,Nicola Chessa,2014-12,BW,2014-12-06,Federation Italian Grappling MMA,Bantamweight,168879,https://www.tapology.com/fightcenter/fighters/122349-nicola-chessa,2014-12-06,,,,,,,no_weight
+2010-14,77000,Rafael Cairo,2013-07,LW,2013-07-13,Uba Fight,Lightweight,142675,,,,,,,,,no_bout_match
+2010-14,20956,Makoto Kamaya,2012-06,BW,2012-06-15,DEEP,Bantamweight,122492,https://www.tapology.com/fightcenter/fighters/4227-makoto-kamaya,2012-06-15,,,,,,,no_weight
+2010-14,77331,Paul Marquez,2014-08,BW,2014-08-30,Xtreme Kombat,Bantamweight,163315,https://www.tapology.com/fightcenter/fighters/78216-paul-marquez-tierno,2014-08-30,,Bantamweight,135,BW,named,yes,found
+2010-14,74872,Victor Valenzuela,2013-04,MW,2013-04-27,Master Fighters Championship,Middleweight,138412,https://www.tapology.com/fightcenter/fighters/67389-victor-valenzuela-sicosis,2013-04-27,,,,,,,no_weight
+2010-14,73796,Rodrigo de Souza Rocha,2014-08,FW,2014-08-09,Real Fight,Featherweight,162355,https://www.tapology.com/fightcenter/fighters/61782-rodrigo-de-souza-rocha,2014-08-09,,,,,,,no_weight
+2010-14,65939,Piotr Jaszczuk,2013-11,LW,2013-11-30,Thunderstrike Fight League,Lightweight,150294,https://www.tapology.com/fightcenter/fighters/61295-piotr-jaszczuk,2013-11-30,,Lightweight,154,LW,named,yes,found
+2010-14,38209,John Makdessi,2013-09,LW,2013-09-21,UFC,Lightweight Bout,146064,https://www.tapology.com/fightcenter/fighters/john-makdessi-the-bull,2013-09-21,,Lightweight,155,LW,named,yes,found
+2010-14,54137,Alptekin Ozkilic,2013-02,FLW,2013-02-15,Rumble Time Promotions,Flyweight,134474,https://www.tapology.com/fightcenter/fighters/19279-alptekin-ozkilic,2013-02-15,,,,,,,no_weight
+2010-14,34686,Ryan Cenkus,2011-02,WW,2011-02-18,True Fight Fan Entertainment,Welterweight,99941,https://www.tapology.com/fightcenter/fighters/16937-ryan-cenkus,2011-02-18,,,,,,,no_weight
+2010-14,55637,Michell Adelina,2012-12,MW,2012-12-28,Slamm,Middleweight,132992,https://www.tapology.com/fightcenter/fighters/33676-michell-adelina,2012-12-28,,Welterweight,170,WW,named,no,found
+2010-14,14089,Rodrigo de Lima,2014-06,WW,2014-06-28,UFC,Welterweight Bout,160888,https://www.tapology.com/fightcenter/fighters/29343-rodrigo-goiana-de-lima-monstro,2014-06-28,,Welterweight,170,WW,named,yes,found
+2010-14,81483,Riccardo Nosiglia,2013-12,LHW,2013-12-14,Kombat League,Light Heavyweight,151349,https://www.tapology.com/fightcenter/fighters/107074-riccardo-nosiglia,2013-12-14,,,,,,,no_weight
+2010-14,21225,Sam Spengler,2012-02,WW,2012-02-11,Dragon House MMA,Welterweight,115985,https://www.tapology.com/fightcenter/fighters/sam-spengler-the-ram,2012-02-11,,,,,,,no_weight
+2010-14,50620,Ryan Mendez,2013-12,FW,2013-12-14,Stateline Warriors,Featherweight,151456,https://www.tapology.com/fightcenter/fighters/18349-ryan-mendez,2013-12-14,,Featherweight,145,FW,named,yes,found
+2010-14,80756,Fabio Rodrigues,2013-11,WW,2013-11-30,Fit Total Combat,Welterweight,150097,,,,,,,,,no_bout_match
+2010-14,25037,Greg Soto,2010-08,WW,2010-08-28,UFC,Welterweight Bout,93127,https://www.tapology.com/fightcenter/fighters/greg-soto,2010-08-28,,Welterweight,170,WW,named,yes,found
+2010-14,70713,Sebastian Kalmanze,2012-11,WW,2012-11-17,King of the Ring (Austria),Welterweight,130525,,,,,,,,,no_search_result
+2010-14,61264,Sergei Semizhon,2012-12,LW,2012-12-08,M-1,Lightweight,131846,https://www.tapology.com/fightcenter/fighters/56438-sergei-semizhon,2012-12-08,,Lightweight,154,LW,named,yes,found
+2010-14,70177,Sandro Santana,2012-11,BW,2012-11-01,Gladiador Fight (Bahia),Bantamweight,129557,,,,,,,,,no_bout_match
+2010-14,17615,Sergio Vieira,2013-09,FW,2013-09-13,Premium Fight Championship,Featherweight,145433,https://www.tapology.com/fightcenter/fighters/9073-sergio-vieira,2013-09-13,,Featherweight,146,FW,named,yes,found
+2010-14,43478,Josh Appelt,2014-04,HW,2014-04-04,Bellator MMA,Heavyweight,155847,https://www.tapology.com/fightcenter/fighters/19337-josh-appelt,2014-04-04,,Heavyweight,265,HW,named,yes,found
+2010-14,74632,Max Gandra,2014-09,LW,2014-09-27,Full House,Lightweight,164861,https://www.tapology.com/fightcenter/fighters/66781-max-gandra-judoka,2014-09-27,,Lightweight,155,LW,named,yes,found
+2010-14,84521,Chris Telford,2014-05,BW,2014-05-10,MMA Total Combat,Bantamweight,158008,https://www.tapology.com/fightcenter/fighters/92345-chris-telford,2014-05-10,,Bantamweight,135,BW,named,yes,found
+2010-14,56545,Diego Ferreira,2013-05,LW,2013-05-31,Legacy Fighting Championship (Texas),Lightweight,140274,https://www.tapology.com/fightcenter/fighters/carlos-ferreira,2013-05-31,,Lightweight,155,LW,named,yes,found
+2010-14,82414,Fuminao Odawara,2014-04,FW,2014-04-27,Grachan,Featherweight,157446,https://www.tapology.com/fightcenter/fighters/57482-fuminao-odawara-fumi,2014-04-27,,,,,,,no_weight
+2010-14,58724,Nelson Salas,2012-05,BW,2012-05-11,Legacy Fighting Championship (Texas),Bantamweight,120731,https://www.tapology.com/fightcenter/fighters/18329-nelson-salas,2012-05-11,,Bantamweight,135,BW,named,yes,found
+2010-14,64275,Anderson Ferreira,2012-03,LW,2012-03-31,Combat Fight (Sao Paulo),Lightweight,118436,https://www.tapology.com/fightcenter/fighters/52195-anderson-ferreira-buzica,2012-03-31,,,,,,,no_weight
+2010-14,56914,Saengchot Parkaiphet,2012-03,FW,2012-03-17,Dare Fight Sports,Featherweight,117712,https://www.tapology.com/fightcenter/fighters/17360-saengchot-parkaiphet,2012-03-17,,Bantamweight,139,BW,named,no,found
+2010-14,70667,Luis de Paula,2013-11,MW,2013-11-16,Machine Fight Championship,Middleweight,149273,https://www.tapology.com/fightcenter/fighters/38766-luis-de-paula-cabo,2013-11-16,,,,,,,no_weight
+2010-14,58277,Elijah Bokelli,2013-03,WW,2013-03-16,100% Fight,Welterweight,135886,https://www.tapology.com/fightcenter/fighters/36471-elijah-bokelli,2013-03-16,,,,,,,no_weight
+2010-14,29318,Daisuke Endo,2012-09,BW,2012-09-30,DEEP,Bantamweight,127741,https://www.tapology.com/fightcenter/fighters/2256-daisuke-endo,2012-09-30,,,,,,,no_weight
+2010-14,50491,Wesley Hawkey,2012-11,FW,2012-11-23,Extreme Fighting Championship (Africa),Featherweight,130756,https://www.tapology.com/fightcenter/fighters/17925-wesley-hawkey-the-young-assassin,2012-11-23,,Featherweight,145,FW,named,yes,found
+2010-14,25643,Anthony Gomez,2014-03,HW,2014-03-14,Bellator MMA,Heavyweight,154744,https://www.tapology.com/fightcenter/fighters/12472-anthony-gomez,2014-03-14,,Catchweight,215,LHW,lbs_catchweight,no,found
+2015-19,54249,Alex Morono,2019-10,WW,2019-10-12,UFC,Welterweight Bout,262931,https://www.tapology.com/fightcenter/fighters/16353-alex-morono,2019-10-12,,Welterweight,170,WW,named,yes,found
+2015-19,107885,Yunfei Zhang,2017-02,FLW,2017-02-18,Chin Woo Men MMA Professional League,Flyweight,210327,https://www.tapology.com/fightcenter/fighters/325288-yunfei-zhang,2017-02-18,,Flyweight,126,FLW,named,yes,found
+2015-19,36959,Erick Urban,2015-08,HW,2015-08-14,Center Real Fights,Heavyweight,181082,https://www.tapology.com/fightcenter/fighters/77476-erick-urban,2015-08-14,,,,,,,no_weight
+2015-19,85846,Pongsiri Mitsatit,2018-11,FLW,2018-11-17,ONE FC,Flyweight,245514,https://www.tapology.com/fightcenter/fighters/74155-ponsiri-mitsatit,2018-11-17,,Flyweight,125,FLW,named,yes,found
+2015-19,67767,Jesus Urbina,2017-02,FLW,2017-02-25,Fresquez Productions,Flyweight,210844,https://www.tapology.com/fightcenter/fighters/42839-jesus-urbina,2017-02-25,,Flyweight,125,FLW,named,yes,found
+2015-19,48199,Randy Villarreal,2017-08,FLW,2017-08-25,South Texas Fighting Championships,Flyweight,221265,https://www.tapology.com/fightcenter/fighters/14670-randy-villareal,2017-08-25,,Flyweight,125,FLW,named,yes,found
+2015-19,87951,Alan Leal,2017-05,FW,2017-05-27,Republica MMA,Featherweight,216656,https://www.tapology.com/fightcenter/fighters/65347-alan-leal-rush,2017-05-27,,Featherweight,146,FW,named,yes,found
+2015-19,112287,Austin Wilson,2017-06,FW,2017-06-02,Legacy Fighting Alliance (LFA),Featherweight,216860,https://www.tapology.com/fightcenter/fighters/152154-austin-wilson,2017-06-02,,Lightweight,155,LW,named,no,found
+2015-19,95330,Jhon Tacha,2018-05,BW,2018-05-19,Empire MMA (Colombia),Bantamweight,236212,https://www.tapology.com/fightcenter/fighters/100541-jhon-tacha,2018-05-19,,,,,,,no_weight
+2015-19,63809,Giovanni Mulas,2015-06,FW,2015-06-13,Born To Fight (Italy),Featherweight,178250,https://www.tapology.com/fightcenter/fighters/110617-giovanni-mulas,2015-06-13,,,,,,,no_weight
+2015-19,107770,Abylay Nagymzhanov,2016-12,BW,2016-12-03,Glory of Heroes,Bantamweight,207194,,,,,,,,,no_search_result
+2015-19,92285,Nick Ghaeni,2018-07,FW,2018-07-14,Battlefield Fight League,Featherweight,238618,https://www.tapology.com/fightcenter/fighters/46336-nick-ghaeni,2018-07-14,,Featherweight,145,FW,named,yes,found
+2015-19,38066,Kenny Garner,2017-04,HW,2017-04-07,Fight Time Promotions,Heavyweight,213198,https://www.tapology.com/fightcenter/fighters/kenny-garner,2017-04-07,,Heavyweight,265,HW,named,yes,found
+2015-19,50248,Aaron Conway,2016-08,MW,2016-08-27,National Fighting Championship,Middleweight,201467,https://www.tapology.com/fightcenter/fighters/14058-aaron-conway,2016-08-27,,Middleweight,185,MW,named,yes,found
+2015-19,67208,Musa Jangubaev,2015-01,MW,2015-01-25,Sparta X,Middleweight,170961,https://www.tapology.com/fightcenter/fighters/55455-musa-jangubaev,2015-01-25,,,,,,,no_weight
+2015-19,97406,Illy Barathosa,2015-10,HW,2015-10-17,Ultimate Women Challenge,Heavyweight,184804,https://www.tapology.com/fightcenter/fighters/102259-illy-barathosa,2015-10-17,,,,,,,no_weight
+2015-19,14787,Rousimar Palhares,2017-07,WW,2017-07-07,Fight Nights Global,Welterweight,218597,https://www.tapology.com/fightcenter/fighters/rousimar-palhares-toquinho,2017-07-07,,Welterweight,170,WW,named,yes,found
+2015-19,37418,Jimi Manuwa,2018-12,LHW,2018-12-08,UFC,Light Heavyweight Bout,247002,https://www.tapology.com/fightcenter/fighters/jimi-manuwa-the-poster-boy,2018-12-08,,Light Heavyweight,205,LHW,named,yes,found
+2015-19,102695,Joao Silva de Souza,2019-08,BW,2019-08-17,Super Pitbull Fight / Pit Bull Fight Championship,Bantamweight,259591,https://www.tapology.com/fightcenter/fighters/234414-joao-silva-estrela,2019-08-17,,Flyweight,126,FLW,named,no,found
+2015-19,20956,Makoto Kamaya,2015-07,BW,2015-07-20,DEEP,Bantamweight,180031,https://www.tapology.com/fightcenter/fighters/4227-makoto-kamaya,2015-07-20,,,,,,,no_weight
+2015-19,100450,Stanislav Lobanov,2016-02,HW,2016-02-22,MMA KRAA,Heavyweight,191061,https://www.tapology.com/fightcenter/fighters/165698-stanislav-lobanov,2016-02-22,,Heavyweight,265,HW,named,yes,found
+2015-19,116018,Alan Silva,2019-07,LW,2019-07-13,Circuito Araguaia de MMA,Lightweight,257718,https://www.tapology.com/fightcenter/fighters/191993-alan-silva,2019-07-13,,Lightweight,154,LW,named,yes,found
+2015-19,108125,Victor Cardoso,2016-12,LHW,2016-12-10,Coliseu Combat Fight Aquidauana,Light Heavyweight,207637,https://www.tapology.com/fightcenter/fighters/170558-victor-cardoso-vito,2016-12-10,,,,,,,no_weight
+2015-19,100277,Christian Gonzalez,2016-04,WW,2016-04-25,Combate Global,Welterweight,194791,https://www.tapology.com/fightcenter/fighters/53614-christian-gonzalez,2016-04-25,,Catchweight,174,WW,lbs_catchweight,yes,found
+2015-19,61048,Ivan Vladimir,2015-12,LW,2015-12-06,North American Allied Fight Series,Lightweight,187957,https://www.tapology.com/fightcenter/fighters/33120-ivan-vladimir,2015-12-06,,,,,,,no_weight
+2015-19,86489,Habiti Tuerxunbieke,2015-07,LW,2015-07-18,Kunlun Fight,Lightweight,179891,https://www.tapology.com/fightcenter/fighters/81838-habiti,2015-07-18,,Lightweight,154,LW,named,yes,found
+2015-19,117001,David White,2017-12,LHW,2017-12-09,Iron Tiger Fight Series,Light Heavyweight,227536,https://www.tapology.com/fightcenter/fighters/140314-david-white,2017-12-09,,Light Heavyweight,205,LHW,named,yes,found
+2015-19,104488,Alexander Shtykin,2017-08,FLW,2017-08-02,Iron League (Russia),Flyweight,219936,https://www.tapology.com/fightcenter/fighters/155217-alexandr-shtykin,2017-08-02,,Catchweight,139,BW,lbs_catchweight,no,found
+2015-19,49623,Benjamin Locken,2017-01,LW,2017-01-20,Legacy Fighting Alliance (LFA),Lightweight,209214,,,,,,,,,no_search_result
+2015-19,15990,John Howard,2019-05,WW,2019-05-09,Professional Fighters League,Welterweight,254419,https://www.tapology.com/fightcenter/fighters/john-howard-doomsday,2019-05-09,,Welterweight,170,WW,named,yes,found
+2015-19,64238,Jason Ramos,2018-04,MW,2018-04-28,Maxximo Fighting Championship,Middleweight,234641,https://www.tapology.com/fightcenter/fighters/62267-jason-ramos-the-ghost,2018-04-28,,,,,,,no_weight
+2015-19,133431,Abduaziz Abdurashidov,2019-10,WW,2019-10-25,Battle Promotion,Welterweight,263449,,,,,,,,,no_search_result
+2015-19,88981,Umidjon Musaev,2017-07,FLW,2017-07-22,Wu Lin Feng (YFU),Flyweight,219529,https://www.tapology.com/fightcenter/fighters/103897-umidjon-musaev,2017-07-22,,,,,,,no_weight
+2015-19,70633,Ismail Naurdiev,2016-10,WW,2016-10-16,Aggrelin,Welterweight,204410,https://www.tapology.com/fightcenter/fighters/79755-ismael-naurdiev,2016-10-16,,Welterweight,170,WW,named,yes,found
+2015-19,111985,Justin Tafa,2018-07,HW,2018-07-28,Xtreme Fighting Championships (Australia),Heavyweight,239547,https://www.tapology.com/fightcenter/fighters/152336-justin-tafa,2018-07-28,,Heavyweight,265,HW,named,yes,found
+2015-19,94231,Sukhrob Davlatov,2018-04,LW,2018-04-15,Absolute Championship Akhmat,Lightweight,233921,https://www.tapology.com/fightcenter/fighters/104686-surob-dovlatov,2018-04-15,,Lightweight,155,LW,named,yes,found
+2015-19,125760,Artur Sydykov,2018-12,BW,2018-12-08,Jash-Kuch Fighting Championship,Bantamweight,246847,https://www.tapology.com/fightcenter/fighters/316607-artur-sydykov,2018-12-08,,,,,,,no_weight
+2015-19,90666,Nurzhan Tutkaev,2015-10,FW,2015-10-04,Kunlun Fight,Featherweight,184064,https://www.tapology.com/fightcenter/fighters/94756-nurjan-tutkoev,2015-10-04,,Catchweight,150,FW,lbs_catchweight,yes,found
+2015-19,106162,Ali Murgulchiev,2017-12,LW,2017-12-09,Jash-Kuch Fighting Championship,Lightweight,227652,https://www.tapology.com/fightcenter/fighters/143627-ali-murgulchiev,2017-12-09,,Lightweight,154,LW,named,yes,found
+2015-19,88872,Derrick Williams,2019-08,HW,2019-08-10,Universal Reality Combat Championship,Heavyweight,259294,https://www.tapology.com/fightcenter/fighters/43379-derrick-williams,2019-08-10,,Heavyweight,265,HW,named,yes,found
+2015-19,97600,Milan Vrbic,2018-04,HW,2018-04-21,X Fight Nights,Heavyweight,234273,https://www.tapology.com/fightcenter/fighters/151996-milan-vrbic,2018-04-21,,Heavyweight,265,HW,named,yes,found
+2015-19,110672,Emanuel Rojas,2017-04,LW,2017-04-08,Fight Night America,Lightweight,213426,https://www.tapology.com/fightcenter/fighters/157517-emanuel-rojas,2017-04-08,,Lightweight,154,LW,named,yes,found
+2015-19,105186,Dmytro Mudriy,2017-05,MW,2017-05-21,MMA Pro Ukraine,Middleweight,216301,,,,,,,,,no_search_result
+2015-19,103265,Hamza Bougamza,2019-01,BW,2019-01-27,Fight Club Rush,Bantamweight,248809,https://www.tapology.com/fightcenter/fighters/133867-hamza-bougamza,2019-01-27,,Bantamweight,135,BW,named,yes,found
+2015-19,81142,Amauricio Galvao Pinheiro,2016-05,LW,2016-05-07,Gladiator Combat Fight,Lightweight,195299,https://www.tapology.com/fightcenter/fighters/77817-amauricio-galvao-pinheiro,2016-05-07,,Lightweight,154,LW,named,yes,found
+2015-19,95340,Jorge Serrano,2016-06,BW,2016-06-25,KOTC,Bantamweight,198430,https://www.tapology.com/fightcenter/fighters/79727-jorge-serrano,2016-06-25,,Featherweight,145,FW,named,no,found
+2015-19,100890,Daniel Alberti,2019-10,HW,2019-10-12,Wolgaster Kampfkunst,Heavyweight,262938,https://www.tapology.com/fightcenter/fighters/127155-daniel-alberti,2019-10-12,,Heavyweight,265,HW,named,yes,found
+2015-19,54311,Danny Roberts,2017-07,WW,2017-07-16,UFC,Welterweight Bout,219203,https://www.tapology.com/fightcenter/fighters/15517-danny-roberts,2017-07-16,,Welterweight,170,WW,named,yes,found
+2015-19,41289,Hayder Hassan,2019-12,WW,2019-12-14,Brave Combat Federation,Welterweight,266984,https://www.tapology.com/fightcenter/fighters/hayder-hassan-hulk,2019-12-14,,Welterweight,170,WW,named,yes,found
+2015-19,31964,Elvis Mutapcic,2016-12,MW,2016-12-03,UFC,Middleweight Bout,207348,https://www.tapology.com/fightcenter/fighters/elvis-mutapcic-the-king,2016-12-03,,Middleweight,185,MW,named,yes,found
+2015-19,117584,Akhmed Musaev,2019-07,LW,2019-07-28,Great Russian (GR) Promotion,Lightweight,258728,https://www.tapology.com/fightcenter/fighters/192275-akhmed-musaev,2019-07-28,,Bantamweight,135,BW,named,no,found
+2015-19,67441,Sultan Kalamakhunov,2015-02,LW,2015-02-22,Oplot Challenge,Lightweight,172046,https://www.tapology.com/fightcenter/fighters/44010-sultan-kalamahunov,2015-02-22,,Lightweight,154,LW,named,yes,found
+2015-19,107154,Brandon Wright,2016-11,LW,2016-11-11,Legacy Fighting Championship (Texas),Lightweight,205666,https://www.tapology.com/fightcenter/fighters/122601-brandon-wright,2016-11-11,,Lightweight,155,LW,named,yes,found
+2015-19,120196,Jahongir Urmonaliev,2018-04,LW,2018-04-29,Eagles MMA,Lightweight,234789,,,,,,,,,no_search_result
+2015-19,130505,Alexandru Rotari,2019-06,LW,2019-06-29,Celtic Gladiator,Lightweight,256940,https://www.tapology.com/fightcenter/fighters/228954-alexandru-rotari,2019-06-29,,Catchweight,174,WW,lbs_catchweight,no,found
+2015-19,123846,Shane Fichter,2018-12,MW,2018-12-15,Fusion Fight League,Middleweight,247392,https://www.tapology.com/fightcenter/fighters/151156-shane-fichtner,2018-12-15,,Middleweight,185,MW,named,yes,found
+2015-19,91521,Mikhail Ragozin,2019-05,LHW,2019-05-08,Russian Cagefighting Championship,Light Heavyweight,254399,https://www.tapology.com/fightcenter/fighters/89816-mikhail-rogozin,2019-05-08,,Light Heavyweight,205,LHW,named,yes,found
+2015-19,109660,Nurlan Adilbekov,2017-09,LW,2017-09-30,World Ertaymash Federation,Lightweight,223409,https://www.tapology.com/fightcenter/fighters/151408-nurlan-adylbekov,2017-09-30,,Lightweight,154,LW,named,yes,found
+2015-19,120450,Ronnie Forney,2019-05,MW,2019-05-11,Dynasty Combat Sports,Middleweight,254560,https://www.tapology.com/fightcenter/fighters/95154-ronnie-forney,2019-05-11,,Middleweight,185,MW,named,yes,found
+2015-19,125352,Musa Azizov,2018-11,LW,2018-11-24,Kingdom Professional Fight,Lightweight,245819,https://www.tapology.com/fightcenter/fighters/139603-musa-azizov,2018-11-24,,Lightweight,155,LW,named,yes,found
+2015-19,110683,Faeez Jacobs,2017-11,BW,2017-11-04,Extreme Fighting Championship (Africa),Bantamweight,225254,https://www.tapology.com/fightcenter/fighters/142665-faeez-jacobs,2017-11-04,,Featherweight,145,FW,named,no,found
+2015-19,96414,Guleyman Baknalov,2015-09,FW,2015-09-12,Voronezh Fight Club,Featherweight,182708,https://www.tapology.com/fightcenter/fighters/182081-guleyman-baknalov,2015-09-12,,Featherweight,146,FW,named,yes,found
+2015-19,19582,Jackson Mora,2019-09,MW,2019-09-25,NCS LATAM (FFC),Middleweight,261762,https://www.tapology.com/fightcenter/fighters/11123-jackson-mora,2019-09-25,,Middleweight,185,MW,named,yes,found
+2015-19,84021,Nursultan Kassymkhanov,2019-04,FW,2019-04-30,Alash Pride,Featherweight,253887,https://www.tapology.com/fightcenter/fighters/87133-nursultan-khasymhanov,2019-04-30,,Featherweight,145,FW,named,yes,found
+2015-19,121724,Sebastian Nowak,2018-10,HW,2018-10-13,Fame MMA,Heavyweight,243266,https://www.tapology.com/fightcenter/fighters/198599-sebastian-nowak-ztrolowany,2018-10-13,,,,,,,no_weight
+2015-19,99937,Alexandr Volodin,2016-06,FW,2016-06-03,Russia Top Team,Featherweight,197044,https://www.tapology.com/fightcenter/fighters/91895-aleksandr-volodin,2016-06-03,,Featherweight,146,FW,named,yes,found
+2015-19,122365,Jesse Pires,2018-11,FLW,2018-11-02,Classic Entertainment and Sports (CES MMA),Flyweight,244377,,,,,,,,,no_search_result
+2020+,136037,Julio Cezar Barcellos Tavres,2020-02,LW,2020-02-01,Jacara FC MMA,Lightweight,268759,,,,,,,,,no_search_result
+2020+,136227,Jinnosuke Kashimura,2026-05,BW,2026-05-04,DEEP,Bantamweight,365030,https://www.tapology.com/fightcenter/fighters/254268-jinnosuke-kashimura,2026-05-04,,,,,,,no_weight
+2020+,98675,Alessandro Costa,2021-05,FLW,2021-05-07,LUX Fight League,Flyweight,280299,https://www.tapology.com/fightcenter/fighters/125815-alessandro-costa,2021-05-07,,,,,,,no_weight
+2020+,59225,Carlos Ulberg,2022-06,LHW,2022-06-25,UFC,Light Heavyweight Bout,299243,https://www.tapology.com/fightcenter/fighters/203365-carlos-ulberg-mr-marvelous,2022-06-25,,Light Heavyweight,205,LHW,named,yes,found
+2020+,129679,Jose de la Cavada,2020-02,BW,2020-02-22,Hombres de Honor,Bantamweight,269468,https://www.tapology.com/fightcenter/fighters/174890-jose-de-la-cavada,2020-02-22,,Bantamweight,134,BW,named,yes,found
+2020+,181776,Young Soo Ko,2026-10,WW,2026-10-24,Zeus Fighting Championship,Welterweight,373398,https://www.tapology.com/fightcenter/fighters/421821-young-soo-ko,2026-10-24,,Welterweight,170,WW,named,yes,found
+2020+,125908,Junpei Ueno,2026-09,BW,2026-09-06,Pancrase,Bantamweight,370577,https://www.tapology.com/fightcenter/fighters/178618-junpei-ueno,2026-09-06,,,,,,,no_weight
+2020+,139740,Shlomo Boyd,2021-09,WW,2021-09-25,American Fighting League,Welterweight,286305,https://www.tapology.com/fightcenter/fighters/264941-shlomo-boyd,2021-09-25,,Welterweight,170,WW,named,yes,found
+2020+,171445,Daniel Chavez Rivera,2025-05,FW,2025-05-31,Battle of Champions Fight League,Featherweight,349457,https://www.tapology.com/fightcenter/fighters/500287-daniel-chavez,2025-05-31,,Bantamweight,135,BW,named,no,found
+2020+,116004,Jesus Valenzuela,2022-10,FW,2022-10-01,Peleas ExtreMMAs,Featherweight,304303,,,,,,,,,no_bout_match
+2020+,13212,Shinya Aoki,2021-01,WW,2021-01-22,ONE FC,Welterweight,276832,https://www.tapology.com/fightcenter/fighters/shinya-aoki-tobikan-judan,2021-01-22,,Welterweight,170,WW,named,yes,found
+2020+,93918,Murad Abdurakhmanov,2026-10,LHW,2026-10-28,Alash Pride,Light Heavyweight,373457,https://www.tapology.com/fightcenter/fighters/161498-murad-abdurakhmanov,2026-10-28,,,,,,,no_weight
+2020+,172753,Scott Calvert,2026-09,FLW,2026-09-11,Cage Fury Fighting Championships,Flyweight,370627,https://www.tapology.com/fightcenter/fighters/350119-scott-calvert,2026-09-11,,,,,,,no_weight
+2020+,149326,Andre Luis Ferreira Cruz,2022-05,BW,2022-05-07,Matilha Champions Fight,Bantamweight,296576,https://www.tapology.com/fightcenter/fighters/337273-andre-luis-ferreira,2022-05-07,,,141,FW,lbs_only,no,found
+2020+,114951,Andrej Hodakovski,2023-03,LW,2023-03-11,Peak Fighting,Lightweight,311372,https://www.tapology.com/fightcenter/fighters/118850-andrej-hodakovski,2023-03-11,,Lightweight,155,LW,named,yes,found
+2020+,111193,Adam Bogatyrev,2022-02,HW,2022-02-26,Absolute Championship Akhmat,Heavyweight,292938,https://www.tapology.com/fightcenter/fighters/157314-adam-bogatirov,2022-02-26,,Heavyweight,265,HW,named,yes,found
+2020+,139534,Vsevolod Setskiy,2021-04,WW,2021-04-17,Modern Fighting Pankration,Welterweight,279734,https://www.tapology.com/fightcenter/fighters/280576-vsevolod-setskiy,2021-04-17,,Welterweight,170,WW,named,yes,found
+2020+,69792,Nashkho Galaev,2025-02,FW,2025-02-08,Absolute Championship Akhmat,Featherweight,344300,https://www.tapology.com/fightcenter/fighters/72261-nashkho-galaev,2025-02-08,,Featherweight,145,FW,named,yes,found
+2020+,144795,Talant Esdaulet,2023-05,FLW,2023-05-07,Alash Pride,Flyweight,314374,https://www.tapology.com/fightcenter/fighters/350425-talant-esdaulet,2023-05-07,,,,,,,no_weight
+2020+,62369,Miguel Angel Fierro,2022-11,FLW,2022-11-18,NCS LATAM (FFC),Flyweight,306669,https://www.tapology.com/fightcenter/fighters/145076-miguel-angel-fierro,2022-11-18,,Flyweight,125,FLW,named,yes,found
+2020+,158909,Laamara Ait Ahmed,2023-07,LW,2023-07-27,Berbere Fighting Championship,Lightweight,318338,https://www.tapology.com/fightcenter/fighters/408738-laamara-ait-ahmed-tago,2023-07-27,,Catchweight,138,BW,lbs_catchweight,no,found
+2020+,153622,Christopher Moly,2025-04,WW,2025-04-19,Warrior Sports Championship,Welterweight,347306,https://www.tapology.com/fightcenter/fighters/361142-christopher-moly,2025-04-19,,Welterweight,170,WW,named,yes,found
+2020+,124910,Jean Tejena,2022-10,FLW,2022-10-13,Reto de Campeones,Flyweight,304726,https://www.tapology.com/fightcenter/fighters/181949-jean-tejena,2022-10-13,,Flyweight,125,FLW,named,yes,found
+2020+,111097,Danijel Spoljaric,2025-11,FLW,2025-11-08,Professional Muaythai League,Flyweight,357320,https://www.tapology.com/fightcenter/fighters/171967-danijel-spoljaric,2025-11-08,,Flyweight,125,FLW,named,yes,found
+2020+,137437,Khomid Khomidov,2020-10,FW,2020-10-18,Colosseum MMA (Russia),Featherweight,273983,,,,,,,,,no_bout_match
+2020+,137991,Robin Frank,2020-09,WW,2020-09-19,National Fighting Championship (Germany),Welterweight,272977,https://www.tapology.com/fightcenter/fighters/132605-robin-frank,2020-09-19,,,,,,,no_weight
+2020+,142720,Sherbek Urinov,2021-06,FLW,2021-06-26,R3 Fighting Championship,Flyweight,282360,,,,,,,,,no_bout_match
+2020+,130979,Ryo Araki,2025-03,FLW,2025-03-02,Fighting Nexus,Flyweight,345327,https://www.tapology.com/fightcenter/fighters/131870-ryo-araki,2025-03-01,,,,,,,no_weight
+2020+,139182,Radek Hecl,2020-12,HW,2020-12-06,Grachan,Heavyweight,275605,https://www.tapology.com/fightcenter/fighters/279483-radek,2020-12-05,,,,,,,no_weight
+2020+,157388,Kevin Britos,2026-04,FW,2026-04-25,Samurai Fight House,Featherweight,364649,https://www.tapology.com/fightcenter/fighters/390066-kevin-britos,2026-04-25,,Featherweight,145,FW,named,yes,found
+2020+,129226,Asan Kalandarov,2022-02,BW,2022-02-27,EFC Global,Bantamweight,293199,https://www.tapology.com/fightcenter/fighters/251790-asan-kalandarov,2022-02-27,,,,,,,no_weight
+2020+,135695,Kai Wen Yu,2025-09,HW,2025-09-14,Chinese Taipei MMA Association,Heavyweight,354278,https://www.tapology.com/fightcenter/fighters/169827-kai-wen-yu,2025-09-14,,Heavyweight,265,HW,named,yes,found
+2020+,150494,Diego Emanuel Dias,2024-10,LW,2024-10-19,Ultimate Cage (France),Lightweight,339934,https://www.tapology.com/fightcenter/fighters/341801-diego-emanuel-dias,2024-10-19,,Lightweight,155,LW,named,yes,found
+2020+,150875,Wenlong Lu,2022-07,WW,2022-07-09,Jue Cheng King,Welterweight,299861,https://www.tapology.com/fightcenter/fighters/342685-wenlong-lu,2022-07-09,,Welterweight,170,WW,named,yes,found
+2020+,84650,Randy Brown,2024-12,WW,2024-12-07,UFC,Welterweight Bout,342474,https://www.tapology.com/fightcenter/fighters/21348-randall-brown-rude-boy,2024-12-07,,Welterweight,170,WW,named,yes,found
+2020+,127087,Fernando Jose,2022-03,BW,2022-03-26,Real 13 Fight,Bantamweight,294704,https://www.tapology.com/fightcenter/fighters/202824-fernando-jose,2022-03-26,,Bantamweight,135,BW,named,yes,found
+2020+,97771,Natanael Balieiro,2023-09,LW,2023-09-09,North Extreme Cagefighting,Lightweight,320758,https://www.tapology.com/fightcenter/fighters/123984-natanael-balieiro-gladiador,2023-09-09,,Lightweight,155,LW,named,yes,found
+2020+,136844,Rohullah Yousofi,2020-04,BW,2020-04-07,Fight Club Rush,Bantamweight,270613,,,,,,,,,no_bout_match
+2020+,170935,Zhane Tannous,2025-08,LHW,2025-08-07,Extreme Fighting Championship (Africa),Light Heavyweight,352518,https://www.tapology.com/fightcenter/fighters/195372-zhane-tannous,2025-08-07,,Light Heavyweight,205,LHW,named,yes,found
+2020+,135467,Timur Batishchev,2025-04,LW,2025-04-12,Urartu Fighting Championship,Lightweight,347092,https://www.tapology.com/fightcenter/fighters/371135-timur-batishev,2025-04-12,,Lightweight,154,LW,named,yes,found
+2020+,166403,Soma Yamamoto,2026-04,FLW,2026-04-26,Shooto,Flyweight,364738,https://www.tapology.com/fightcenter/fighters/452575-soma-yamamoto,2026-04-25,,,,,,,no_weight
+2020+,152239,Dylan Diebitz,2024-09,MW,2024-09-13,Legacy Fighting Alliance (LFA),Middleweight,338048,https://www.tapology.com/fightcenter/fighters/244957-dylan-diebitz,2024-09-13,,,,,,,no_weight
+2020+,97457,Uelson de Jesus,2025-03,LW,2025-03-23,Island Fighters League,Lightweight,346201,https://www.tapology.com/fightcenter/fighters/63809-uelson-de-jesus,2025-03-23,,Lightweight,155,LW,named,yes,found
+2020+,147242,Jesus Hernandez,2023-10,WW,2023-10-13,Cage Fury Fighting Championships,Welterweight,322479,,,,,,,,,no_bout_match
+2020+,173095,Ulysse Obame Ndong,2026-05,BW,2026-05-01,Lions Fights MMA (Lions Fighting Championship),Bantamweight,364804,https://www.tapology.com/fightcenter/fighters/443896-obame-ndong,2026-05-01,,Bantamweight,135,BW,named,yes,found
+2020+,76449,Jordan Powell,2021-08,HW,2021-08-29,Ringside Unified Fighting (RUF),Heavyweight,285179,https://www.tapology.com/fightcenter/fighters/42098-jordan-powel,2021-08-29,,Heavyweight,265,HW,named,yes,found
+2020+,178911,John Michael Morea,2026-10,FW,2026-10-17,Combat Night (Florida),Featherweight,372287,https://www.tapology.com/fightcenter/fighters/330799-john-morea,2026-10-17,,Featherweight,145,FW,named,yes,found
+2020+,147453,Alexey Alekseev,2024-05,FLW,2024-05-25,MMA Challenge Pro,Flyweight,333025,https://www.tapology.com/fightcenter/fighters/321486-alexey-alekseev,2024-05-25,,Flyweight,125,FLW,named,yes,found
+2020+,159793,Eoin Sheridan,2026-04,WW,2026-04-16,Professional Fighters League,Welterweight,364099,https://www.tapology.com/fightcenter/fighters/229290-eoin-sheridan,2026-04-16,,Welterweight,170,WW,named,yes,found
+2020+,107881,Victor Firmino Santos,2021-02,WW,2021-02-20,Grand Fighting Championship,Welterweight,277551,https://www.tapology.com/fightcenter/fighters/284961-vitor-jon-jones,2021-02-20,,Lightweight,161,LW,named,no,found
+2020+,142906,Salar Valizade,2021-07,LW,2021-07-03,Vendetta Fight Nights,Lightweight,282709,https://www.tapology.com/fightcenter/fighters/305893-salar-valizadeh,2021-07-03,,Lightweight,155,LW,named,yes,found
+2020+,102952,Vitaly Chesnokov,2026-03,FW,2026-03-07,MMA Sever,Featherweight,362260,,,,,,,,,no_bout_match
+2020+,178469,Sultan Ahmed,2026-07,FLW,2026-07-11,Fusion Fighting Championship (England),Flyweight,368219,https://www.tapology.com/fightcenter/fighters/404042-sultan-ahmed,2026-07-11,,Bantamweight,135,BW,named,no,found
+2020+,128270,Mattia Tedesco,2021-07,WW,2021-07-10,Colosseum Fighting Championship (Italy),Welterweight,282894,https://www.tapology.com/fightcenter/fighters/175150-mattia-tedesco,2021-07-10,,Welterweight,170,WW,named,yes,found
+2020+,151307,Erzhan Shiyrbayev,2022-07,BW,2022-07-31,Shumkar Pride,Bantamweight,301055,,,,,,,,,no_search_result
+2020+,150899,Aminjon Davlatzoda,2022-07,FW,2022-07-11,World Ertaymash Federation,Featherweight,300018,,,,,,,,,no_search_result
+2020+,153981,Kaua Mattoso,2023-07,FW,2023-07-15,Paranagua Fight International,Featherweight,317852,https://www.tapology.com/fightcenter/fighters/358311-kaua-mattoso,2023-07-15,,Featherweight,145,FW,named,yes,found
+2020+,127184,Issei Kitano,2026-06,FLW,2026-06-27,Fighting Nexus,Flyweight,367599,https://www.tapology.com/fightcenter/fighters/218738-kazuo-kitano,2026-06-26,,,,,,,no_weight
+2020+,149157,Quenton Hansen,2022-11,BW,2022-11-19,Northwest Fight Promotions,Bantamweight,306910,https://www.tapology.com/fightcenter/fighters/199093-quenton-hansen,2022-11-19,,Bantamweight,135,BW,named,yes,found
+2020+,146212,Jarley Souza,2021-12,BW,2021-12-04,Shark Fight Championship,Bantamweight,290003,https://www.tapology.com/fightcenter/fighters/318129-jarley-souza-ursinho-ted,2021-12-04,,,,,,,no_weight
+2020+,95285,Austin Gunter,2025-06,LW,2025-06-28,Rage in the Cage OKC,Lightweight,350979,https://www.tapology.com/fightcenter/fighters/72894-austin-gunter,2025-06-28,,Lightweight,155,LW,named,yes,found
+2020+,137267,Hirotaka Nakada,2022-10,FW,2022-10-23,Rizin Fighting Federation,Featherweight,305434,https://www.tapology.com/fightcenter/fighters/265125-hirotaka-nakada,2022-10-23,,,,,,,no_weight
+2020+,173774,Kristians Boguzs,2026-10,LW,2026-10-10,Konfrontacja Sztuk Walki,Lightweight,372112,https://www.tapology.com/fightcenter/fighters/317046-kristians-boguzs,2026-10-10,,Lightweight,155,LW,named,yes,found
+2020+,129292,Naglis Kanisauskas,2021-10,MW,2021-10-29,UAE Warriors,Middleweight,288028,https://www.tapology.com/fightcenter/fighters/101322-naglis-kaniauskas,2021-10-29,,Middleweight,185,MW,named,yes,found
+2020+,132712,Chris Crosby,2022-10,LHW,2022-10-14,Rage in the Cage,Light Heavyweight,304799,https://www.tapology.com/fightcenter/fighters/200013-chris-crosby,2022-10-14,,Middleweight,185,MW,named,no,found
+2020+,112659,Jakub Dohnal,2024-04,FW,2024-04-20,Oktagon MMA,Featherweight,331140,https://www.tapology.com/fightcenter/fighters/116834-jakub-dohnal,2024-04-20,,Featherweight,145,FW,named,yes,found

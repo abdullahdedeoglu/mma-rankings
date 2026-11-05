@@ -15,7 +15,7 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 | 2 ✓ | Kullandığımız model tam olarak neyi varsayıyor? | Glickman 1999; Glickman 2001 → [notlar](notes/oturum-2-glicko.md) |
 | 3 ✓ | Alternatif modeller ve geçmiş/gelecek bilgisi | Herbrich vd. 2006; Coulom 2008; Landfried & Mocskos 2025 → [notlar](notes/oturum-3-alternatif-modeller.md) |
 | 4 ✓ | Galibiyet farkı ve MMA'ya özgü bilgi | Kovalchik 2020; Hvattum & Arntzen 2010; Szczecinski 2022, 2026; Holmes, McHale & Żychaluk 2023 → [notlar](notes/oturum-4-galibiyet-farki-mma.md) |
-| 5 | Farklı gruplar ne zaman karşılaştırılabilir? (P4P) | Ford 1957; Berry, Reese & Larkey 1999; Batterham & George 1997 |
+| 5 ✓ | Farklı gruplar ne zaman karşılaştırılabilir? (P4P) | Ford 1957; Berry, Reese & Larkey 1999; Batterham & George 1997; Vanderburgh & Batterham 1999 → [notlar](notes/oturum-5-gruplar-arasi-p4p.md) |
 
 ## Kaynaklar
 
@@ -56,10 +56,11 @@ Her oturum bir soruya cevap verir. Okuma notları `docs/notes/` altında; her no
 
 | Kaynak | Künye | Neden önemli |
 |---|---|---|
-| Ford, L. R. (1957). Solution of a ranking problem from binary comparisons. *American Mathematical Monthly* 64(8), 28–33. | ? (sonuç ikincil kaynaklardan doğrulandı: [arXiv 1411.1168](https://ar5iv.labs.arxiv.org/html/1411.1168)) | Karşılaştırma grafiği bağlı değilse güçler ortak ölçekte tanımlanamaz. Sıkletler arası karşılaştırmanın matematiksel şartı. |
-| Berry, S. M., Reese, C. S. & Larkey, P. D. (1999). Bridging different eras in sports. *JASA*. [PDF](https://www.vanderbilt.edu/psychological_sciences/graduate/programs/quantitative-methods/quantitative-content/berry_reese_larkey_1999.pdf) | ~ (yıl PDF başlığından; cilt/sayfa doğrulanmadı) | Farklı dönemleri, iki döneme yayılan oyuncular üzerinden köprüleme. P4P'deki "sıklet değiştirenler" köprüsünün en yakın benzeri. |
-| Batterham, A. M. & George, K. P. (1997). Allometric modeling does not determine a dimensionless power function ratio for maximal muscular function. *Journal of Applied Physiology*. [PubMed](https://pubmed.ncbi.nlm.nih.gov/9390994) | ✓ | Mutlak performans ölçüsü olan halterde bile vücut ağırlığı düzeltmesi tartışmalı; MMA için kilo formülü olmamasının gerekçesi. |
-| Vanderburgh, P. M. & Batterham, A. M. (1999). Validation of the Wilks powerlifting formula. *Medicine & Science in Sports & Exercise*. [PubMed](https://pubmed.ncbi.nlm.nih.gov/10613442/) | ✓ | Aynı konu, Wilks formülü özelinde. |
+| Ford, L. R. (1957). Solution of a ranking problem from binary comparisons. *American Mathematical Monthly* 64(8), 28–33. | ? (orijinal okunmadı; şart Yan 2014'ten doğrulandı) | Bradley–Terry tahmini ancak galibiyet grafiği güçlü bağlıysa vardır. Bağlantı zayıfsa sıklet düzeyleri önselden gelir. |
+| Yan, T. (2014). Ranking in the generalized Bradley–Terry models when the strong connection condition fails. [arXiv 1411.1168](https://arxiv.org/abs/1411.1168) | ~ (arXiv okundu; yayın durumu doğrulanmadı) | Ford şartının ikincil kaynağı; düzenleme teriminin büyüklüğüne göre sıralamanın değişebildiğini gösteren örnek. |
+| Berry, S. M., Reese, C. S. & Larkey, P. D. (1999). Bridging different eras in sports. *JASA* 94 (Eylül 1999). [Arşiv kopyası](https://web.archive.org/web/2020/https://www.vanderbilt.edu/psychological_sciences/graduate/programs/quantitative-methods/quantitative-content/berry_reese_larkey_1999.pdf) | ✓ (okundu; sayı ve sayfa aralığı doğrulanmadı) | Çakışan kariyerlerle köprüleme; köprünün yaşla karışması; "etkileşim yok" varsayımı; döneme özgü hiyerarşik dağılımlar (H8'in dayanağı). |
+| Batterham, A. M. & George, K. P. (1997). Allometric modeling does not determine a dimensionless power function ratio for maximal muscular function. *Journal of Applied Physiology* 83(6), 2158–2166. doi:10.1152/jappl.1997.83.6.2158 [PubMed](https://pubmed.ncbi.nlm.nih.gov/9390994) | ✓ (yalnızca özet) | Mutlak ölçülü halterde bile allometrik düzeltmenin artıkları boyuta göre desen gösteriyor. Ağırlık formülü kullanmamamızın ve sıklete göre kalibrasyon tanısının gerekçesi. |
+| Vanderburgh, P. M. & Batterham, A. M. (1999). Validation of the Wilks powerlifting formula. *Medicine & Science in Sports & Exercise* 31(12), 1869–1875. doi:10.1097/00005768-199912000-00027 [PubMed](https://pubmed.ncbi.nlm.nih.gov/10613442/) | ✓ (yalnızca özet) | Wilks formülü bazı hareketlerde yansız, bazılarında ağırlığa göre yanlı. |
 
 ### Hakemli ama dolaylı
 

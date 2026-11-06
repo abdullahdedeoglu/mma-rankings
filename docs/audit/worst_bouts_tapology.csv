@@ -1,0 +1,103 @@
+fight_id,date,promotion,method,winner,loser,worst50_of_n_procedures,lookup_status,profile_side,tapology_result,tapology_division,tapology_url,verdict
+59446,2008-04-07,Hero's the Jungle,TKO (Punches),William Mattos,Jorge Magalhaes,1,no_bout_match/no_search_result,,,,,
+59936,2008-04-19,World Free Fight Challenge,Decision,Christos Petroutsos,Fabricio Nascimento,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/7244-christos-petroutsos,agrees
+62605,2008-06-29,Spirit Martial Challenge,Submission (Guillotine Choke),Ok Myoung Kim,Hyung Seok Lee,1,found,loser,loss,pro,https://www.tapology.com/fightcenter/fighters/28433-hyung-suk-lee,agrees
+63616,2008-08-02,Rage in the Cage,TKO (Punches),Richard Villa,Drew Fickett,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/richard-villa,agrees
+64091,2008-08-16,Midwest Fighting Championships,Submission (Guillotine Choke),Zeke Shiling,Kevin Cooley,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/2457-zeke-shiling,agrees
+67583,2008-11-15,UFC,KO/TKO,Brock Lesnar,Randy Couture,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/brock-lesnar,agrees
+67655,2008-11-20,Palace Fighting Championship,Decision (Unanimous),Leopoldo Serao,Jaime Jara,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/leopoldo-serao,agrees
+67690,2008-11-21,Pure Fighting Championships,Submission,Carlos Espinoza,Spencer Rohovie,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/7707-carlos-espinoza,agrees
+76300,2009-07-10,KV Arena Max,Submission (Rear-Naked Choke),Jaroslav Poborsky,Marcel Trang,1,no_bout_match/no_search_result,,,,,
+78651,2009-09-12,Evolution Fighting Championships (Canada),Submission (Rear Naked Choke),Corey Knapp,Marc Beausoleil,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/14870-corey-knapp-pequeno,agrees
+78661,2009-09-12,Fearless Fighting Championship,TKO (Punches),Greg LaJoye,Robert Mrotek,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/12287-greg-lajoye,agrees
+85117,2010-02-27,Cage of Combat,Submission (Armbar),Matsu Zaki,Ruben Barboza,5,no_search_result/no_bout_match,,,,,
+90481,2010-06-20,Tyneside Fighting Challenge,Submission (Triangle Choke),Scott Ward,Paul Cook,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/12644-scott-ward,agrees
+95217,2010-10-16,EC,Submission (Armbar),Scott Bradley,Scott Kinzebach,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/13980-scott-bradley-bonecrusher,agrees
+98460,2010-12-18,Draka,TKO (Leg Kicks),Peter Graham,Aleksander Emelianenko,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/peter-graham-the-chief,agrees
+99271,2011-01-29,EC,TKO (Submission to Punches),Taurean Bogguess,Joe Jordan,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/14765-taurean-bogguess-tory,agrees
+105365,2011-06-11,BAMMA USA,Decision (Unanimous),Jason Williams,Albert Rios,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/13851-jason-williams,agrees
+108905,2011-09-09,Coliseu Extreme Fight,Submission (Arm-Triangle Choke),Rodrigo Goncalves,Andre Luis Leal Lobato,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/28008-rodrigo-gonalves-rodrigao,agrees
+124591,2012-07-28,Battlefield Fight League,Decision (Unanimous),Cory Vom Baur,Mike Adams,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/18502-cory-vombaur,agrees
+126393,2012-09-08,Destiny MMA,TKO (Punches),Ben Santiago,Paulo da Silva,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/16740-ben-santiago,agrees
+134502,2013-02-16,Brace For War,Decision (Unanimous),Jon Leven,Ali Kocak Mohammed,7,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/12015-jon-leven-lethal,agrees
+138173,2013-04-25,Dragon Kombat,Decision (Split),Cesar Augusto Souza Damasceno,Antonio da Silva Tavares Filho,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/33500-cesar-damasceno-buiu,agrees
+140592,2013-06-02,Shooto,Decision (Unanimous),Nobuyuki Fujii,Kenji Mabuchi,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/33366-nobuyuki-fujii-perry,agrees
+143848,2013-08-10,Palmares Fight Championship,KO,Jeferson dos Santos,Evilasio Silva Araujo,7,found,loser,loss,pro,https://www.tapology.com/fightcenter/fighters/17169-evilasio-silva,agrees
+143975,2013-08-16,Ultimate Combat (Spain),Decision (Split),Andrei Malutin,Ivan Inclan,4,no_search_result/no_search_result,,,,,
+148210,2013-10-26,Super Fight League,TKO (Punches),Pushpender Singh,Kuldeep Singh Sekhon,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/36680-pushpender-singh,agrees
+151035,2013-12-13,Grand Fighting Championship,Submission (Guillotine Choke),Jose Antonio Vidal,Daniel Souza da Silva,2,no_search_result/no_search_result,,,,,
+152944,2014-02-01,We Love MMA (Free Fight Association Germany),Submission (Armbar),Niko Lohmann,Marva Kuebler,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/14469-niko-lohmann-karl-stahl,agrees
+167484,2014-11-15,Bellator MMA,KO (Punches),Joe Schilling,Melvin Manhoef,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/joe-schilling,agrees
+168675,2014-11-30,Grachan,TKO (Punches),Koichiro Takekawa,Osami Machida,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/23503-koichiro-takekawa,agrees
+169806,2014-12-19,Thunder Fight,Submission (Guillotine Choke),Ricardo Sattelmayer,Jose Alexandre,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/51150-ricardo-sattelmayer,agrees
+170120,2014-12-21,Pancrase,Submission (Rear-Naked Choke),Hideki Miyatani,Yuji Sato,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/38323-hideki-miyatani,agrees
+172707,2015-03-07,Fusion Fighting Championship (England),Submission (Guillotine Choke),John Spencer,Adam Evans,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/50993-john-spencer,agrees
+174161,2015-03-28,Max Fights (Mexico),Submission (Rear-Naked Choke),Pablo Alvarez,Jorge Gonzalez,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/97754-pablo-alvarez-demonio,agrees
+175462,2015-04-24,Ascendancy Fighting Championship,Submission (Guillotine Choke),Zakk Smith,Lee Sandmeier,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/20576-zakk-smith,agrees
+177021,2015-05-23,Made 4 The Cage,KO (Punches),David Stone,Tim Close,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/19001-david-stone,agrees
+177905,2015-06-06,Personal Open Fight,TKO (Punches),Adriano Lucas Tavares de Oliveira,Flavio Pina de Sousa,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/64699-adriano-de-oliveira-pantera,agrees
+178489,2015-06-19,Renaissance MMA,Decision (Unanimous),Brandon McMahan,Jonathan Mackles,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/27118-brandon-mcmahan,agrees
+192642,2016-03-19,Top Fighting Championship,KO (Punch),Young Jin Hwang,Dong Gyu Kim,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/25979-young-jin-hwang,agrees
+193235,2016-04-02,Extreme Fight for Heroes,Submission (Guillotine Choke),Zied Hadraoui,Quentin Fabra,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/69083-zied-hadraoui,agrees
+193463,2016-04-07,Jurunense Open Fight MMA,Decision (Unanimous),Albino Negrao,Flavio Pina de Sousa,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/31214-albino-negrao-bininho-pitbull,agrees
+194730,2016-04-24,Clan Wars,TKO (Doctor Stoppage),Gary Morris,Decky Dalton,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/16560-gary-morris-the-dumptruck,agrees
+195857,2016-05-14,Road Fighting Championship,TKO (Punch),Kiyoshi Kuwabara,A-Sol Kwon,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/77463-kiyoshi-kuwabara,agrees
+196443,2016-05-21,Venator Fighting Championship,KO (Punches and Elbows),Emil Meek,Rousimar Palhares,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/43028-emil-weber-meek,agrees
+199058,2016-07-09,Eternal MMA,TKO (Punches),Nicko Flessas,Ryan Gray,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/25406-nicko-flessas,agrees
+205246,2016-11-04,UCC,KO (Punches),Derek Gauthier,Chris Horodecki,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/derek-gauthier,agrees
+206481,2016-11-22,Fight Nights Global,Decision (Unanimous),Kadyr Adanov,Artur Soloviev,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/91619-kadyrbek-adanov-irbirs,agrees
+208351,2016-12-17,Thunder Fight,Decision (Unanimous),Lindeclecio Oliveira Batista,Willian Cilli,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/41875-lindeclercio-oliveira-brutus,agrees
+214244,2017-04-22,M-1,TKO (Punches),Emil Abbasov,Heliton dos Santos,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/64894-emil-abasov,agrees
+215531,2017-05-13,New Corpore Extreme,Decision (Split),Everton Nascimento,Sergio Henrique,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/135212-everton-nascimento,agrees
+226203,2017-11-18,MMA Experience (Brazil),Submission (Guillotine Choke),Jeam Montefusco Silva,Diovane Ribeiro,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/132997-jean-silva-micosina,agrees
+227344,2017-12-03,Shooto,Decision (Unanimous),Reo Hansen,Masahiro Sugita,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/136228-hansen-reiyu,agrees
+227462,2017-12-08,Modern Fighting Pankration,TKO (Punches),Rinat Farsin,Evgeniy Zlivko,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/130703-rinat-farsin,agrees
+231512,2018-03-10,Chin Woo Men MMA Professional League,KO (Knee and Punch),Renjie Cao,Denilson Bischiliari,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/269384-renjie-cao,agrees
+231786,2018-03-11,Chin Woo Men MMA Professional League,Decision (Split),Xiaolong Wu,Aoriqileng,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/133130-xiaolong-wu,agrees
+238254,2018-07-05,Professional Fighters League,TKO (Punches),Ray Cooper III,Jake Shields,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/21174-ray-cooper-iii-braddah-boy,agrees
+241248,2018-09-07,Samurai Fight,Decision (Unanimous),Lucas Borges Fabricio,Thiago Pereira,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/149463-lucas-fabrcio,agrees
+242138,2018-09-22,ONE FC,Decision (Unanimous),Xuewen Peng,Stefer Rahardian,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/153757-xuewen-peng,agrees
+244619,2018-11-03,UFC,KO/TKO,Jared Cannonier,David Branch,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/63163-jared-cannonier,agrees
+249736,2019-02-23,Brotherhood Fight Night,KO,Alex Junius,Antonio Marcos,7,found,loser,loss,pro,https://www.tapology.com/fightcenter/fighters/44075-marcos-pirata-marco,agrees
+252078,2019-03-31,ONE FC,TKO (Punches),Timofey Nastyukhin,Eddie Alvarez,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/72236-timofey-nastyukhin,agrees
+258554,2019-07-27,Kunlun Fight,Decision (Unanimous),Andrey Marchenko,Duoji Banma,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/168162-andrei-marchenko,agrees
+259729,2019-08-18,Rizin Fighting Federation,KO (Punches),Kai Asakura,Kyoji Horiguchi,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/58234-kai-asakura,agrees
+260247,2019-08-31,Absolute Championship Akhmat,TKO (Punches),Vyacheslav Babkin,Bruno Santos,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/182944-vyacheslav-babkin,agrees
+266774,2019-12-14,California Cage Wars,Submission (Rear-Naked Choke),Chris Sandt,Anthony Formoso,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/27823-chris-sandt-the-killer-skater,agrees
+276150,2020-12-19,Team Force MS,KO (Head Kick),Heinrich Caceres,Edimilson Souza,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/137197-heinrich-caceres-enrique-coorseen,agrees
+276994,2021-01-27,Octagon Promotion,KO (Punches),Sambet Naimanbayev,Yelzhan Aliaskar,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/95364-sambet-naimanbayev,agrees
+278463,2021-03-19,Double G Fighting Championship,KO (Punch),Yong Ju Lim,Jong Gi Ahn,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/140788-yong-joo-lim,agrees
+284363,2021-08-13,Ultimate Warrior Challenge Mexico,KO (Flying Knee),Brandon Uruchurtu,Braian Gonzalez,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/146517-brandon-polar-uruchurtu,agrees
+288312,2021-11-05,New England Fights,Submission (Rear-Naked Choke),Jay Ellis,Rodrigo Almeida,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/2586-jay-ellis,agrees
+288705,2021-11-13,Eagles Fighting Championship,Submission,Evgeniy Plaksin,Martun Mezhlumyan,8,found,loser,loss,pro,https://www.tapology.com/fightcenter/fighters/157837-martun-mezhlumyan,agrees
+289164,2021-11-20,Jue Cheng King,Decision (Split),Jingtao Li,Chunbo Yuan,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/282177-jingtao-li,agrees
+293862,2022-03-12,Nacao Cyborg,Submission (Triangle Armbar),Davi Rodrigues,Luis Rafael Laurentino,2,found,loser,loss,pro,https://www.tapology.com/fightcenter/fighters/42504-luiz-rafael-japa,agrees
+302866,2022-09-08,Mr. Cage Championship,Decision (Unanimous),Alex Rodrigues,Diego Barroso,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/101185-alex-piu,agrees
+303645,2022-09-22,MMA Sanda Combat,Decision (Unanimous),Victor Pereira Silva,Carlos Gomez,8,no_bout_match/no_bout_match,,,,,
+304367,2022-10-02,MMA Series,TKO (Punches),Vyacheslav Skotnikov,Cafu Falcon,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/185161-vyacheslav-skotnikov,agrees
+305860,2022-11-05,Aruba Fighting Championship,Decision (Split),Hyram Rodriguez,Sebastian Piedrahita,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/16982-hyram-rodriguez,agrees
+306492,2022-11-12,UFC,KO/TKO,Alex Pereira,Israel Adesanya,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/117305-alex-pereira,agrees
+308703,2022-12-23,Thunder Fight,Decision (Unanimous),Jhasyb Orozco,Carlos Tardio,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/115335-jhasyb-orozco-arce,agrees
+318714,2023-07-30,Rizin Fighting Federation,KO (Punch),Chihiro Suzuki,Patricio Pitbull,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/140868-chihiro-suzuki,agrees
+318727,2023-07-30,United Fighting Series (Argentina),KO (Punch),Cristian Dipp,Mariano Pupi,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/111342-christian-dipp,agrees
+319137,2023-08-12,Mianning International Fighting Championship,KO (Knee),Ulziibat Ganbaatar,Muha Li,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/314175-ulziibat-ganbaatar,agrees
+322030,2023-10-06,LUX Fight League,KO (Punches),Marco Antonio Pardo,Josue Bojorge,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/81081-marco-pardo,agrees
+325743,2023-12-09,International Fight Sport Association,Decision,Igor Kutskiy,Amir Rehman Noor,4,no_bout_match/no_search_result,,,,,
+326778,2023-12-31,Rizin Fighting Federation,TKO (Head Kick and Punches),Hiroya Kondo,Jo Arai,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/160832-hiroya,agrees
+327041,2024-01-20,Black Combat,TKO (Punches),Do Yoon Hwang,Juri Ohara,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/114057-do-yoon-hwang,agrees
+327243,2024-01-26,Hexagone MMA,Decision (Unanimous),Osvald Fedorovic,Mehdi Ben Lakhdhar,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/101211-osvald-fedorovic,agrees
+332113,2024-05-11,KnockOut Fight League,KO (Punches),Sultanbek Orozmamat uulu,Ivan Eremenko,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/231010-sultan-orozmamat-uulu,agrees
+332207,2024-05-11,Russian Cagefighting Championship,TKO (Punches),Asaf Chopurov,Denis Lavrentyev,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/198455-asef-chopurov,agrees
+334443,2024-06-22,EFC Global,TKO (Punches),Meder Nurmamatov,Ismoil Sadullaev,1,no_bout_match/no_bout_match,,,,,
+338320,2024-09-20,Bayou Fighting Championship,Decision (Unanimous),Logan Speyrer,Rylan Melancon,6,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/181461-logan-speyrer,agrees
+341880,2024-11-29,Fighter100,Technical Submission (Guillotine Choke),Young Chan Choi,Ryuhei Sakai,4,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/337182-young-chan-choi,agrees
+342223,2024-12-06,Nashe Delo,Decision (Split),Khadis Ibragimov,Viktor Nemkov,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/167232-khadis-ibragimov,agrees
+342525,2024-12-08,IUR Fighting Championships,Submission (Armbar),Dillan Douglas,Daire Toman,5,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/67851-dillan-douglas,agrees
+346543,2025-03-30,Thunder Fight,KO (Punches),Alex Junius,Mario Piazzon,8,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/47456-alex-junius-marmaduke,agrees
+349585,2025-05-31,Russian Cagefighting Championship,Decision (Split),Vladislav Kovalev,Alexander Shlemenko,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/313587-vladislav-kovalev,agrees
+350058,2025-06-14,971 Fighting Championship,TKO (Doctor Stoppage),Adrian Sanchez,Mirafzal Akhtamov,3,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/142133-adrian-sanchez,agrees
+350361,2025-06-15,Levels Fight League,TKO (Jaw Injury),Stanislav Romanov,Mohamed Amine,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/182518-stas-romanov,agrees
+350772,2025-06-27,Professional Fighters League,Decision (Unanimous),Sullivan Cauley,Phil Davis,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/175706-sullivan-cauley,agrees
+352250,2025-07-27,Rizin Fighting Federation,KO (Punches),Ren Sugiyama,Masanori Kanehara,2,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/239502-ya-man,agrees
+358300,2025-11-28,Pierre Salas Promotion,Decision (Split),Jhasyb Orozco,Carlos Tardio,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/115335-jhasyb-orozco-arce,agrees
+359104,2025-12-07,Montenegro Fighting Championship,KO (Punch),Isgender Isgenderov,Ivan Sofran,1,found,winner,win,pro,https://www.tapology.com/fightcenter/fighters/513630-iskandar-iskandarov,agrees

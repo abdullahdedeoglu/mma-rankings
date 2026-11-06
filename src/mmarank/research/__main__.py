@@ -2,6 +2,7 @@
 
   grid MODEL...  [--synthetic SEED] [--out DIR] [--workers N]   run pre-registered grids
   select MODEL... [--out DIR]                                    nested selection summary
+  report MODEL... [--out DIR]                                    S1 comparison report (after select)
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ from . import evaluate, grid, stream, synthetic
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(prog="mmarank.research")
-    ap.add_argument("command", choices=["grid", "select"])
+    ap.add_argument("command", choices=["grid", "select", "report"])
     ap.add_argument("models", nargs="+", choices=sorted(grid.GRIDS))
     ap.add_argument("--synthetic", type=int, default=None, help="use synthetic data with this seed")
     ap.add_argument("--out", type=Path, default=None)
@@ -27,6 +28,10 @@ def main(argv=None) -> None:
         st = synthetic.stream(a.synthetic)[0] if a.synthetic is not None else stream.load()
         print(json.dumps(st.meta), flush=True)
         grid.run_grid(st, a.models, out, a.workers)
+    elif a.command == "report":
+        from . import report
+        st = synthetic.stream(a.synthetic)[0] if a.synthetic is not None else stream.load()
+        report.run_s1(st, out, tuple(a.models))
     else:
         for m in a.models:
             sel = evaluate.select(grid.load_summaries(out, m))

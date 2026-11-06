@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.9 · **Tarih:** 2026-11-06 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.9.1 · **Tarih:** 2026-11-06 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -243,6 +243,7 @@ Bu alt bölüm, gerçek veride hiçbir model sonucu görülmeden yazıldı (v0.9
    Sonuç, logit p üzerine lojistik regresyonla tahmin edilir.
 8. **Model seçimi (S1):** en iyi model, iç içe log loss'u en küçük olandır. Bir başkasından §5 kurallarına göre ayrılmıyorsa parametresi az
    olan seçilir. Parametre sayıları: M0 1; M1, M2 ve M3 3'er; λ +1.
+   Parametre sayısı da eşitse mevcut model (M1) korunur. *(v0.9.1'de, M0–M3 sonuçları görüldükten sonra eklendi; bkz. EXPERIMENTS.md E2.2.)*
 9. **Duyarlılık (§2, denetim 4):** profesyonelliği kontrol edilmemiş maçlar, seçilmiş ayarlar sabit tutularak hem derecelendirmeden hem
    değerlendirmeden çıkarılır.
 
@@ -333,3 +334,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.7 | Veri denetimi bulguları (§2); H4'te yalnızca geçmiş bilgiyle tanımlanan yerleşik sıklet ve 3+ sıklet farkının eksik sayılması; H5'te yaş aralığı kuralı; sıklet denetiminde bağımsız kaynak şartı (§8) | Aşama 1 veri denetimi ([AUDIT.md](AUDIT.md)). Yalnızca betimsel sayılar görüldü; henüz hiçbir model sonucu görülmedi. |
 | 2026-11-05 | 0.8 | Sıklet denetimi sonucu (§2); H4'te ölçüm hatası yorumu (§7) | 200 dövüşçü-aylık sıklet denetimi Tapology ile yapıldı (AUDIT.md §7). Karşılaştırma kuralı sonuçlar okunmadan sabitlendi. Henüz hiçbir model sonucu görülmedi. |
 | 2026-11-06 | 0.9 | Aşama 2 uygulama ayrıntıları (§6.1): ortak kurallar, ayar seçimi ve λ yöntemi, üst sınırlı ızgara genişletme kuralı, model seçimi, M0–M3 ızgaraları, Glicko-2'nin sürekli zamana uyarlanması; λ yorumuna bilgili eşleştirme notu (§6) | Aşama 2 öncesi ön kayıt. Altyapı yalnızca sentetik veriyle doğrulandı (E1.1); henüz hiçbir model gerçek veride çalıştırılmadı. |
+| 2026-11-06 | 0.9.1 | Kurala göre yapılan ızgara genişletmeleri: M1 başlangıç RD 550; M2 τ 1,6 ve 2,0, başlangıç RD 550; M3 beraberlik olasılığı %4,6, %6,2 ve %7,8 (E2.1). Eşit parametre sayısında mevcut modelin korunması (§6.1, madde 8) | Genişletmeler önceden kayıtlı kuralın (§6.1, madde 5) uygulanması. Eşitlik kuralı ise **sonuçlar görüldükten sonra** eklendi: M1, M2 ve M3 ayrılmadı ve protokolde eşitlik durumu yazılı değildi (E2.2). |

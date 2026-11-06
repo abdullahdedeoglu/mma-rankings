@@ -25,14 +25,35 @@ def _product(**axes) -> list[dict]:
     return [dict(zip(keys, vals)) for vals in itertools.product(*(axes[k] for k in keys))]
 
 
-GRIDS: dict[str, list[dict]] = {
-    "M0": _product(K=[16, 24, 32, 48, 64, 80, 96, 128, 160, 200, 256]),
-    "M1": _product(c=[0, 10, 20, 30, 40, 55, 70, 90], rd0=[150, 200, 250, 300, 350, 450], min_rd=[0, 30, 50, 70]),
-    "M2": _product(tau=[0.2, 0.5, 0.8, 1.2], rd0=[150, 200, 250, 300, 350, 450],
-                   sigma0=[0.03, 0.06, 0.12, 0.2, 0.3, 0.4]),
-    "M3": _product(sigma0=[0.5, 1, 1.5, 2, 3, 4], gamma=[0, 0.05, 0.1, 0.15, 0.2, 0.3],
-                   p_draw=[0.005, 0.014, 0.03]),
+# Pre-registered axes (PROTOCOL §6.1, v0.9).
+AXES: dict[str, dict[str, list]] = {
+    "M0": {"K": [16, 24, 32, 48, 64, 80, 96, 128, 160, 200, 256]},
+    "M1": {"c": [0, 10, 20, 30, 40, 55, 70, 90], "rd0": [150, 200, 250, 300, 350, 450], "min_rd": [0, 30, 50, 70]},
+    "M2": {"tau": [0.2, 0.5, 0.8, 1.2], "rd0": [150, 200, 250, 300, 350, 450],
+           "sigma0": [0.03, 0.06, 0.12, 0.2, 0.3, 0.4]},
+    "M3": {"sigma0": [0.5, 1, 1.5, 2, 3, 4], "gamma": [0, 0.05, 0.1, 0.15, 0.2, 0.3], "p_draw": [0.005, 0.014, 0.03]},
 }
+# Extensions made by the grid-edge rule (§6.1 item 5), one list per round; logged in EXPERIMENTS.md.
+EXTENSIONS: list[dict[str, dict[str, list]]] = [
+    # round 1 (2026-11-06, E2.1)
+    {"M1": {"rd0": [550]}, "M2": {"tau": [1.6], "rd0": [550]}, "M3": {"p_draw": [0.046]}},
+    # round 2 (2026-11-06, E2.1)
+    {"M2": {"tau": [2.0]}, "M3": {"p_draw": [0.062]}},
+    # round 3 (2026-11-06, E2.1): last one allowed for p_draw
+    {"M3": {"p_draw": [0.078]}},
+]
+MAX_EXTENSIONS = 3
+
+
+def axes(model: str) -> dict[str, list]:
+    ax = {k: list(v) for k, v in AXES[model].items()}
+    for rnd in EXTENSIONS:
+        for k, vals in rnd.get(model, {}).items():
+            ax[k] = sorted(set(ax[k]) | set(vals))
+    return ax
+
+
+GRIDS: dict[str, list[dict]] = {m: _product(**axes(m)) for m in AXES}
 PARAM_COUNT = {"M0": 1, "M1": 3, "M2": 3, "M3": 3}
 # Natural grid edges that do not trigger the extension rule (PROTOCOL §6.1, item 5).
 NATURAL_EDGES = {("M1", "c", 0), ("M1", "min_rd", 0), ("M3", "gamma", 0)}
@@ -102,14 +123,24 @@ def load_eta(out: Path, model: str, cid: str) -> array:
 
 
 def edge_hits(model: str, selection: dict) -> list[str]:
-    """Selected configurations on a grid edge (extension rule, PROTOCOL §6.1 item 5)."""
-    axes = {k: sorted({p[k] for p in GRIDS[model]}) for k in GRIDS[model][0]}
+    """Selected configurations on a grid edge (extension rule, PROTOCOL §6.1 item 5).
+    Each hit says the next value by the last step, or why the axis cannot be extended."""
+    ax = axes(model)
+    n_ext = {k: sum(k in rnd.get(model, {}) for rnd in EXTENSIONS) for k in ax}
     hits = set()
     for variant in ("own", "lambda"):
         for Y, row in selection[variant].items():
-            params = parse_id(row["config"])
-            for k, v in params.items():
-                vals = axes[k]
-                if len(vals) > 1 and v in (vals[0], vals[-1]) and (model, k, v) not in NATURAL_EDGES:
-                    hits.add(f"{variant}: {k}={v} ({'min' if v == vals[0] else 'max'})")
+            for k, v in parse_id(row["config"]).items():
+                vals = ax[k]
+                if len(vals) < 2 or v not in (vals[0], vals[-1]) or (model, k, v) in NATURAL_EDGES:
+                    continue
+                side = "min" if v == vals[0] else "max"
+                nxt = round(2 * vals[0] - vals[1], 6) if side == "min" else round(2 * vals[-1] - vals[-2], 6)
+                if nxt <= 0:
+                    note = "stuck (next value <= 0)"
+                elif n_ext[k] >= MAX_EXTENSIONS:
+                    note = "stuck (3 extensions used)"
+                else:
+                    note = f"extend to {nxt}"
+                hits.add(f"{variant}: {k}={v} ({side}) -> {note}")
     return sorted(hits)

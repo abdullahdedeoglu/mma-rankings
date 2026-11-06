@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.8 · **Tarih:** 2026-11-05 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.9 · **Tarih:** 2026-11-06 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -186,7 +186,7 @@ tek adım ileri log loss toplamı en aza indirilerek seçilir (§4.2'deki iç i�
 **Tahmin anı ölçeği:** Puanlar gürültülü tahminler olduğu için, puanı üreten modelin ölçeğiyle hesaplanan olasılıklar tahmin gücünü
 abartabilir (Szczecinski 2026, hakemli değil). Bu nedenle her model iki biçimde raporlanır: olasılık modelin kendi formülüyle ve
 eğitim penceresinde tahmin edilen tek bir ölçek parametresiyle (p = lojistik(λ·Δ), Glicko'da g(RD) korunarak). λ bir parametre sayılır.
-Eğitim penceresindeki λ, yakınsama tanısı olarak da raporlanır: tahmin gürültüsü tek başına λ'yı 1'in altına çeker; λ'nın 1'in üzerinde
+Eğitim penceresindeki λ, yakınsama tanısı olarak da raporlanır: tahmin gürültüsü tek başına λ'yı 1'in altına çeker (bilgili eşleştirme de aynı yönde etki eder; bkz. EXPERIMENTS.md E1.1); λ'nın 1'in üzerinde
 çıkması puan farklarının "sıkışık" kaldığına, yani puanların henüz yakınsamadığına işaret eder.
 
 **Bilinen yaklaşım sorunu:** Glicko'nun yaklaşık filtresi dönem başına oyuncu başına 5–10 maç için önerilmiş ve en az 4 rakiple test edilmiştir.
@@ -200,6 +200,72 @@ maçlarla üretilir. Tüm veriyle (gelecek dahil) yapılan tam yumuşatma S1'in 
 
 **M4 fizibilitesi:** M4'ün tam veri üzerindeki çalışma süresi önce bir pilotla ölçülür. Pilot yalnızca süreyi ölçer, tahmin başarısına bakılmaz;
 EXPERIMENTS.md'ye "fizibilite" olarak kaydedilir. Süre makul değilse M4'ün nasıl yaklaşıklanacağı bu belgeye bir değişiklik olarak yazılır.
+
+### 6.1 Uygulama ayrıntıları (Aşama 2'den önce sabitlendi)
+
+Bu alt bölüm, gerçek veride hiçbir model sonucu görülmeden yazıldı (v0.9). Kod: `src/mmarank/research/`.
+
+**Ortak kurallar**
+
+1. **Derecelendirme akışı:** §2'deki derecelendirilen maçların tamamı (kadın ve cinsiyeti bilinmeyen maçlar dahil) tek havuzda işlenir.
+   Değerlendirme §3'teki popülasyonlarda yapılır.
+2. **Sonuç:** bu aşamada galibiyet 1, mağlubiyet 0, beraberlik 0,5'tir. Bitiş şekli H1'de, organizasyon önseli H2'de, sıklet önseli H8'de
+   sınanır; burada hiçbiri yoktur. (Bu nedenle buradaki M1, sitede çalışan Glicko-1'in sade hâlidir.)
+3. **İlk maç:** her yeni dövüşçü aynı ortalama ve aynı başlangıç belirsizliğiyle başlar. Başlangıç belirsizliği aynı zamanda üst sınırdır.
+4. **Zaman:** 1 ay = 30,4375 gün. Belirsizlik, maç sayısıyla değil geçen süreyle artar (ay başına varyans).
+5. **Aynı gün:** bir günün bütün tahminleri günün başındaki durumla yapılır. Güncelleme: Elo'da günün değişiklikleri gün başı puanlarıyla
+   hesaplanıp toplanır; Glicko-1 ve Glicko-2'de her gün bir derecelendirme dönemidir; TrueSkill'de günün maçları `fight_id` sırasıyla
+   ardışık işlenir.
+6. **Önceki maç sayısı:** derecelendirilen maçlar (beraberlik dahil) sayılır; modelden bağımsızdır.
+7. **Log loss:** olasılıklar [10⁻⁶, 1 − 10⁻⁶] aralığına kırpılır.
+
+**Ayar seçimi ve λ**
+
+1. Her modelde ızgaradaki her ayar bir kez çalıştırılır ve bütün tahminler saklanır.
+2. Test yılı *Y* (2008–2025) için eğitim penceresi, birincil popülasyonun *Y*'den önceki bütün yıllarıdır (genişleyen pencere).
+3. **Kendi formülüyle:** pencerede log loss'u en küçük olan ayar seçilir ve *Y* yılında değerlendirilir.
+4. **λ ile:** her ayar için λ, pencerede en çok olabilirlikle tahmin edilir: p' = lojistik(λ · logit p). Elo ve Glicko'da bu, puan farkını
+   (Glicko'da g(RD) ile birlikte) λ ile çarpmakla aynıdır; TrueSkill'de modelin kendi olasılığının logit'ine uygulanır. λ'lı log loss'u
+   pencerede en küçük olan ayar seçilir ve *Y* yılında o pencerenin λ'sıyla değerlendirilir. λ, kendi formülüyle sürüme eklenen bir
+   bileşen gibi §5 kurallarıyla sınanır.
+5. **Izgara sınırı:** herhangi bir test yılında seçilen ayar bir parametrenin ızgara sınırındaysa, ızgara o yönde bir değer genişletilir ve
+   değerlendirme baştan yapılır. Yeni değer, sınırdaki son aralığın adımıyla belirlenir (ör. K: 16 → 8; τ: 1,2 → 1,6).
+   - Doğal sınırlar (c = 0, γ = 0, en küçük RD yok) bu kurala girmez.
+   - Bir parametre en fazla üç kez genişletilir. Geçersiz bir değere (≤ 0) düşecekse genişletilmez. İki durumda da "sınırda kaldı" diye raporlanır.
+   - Her genişletme EXPERIMENTS.md'ye ve değişiklik günlüğüne yazılır.
+6. **Raporlanan:**
+   - iç içe sonuç (karar bu sayıya göre verilir);
+   - tam dizi log skoru (§4.2);
+   - yıllara göre seçilen ayarlar ve λ;
+   - Brier, kalibrasyon eğimi ve kesişimi;
+   - §3'teki ikincil popülasyonlar ve tanılar.
+7. **Kalibrasyon eğimi:** her maç, dövüşçü numarası küçük olan taraf açısından yönlendirilir (sonuçtan bağımsız, sabit bir yönlendirme).
+   Sonuç, logit p üzerine lojistik regresyonla tahmin edilir.
+8. **Model seçimi (S1):** en iyi model, iç içe log loss'u en küçük olandır. Bir başkasından §5 kurallarına göre ayrılmıyorsa parametresi az
+   olan seçilir. Parametre sayıları: M0 1; M1, M2 ve M3 3'er; λ +1.
+9. **Duyarlılık (§2, denetim 4):** profesyonelliği kontrol edilmemiş maçlar, seçilmiş ayarlar sabit tutularak hem derecelendirmeden hem
+   değerlendirmeden çıkarılır.
+
+**Modeller ve ızgaralar**
+
+| Model | Uygulama | Izgara | Ayar |
+|---|---|---|---|
+| M0 Elo | p = 1 / (1 + 10^(−Δ/400)); güncelleme K·(s − p). Herkes aynı puanla başladığından başlangıç puanı tahmini etkilemez, ayarlanmaz | K ∈ {16, 24, 32, 48, 64, 80, 96, 128, 160, 200, 256} | 11 |
+| M1 Glicko-1 | Glickman (1999); belirsizlik artışı RD² + c²·ay | c ∈ {0, 10, 20, 30, 40, 55, 70, 90}; başlangıç RD ∈ {150, 200, 250, 300, 350, 450}; en küçük RD ∈ {yok, 30, 50, 70} | 192 |
+| M2 Glicko-2 | Glickman (2001), sürekli zamana uyarlanmış (aşağıda) | τ ∈ {0,2; 0,5; 0,8; 1,2}; başlangıç RD ∈ {150, 200, 250, 300, 350, 450}; başlangıç oynaklığı σ₀ (Glicko-2 ölçeği, ay başına) ∈ {0,03; 0,06; 0,12; 0,2; 0,3; 0,4} | 144 |
+| M3 TrueSkill | Herbrich vd. (2006), iki kişilik kapalı form; varyans artışı σ² + γ²·ay. Ölçek değişmez olduğu için β = 1 sabit | σ₀ ∈ {0,5; 1; 1,5; 2; 3; 4}; γ (ay başına) ∈ {0; 0,05; 0,1; 0,15; 0,2; 0,3}; beraberlik olasılığı p ∈ {%0,5; %1,4; %3}, payı ε = √2·β·Φ⁻¹((1 + p)/2) | 108 |
+
+M4 (TTT) fizibilite pilotu M0–M3 karşılaştırmasından sonra yapılır; ızgarası pilotun sonucuna göre bu bölüme eklenir.
+
+**Glicko-2'nin sürekli zamana uyarlanması** (bizim türetmemiz, hakemli bir kaynağa dayanmaz):
+
+- Glickman'ın (2001) algoritması her dönemde varyansa bir kez σ'² ekler. Oynaklığı, gözlenen Δ'nın N(0, φ² + σ'² + v) dağılımından gelen
+  olabilirlikle ve ln σ² üzerindeki N(ln σ², τ²) önseliyle günceller.
+- Son güncellemeden bu yana Δt ay geçtiyse eklenen varyans Δt·σ'² olur. y = ln(Δt·σ'²) dönüşümüyle algoritma aynen çalışır:
+  başlangıç değeri a = ln(Δt·σ²) olur, τ değişmez (güncelleme başına uygulanır).
+- Bulunan e^y'den σ'² = e^y / Δt geri çözülür ve φ*² = φ² + e^y olur. Δt en az 1 gündür.
+- Maç öncesi tahmin, eski σ ile büyütülmüş φ kullanır: √(φ² + Δt·σ²), başlangıç RD ile sınırlı.
+- Uygulama, Δt = 1 iken Glickman'ın (2001) sayısal örneğini aynen üretmelidir (birim testi).
 
 ## 7. Hipotezler (ek bilgiler)
 
@@ -266,3 +332,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.6 | Sıklet bilgisinin dönemsel kapsamı ve uç sıklet geçişleri (§2); sıkletler arası kalibrasyon tanısı (§3); H8 (sıklete özgü ilk maç önseli) ve H4'e yaş karıştırıcısı notu (§7); P4P varsayımlarıyla yayım, ağırlık formülü yok, 2010 öncesi sıklet listeleri kuralı, uzak geçişlerin denetimi (§8); etkileşim yok varsayımı ve önselin sıklet düzeylerine etkisi (§9) | Okuma oturumu 5 ([notlar](notes/oturum-5-gruplar-arasi-p4p.md)). Ford 1957'nin orijinali okunmadı (sonuç Yan 2014'ten); Batterham & George ve Vanderburgh & Batterham yalnızca özetten. Henüz hiçbir deney yapılmadı. |
 | 2026-11-05 | 0.7 | Veri denetimi bulguları (§2); H4'te yalnızca geçmiş bilgiyle tanımlanan yerleşik sıklet ve 3+ sıklet farkının eksik sayılması; H5'te yaş aralığı kuralı; sıklet denetiminde bağımsız kaynak şartı (§8) | Aşama 1 veri denetimi ([AUDIT.md](AUDIT.md)). Yalnızca betimsel sayılar görüldü; henüz hiçbir model sonucu görülmedi. |
 | 2026-11-05 | 0.8 | Sıklet denetimi sonucu (§2); H4'te ölçüm hatası yorumu (§7) | 200 dövüşçü-aylık sıklet denetimi Tapology ile yapıldı (AUDIT.md §7). Karşılaştırma kuralı sonuçlar okunmadan sabitlendi. Henüz hiçbir model sonucu görülmedi. |
+| 2026-11-06 | 0.9 | Aşama 2 uygulama ayrıntıları (§6.1): ortak kurallar, ayar seçimi ve λ yöntemi, üst sınırlı ızgara genişletme kuralı, model seçimi, M0–M3 ızgaraları, Glicko-2'nin sürekli zamana uyarlanması; λ yorumuna bilgili eşleştirme notu (§6) | Aşama 2 öncesi ön kayıt. Altyapı yalnızca sentetik veriyle doğrulandı (E1.1); henüz hiçbir model gerçek veride çalıştırılmadı. |

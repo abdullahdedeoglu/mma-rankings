@@ -311,7 +311,16 @@ def run_trueskill(st: Stream, sigma0: float, gamma: float, p_draw: float, beta: 
 
 # ---------------------------------------------------------------- registry
 
-RUNNERS = {"M0": run_elo, "M1": run_glicko1, "M2": run_glicko2, "M3": run_trueskill}
+def run_ttt(st: Stream, sigma0: float, gamma: float, p_draw: float, beta: float = 1.0,
+            unc: array | None = None) -> array:
+    """M4 as pre-registered: each day, predict, add the day, one backward+forward sweep (PROTOCOL §6.1)."""
+    from .ttt import run_online
+    if unc is not None:
+        raise NotImplementedError("uncertainty bands for M4 are not implemented")
+    return run_online(st, sigma0, gamma, p_draw, refit_every_days=1, beta=beta)
+
+
+RUNNERS = {"M0": run_elo, "M1": run_glicko1, "M2": run_glicko2, "M3": run_trueskill, "M4": run_ttt}
 
 
 def run(model: str, st: Stream, params: dict, unc: array | None = None) -> array:

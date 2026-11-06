@@ -239,3 +239,42 @@ tarafın** modelin tahmininden ne kadar az ya da çok kazandığını ölçüyor
 - Sıkletler arası kalibrasyon tanısı (§3; P4P ile birlikte, Aşama 3).
 - M4 (TTT) fizibilite pilotu.
 
+---
+
+## E3 · M4 (TrueSkill Through Time)
+
+### E3.1 · Fizibilite pilotu (§6, "M4 fizibilitesi")
+
+- **Tarih / veri:** 2026-11-06 · `db-2026-11-04-1837`. Yalnızca süre ölçüldü; hiçbir tahmin skorlanmadı.
+- **Uygulama:** `src/mmarank/research/ttt.py`, bizim yazdığımız saf Python uygulaması.
+  - Her dövüşçünün maç yaptığı her gün bir düğüm; ardışık düğümler γ²·ay varyanslı kaymayla bağlı.
+  - Çıkarım beklenti yayılımıyla (EP) yapılıyor: zaman boyunca geri ve ileri geçiş, maç mesajları TrueSkill güncellemesiyle yenileniyor.
+- **Doğrulama** (`tests/test_research.py`, 3 yeni test):
+  1. Yalnızca ileri geçiş, M3 ile birebir aynı sonucu veriyor (en büyük fark 3·10⁻¹⁴).
+  2. Çevrimiçi kullanımda sızıntı yok.
+  3. Tekrarlanan turlarda değişim düzenli olarak küçülüyor. Yakınsama yavaş: her turda değişim yaklaşık üçte bir azalıyor.
+- **Süre** (tek çekirdek, 366.496 maç, 7.862 gün):
+
+  | Geçmiş | Maç | Bir tur (geri + ileri) |
+  |---|---|---|
+  | 2000'e kadar | 5.558 | 0,02 sn |
+  | 2010'a kadar | 80.882 | 0,35 sn |
+  | 2020'ye kadar | 262.878 | 0,94 sn |
+  | Tamamı | 366.496 | 1,32 sn |
+
+  Süre maç sayısıyla doğrusal artıyor (maç başına yaklaşık 3,6 mikrosaniye).
+
+  | Yeniden yumuşatma sıklığı | Bir ayar, bütün tarih |
+  |---|---|
+  | **Her gün** (protokoldeki tanım) | **≈ 1,2 saat** |
+  | Haftada bir | ≈ 0,2 saat |
+  | Ayda bir | ≈ 3 dakika |
+  | Yılda bir | ≈ 1 dakika |
+
+- **Yorum:**
+  - Protokoldeki tanım (her gün veri eklenip tek tur) **yaklaşıklamaya gerek kalmadan uygulanabilir.**
+  - 108 ayarlık bir ızgara 11 çekirdekte ≈ 11–12 saat sürer.
+  - Her gün yalnızca bir tur yapılsa da önceki durumdan devam edildiği için eski geçmiş yüzlerce tur almış oluyor. Yakınsamadan en uzak kısım
+    son haftalar.
+- **Durum:** fizibilite
+

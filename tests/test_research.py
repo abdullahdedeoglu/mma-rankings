@@ -135,3 +135,42 @@ def test_select_uses_only_past_years():
     assert sel["own"][2010]["config"] == "A"
     assert sel["own"][2011]["config"] == "B"  # 2008-10: A 21, B 19
     assert sel["own"][2011]["loss"] == 5.0
+
+
+# ---------- M4 (TTT)
+from mmarank.research import ttt  # noqa: E402
+
+TTT_PARAMS = {"sigma0": 2.0, "gamma": 0.1, "p_draw": 0.014}
+
+
+def test_ttt_forward_pass_equals_trueskill():
+    """Synthetic fighters never fight twice on one day, so the forward pass must be M3 exactly."""
+    st = from_records(synthetic.generate(3, **SMALL)[0])
+    a = models.run_trueskill(st, **TTT_PARAMS)
+    b = ttt.run_filter_only(st, **TTT_PARAMS)
+    assert len(a) == len(b)
+    assert max(abs(x - y) for x, y in zip(a, b)) < 1e-9
+
+
+def test_ttt_online_no_leakage():
+    records, _ = synthetic.generate(3, **SMALL)
+    cut = "2012-06-30"
+    full = ttt.run_online(from_records(records), **TTT_PARAMS, refit_every_days=30)
+    part = ttt.run_online(from_records([r for r in records if r[0] <= cut]), **TTT_PARAMS, refit_every_days=30)
+    assert len(part) > 100
+    assert list(full[: len(part)]) == list(part)
+
+
+def test_ttt_sweeps_converge():
+    st = from_records(synthetic.generate(3, **SMALL)[0])
+    m = ttt.TTT(st, **TTT_PARAMS)
+    for d in range(len(st.day_ord)):
+        m.add_day(d)
+    changes, prev = [], None
+    for _ in range(6):
+        m.sweep()
+        s = list(m.lik_tau)
+        if prev is not None:
+            changes.append(max(abs(x - y) for x, y in zip(s, prev)))
+        prev = s
+    assert all(c2 < c1 for c1, c2 in zip(changes, changes[1:]))

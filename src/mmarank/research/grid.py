@@ -32,6 +32,8 @@ AXES: dict[str, dict[str, list]] = {
     "M2": {"tau": [0.2, 0.5, 0.8, 1.2], "rd0": [150, 200, 250, 300, 350, 450],
            "sigma0": [0.03, 0.06, 0.12, 0.2, 0.3, 0.4]},
     "M3": {"sigma0": [0.5, 1, 1.5, 2, 3, 4], "gamma": [0, 0.05, 0.1, 0.15, 0.2, 0.3], "p_draw": [0.005, 0.014, 0.03]},
+    # M4 (protocol v0.10): the same pre-registered axes as M3, without M3's result-driven extensions.
+    "M4": {"sigma0": [0.5, 1, 1.5, 2, 3, 4], "gamma": [0, 0.05, 0.1, 0.15, 0.2, 0.3], "p_draw": [0.005, 0.014, 0.03]},
 }
 # Extensions made by the grid-edge rule (§6.1 item 5), one list per round; logged in EXPERIMENTS.md.
 EXTENSIONS: list[dict[str, dict[str, list]]] = [
@@ -54,9 +56,9 @@ def axes(model: str) -> dict[str, list]:
 
 
 GRIDS: dict[str, list[dict]] = {m: _product(**axes(m)) for m in AXES}
-PARAM_COUNT = {"M0": 1, "M1": 3, "M2": 3, "M3": 3}
+PARAM_COUNT = {"M0": 1, "M1": 3, "M2": 3, "M3": 3, "M4": 3}
 # Natural grid edges that do not trigger the extension rule (PROTOCOL §6.1, item 5).
-NATURAL_EDGES = {("M1", "c", 0), ("M1", "min_rd", 0), ("M3", "gamma", 0)}
+NATURAL_EDGES = {("M1", "c", 0), ("M1", "min_rd", 0), ("M3", "gamma", 0), ("M4", "gamma", 0)}
 
 
 def config_id(params: dict) -> str:

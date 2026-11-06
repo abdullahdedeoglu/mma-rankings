@@ -1,6 +1,6 @@
 # Araştırma Protokolü (ön kayıt)
 
-**Sürüm:** 0.9.1 · **Tarih:** 2026-11-06 · **Durum:** taslak, deneylerden önce yazıldı
+**Sürüm:** 0.10 · **Tarih:** 2026-11-06 · **Durum:** taslak, deneylerden önce yazıldı
 
 Bu belge, derecelendirme sisteminin matematiğini baştan kurarken **deneylere başlamadan önce**
 neyi nasıl ölçeceğimizi ve hangi kurala göre karar vereceğimizi sabitler. Amaç, sonuçları
@@ -256,7 +256,15 @@ Bu alt bölüm, gerçek veride hiçbir model sonucu görülmeden yazıldı (v0.9
 | M2 Glicko-2 | Glickman (2001), sürekli zamana uyarlanmış (aşağıda) | τ ∈ {0,2; 0,5; 0,8; 1,2}; başlangıç RD ∈ {150, 200, 250, 300, 350, 450}; başlangıç oynaklığı σ₀ (Glicko-2 ölçeği, ay başına) ∈ {0,03; 0,06; 0,12; 0,2; 0,3; 0,4} | 144 |
 | M3 TrueSkill | Herbrich vd. (2006), iki kişilik kapalı form; varyans artışı σ² + γ²·ay. Ölçek değişmez olduğu için β = 1 sabit | σ₀ ∈ {0,5; 1; 1,5; 2; 3; 4}; γ (ay başına) ∈ {0; 0,05; 0,1; 0,15; 0,2; 0,3}; beraberlik olasılığı p ∈ {%0,5; %1,4; %3}, payı ε = √2·β·Φ⁻¹((1 + p)/2) | 108 |
 
-M4 (TTT) fizibilite pilotu M0–M3 karşılaştırmasından sonra yapılır; ızgarası pilotun sonucuna göre bu bölüme eklenir.
+**M4 (TTT)** (v0.10, fizibilite pilotundan sonra, M4'ün tahmin başarısı görülmeden; EXPERIMENTS.md E3.1):
+
+- **Uygulama:** her gün önce o günün maçları tahmin edilir, sonra gün eklenir ve bütün geçmiş üzerinde bir tur (geri + ileri geçiş)
+  güncellenir. Önceki turların mesajları korunur (sıcak başlangıç). Varyans artışı, ölçek (β = 1), beraberlik payı ve başlangıç
+  belirsizliğinin üst sınır olması M3 ile aynıdır. Pilot bu tanımın yaklaşıklamasız uygulanabildiğini gösterdi.
+- **Izgara:** M3'ün önceden kayıtlı ızgarası (σ₀ × γ × beraberlik olasılığı, 108 ayar). M3'ün sonuçlara göre yapılan genişletmeleri alınmaz;
+  M4 için ızgara sınırı kuralı (madde 5) ayrıca uygulanır. Bu ızgara M0–M3 sonuçlarından önce sabitlenmişti; M4 için sonuçlara bakılarak
+  daraltılmadı.
+- **Karşılaştırmalar:** M4 − M1 (karar için), M4 − M3 (yumuşatmanın katkısı) ve M4+λ − M4. Kurallar §5 ve madde 8 ile aynı.
 
 **Glicko-2'nin sürekli zamana uyarlanması** (bizim türetmemiz, hakemli bir kaynağa dayanmaz):
 
@@ -335,3 +343,4 @@ Bu kararlar tahmin başarısıyla seçilemez. Her biri ya veriyle desteklenir ya
 | 2026-11-05 | 0.8 | Sıklet denetimi sonucu (§2); H4'te ölçüm hatası yorumu (§7) | 200 dövüşçü-aylık sıklet denetimi Tapology ile yapıldı (AUDIT.md §7). Karşılaştırma kuralı sonuçlar okunmadan sabitlendi. Henüz hiçbir model sonucu görülmedi. |
 | 2026-11-06 | 0.9 | Aşama 2 uygulama ayrıntıları (§6.1): ortak kurallar, ayar seçimi ve λ yöntemi, üst sınırlı ızgara genişletme kuralı, model seçimi, M0–M3 ızgaraları, Glicko-2'nin sürekli zamana uyarlanması; λ yorumuna bilgili eşleştirme notu (§6) | Aşama 2 öncesi ön kayıt. Altyapı yalnızca sentetik veriyle doğrulandı (E1.1); henüz hiçbir model gerçek veride çalıştırılmadı. |
 | 2026-11-06 | 0.9.1 | Kurala göre yapılan ızgara genişletmeleri: M1 başlangıç RD 550; M2 τ 1,6 ve 2,0, başlangıç RD 550; M3 beraberlik olasılığı %4,6, %6,2 ve %7,8 (E2.1). Eşit parametre sayısında mevcut modelin korunması (§6.1, madde 8) | Genişletmeler önceden kayıtlı kuralın (§6.1, madde 5) uygulanması. Eşitlik kuralı ise **sonuçlar görüldükten sonra** eklendi: M1, M2 ve M3 ayrılmadı ve protokolde eşitlik durumu yazılı değildi (E2.2). |
+| 2026-11-06 | 0.10 | M4'ün uygulaması, ızgarası ve karşılaştırmaları (§6.1) | M4 fizibilite pilotu (EXPERIMENTS.md E3.1): protokoldeki günlük tanım uygulanabilir. M4 henüz gerçek veride skorlanmadı; M0–M3 sonuçları biliniyor (E2). Izgara, o sonuçlardan önce M3 için sabitlenmiş ızgaradır. |

@@ -35,6 +35,9 @@ class Bout:
     method_raw: str | None
     div_key: str | None = None
     women_label: bool = False
+    # False for NC / DQ / overturned / unknown-method bouts: they don't move ratings,
+    # but they still show the fighter was active, in a promotion and a weight class.
+    rated: bool = True
 
     @property
     def org(self) -> str | None:
@@ -87,7 +90,10 @@ def read_bouts(db: sqlite3.Connection, report: dict) -> list[Bout]:
             continue
         mc = methods.classify(method)
         if overturned or nc or r0 == "NC" or mc in methods.EXCLUDED:
-            drop[f"excluded_{'NC' if (overturned or nc or r0 == 'NC') else mc}"] += 1
+            reason = "NC" if (overturned or nc or r0 == "NC") else mc
+            drop[f"unrated_{reason}"] += 1
+            out.append(Bout(fid, eid, d, promo, wc, bool(title), reason, f0, f1, False,
+                            bool(complete), method, rated=False))
             continue
         if {r0, r1} == {"W", "L"}:
             a, b = (f0, f1) if r0 == "W" else (f1, f0)
@@ -134,6 +140,8 @@ def drop_near_duplicates(bouts: list[Bout], report: dict) -> tuple[list[Bout], l
                 gap = (Date.fromisoformat(y.date) - Date.fromisoformat(x.date)).days
                 if gap > window:
                     break
+                if x.rated != y.rated:
+                    continue
                 same = (x.draw and y.draw) or (not x.draw and not y.draw and x.a == y.a)
                 if not same:
                     continue
@@ -205,8 +213,9 @@ def load(canon_db: Path, wikidata_csv: Path | None = EXTERNAL_DIR / "wikidata_sh
     report["sex"] = sex_stats
     names = dict(db.execute("SELECT fighter_id, name FROM fighters"))
     bouts.sort(key=lambda x: (x.date, x.fight_id))
-    report["bouts"] = len(bouts)
-    report["method_classes"] = dict(collections.Counter(b.method_class for b in bouts))
+    report["bouts"] = sum(b.rated for b in bouts)
+    report["unrated_activity_bouts"] = sum(not b.rated for b in bouts)
+    report["method_classes"] = dict(collections.Counter(b.method_class for b in bouts if b.rated))
     report["with_division_key"] = sum(b.div_key is not None for b in bouts)
     db.close()
     return Dataset(bouts, names, sex, report, conflicts, dup_log)

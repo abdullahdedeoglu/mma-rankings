@@ -44,8 +44,13 @@ class ModelParams:
             "OTHER": 0.9,  # e.g. 'Could Not Continue'
         }
     )
-    # Ranking display: conservative rating = mu - k * RD
+    # Ranking score = mu - display_k * RD - inactivity penalty.
+    # The penalty is a RANKING choice, not part of the prediction model: after
+    # `inactivity_grace_months` without a bout (NC/DQ count as bouts here), the
+    # score drops `inactivity_penalty` points per further month.
     display_k: float = 2.0
+    inactivity_grace_months: float = 12.0
+    inactivity_penalty: float = 20.0
     # Debut prior (empirical Bayes, leak-free): a fighter's first rating is the mean
     # rating of established fighters (>= 3 bouts) who fought in the same promotion
     # in the previous `promo_window_months`, shrunk towards `initial_rating` with
@@ -66,6 +71,13 @@ class RankingRules:
     division_last_n: int = 3
     list_size: int = 15
     dedup_window_days: int = 30
+    # P4P index = W * P(beat own division's #ref) + (1 - W) * P(beat the median division's #ref).
+    # W = 1: pure within-division dominance (rewards champions of shallow divisions).
+    # W < 1: partly trusts the global scale (penalises shallow divisions, although
+    # scores across divisions are only weakly comparable). A judgement call, not a fact.
+    p4p_ref_rank: int = 5
+    p4p_min_depth: int = 10  # a division needs this many ranked fighters to take part
+    p4p_within_weight: float = 1.0
 
 
 MODEL = ModelParams()

@@ -8,7 +8,7 @@ import sys
 import time
 from pathlib import Path
 
-from . import backtest, data, engine, export, fetch, validate
+from . import backtest, countries, data, engine, export, fetch, validate
 from .config import BUILD_DIR
 
 
@@ -26,7 +26,8 @@ def cmd_build(args) -> int:
     print(f"[build] release {release}")
     ds = data.load(db)
     print(f"[build] {len(ds.bouts)} bouts loaded ({time.time() - t0:.0f}s)")
-    res = engine.run(ds)
+    fight_log: dict = {}
+    res = engine.run(ds, fight_log=fight_log)
     print(f"[build] {len(res.snapshots)} monthly snapshots, data through {res.last_date} ({time.time() - t0:.0f}s)")
     problems = validate.check(ds, res)
     if problems and not args.force:
@@ -34,7 +35,10 @@ def cmd_build(args) -> int:
         return 2
     bt = backtest.report(res.predictions, backtest.odds_probs(db))
     out = Path(args.out)
-    export.write_site(ds, res, release, bt, out)
+    conn = data._connect(db)
+    nat = countries.load(conn)
+    conn.close()
+    export.write_site(ds, res, release, bt, out, nat=nat, fight_log=fight_log)
     (out / "data" / "duplicates_removed.json").write_text(json.dumps(ds.duplicates, indent=0))
     (out / "data" / "sex_conflicts.json").write_text(json.dumps(
         [{"a": a, "a_name": ds.names.get(a), "b": b, "b_name": ds.names.get(b)} for a, b in ds.sex_conflicts], indent=1))

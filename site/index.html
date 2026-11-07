@@ -5,69 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MMA Rankings</title>
   <meta name="description" content="Şeffaf, yeniden üretilebilir ve tarihsel olarak sorgulanabilir MMA derecelendirmeleri.">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="preload" href="fonts/barlow-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="top">
-    <div class="wrap">
-      <h1>MMA Rankings</h1>
-      <p class="sub">Matematiksel, şeffaf, geçmişe dönük sıralamalar. Her liste yalnızca o tarihe kadar olan maçlarla hesaplanır.</p>
+    <div class="wrap top-in">
+      <a class="logo" href="#" id="home">MMA <span>Rankings</span></a>
+      <nav class="nav" aria-label="Site">
+        <a href="#" id="nav-list">Sıralamalar</a>
+        <a href="#yontem">Yöntem</a>
+      </nav>
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="search" type="search" placeholder="Dövüşçü ara" autocomplete="off" aria-label="Dövüşçü ara" aria-controls="search-results">
+        <ul id="search-results" class="search-results" role="listbox" hidden></ul>
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="controls" aria-label="Filtreler">
-      <label>Yıl
-        <select id="year"></select>
-      </label>
-      <label>Ay
-        <select id="month"></select>
-      </label>
-      <label>Kapsam
-        <select id="scope"></select>
-      </label>
-    </section>
-
-    <nav id="divisions" class="tabs" aria-label="Sıkletler"></nav>
-
-    <section>
-      <h2 id="list-title"></h2>
-      <p id="list-note" class="note"></p>
-      <div class="table-wrap">
-        <table id="table">
-          <thead>
-            <tr>
-              <th class="num">#</th>
-              <th>Dövüşçü</th>
-              <th class="num" title="Temkinli puan: μ − 2·RD">Puan</th>
-              <th class="num hide-sm" title="Tahmini güç ± belirsizlik">μ ± RD</th>
-              <th class="num">Rekor</th>
-              <th class="hide-sm">Son maç</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+  <main>
+    <section id="list-view" class="wrap" aria-labelledby="list-title">
+      <div class="bar-controls">
+        <h1 id="list-title"></h1>
+        <div class="pickers">
+          <div class="stepper">
+            <button type="button" id="prev" aria-label="Önceki ay">‹</button>
+            <select id="month" aria-label="Ay"></select>
+            <button type="button" id="next" aria-label="Sonraki ay">›</button>
+          </div>
+          <select id="scope" class="pill" aria-label="Kapsam"></select>
+          <span id="list-note" class="note"></span>
+        </div>
       </div>
+      <nav id="divisions" class="chips" aria-label="Sıkletler"></nav>
+
+      <div class="list-head" aria-hidden="true">
+        <span class="c-rank">#</span>
+        <span class="c-name">Dövüşçü</span>
+        <span class="c-bar"><span class="axis" id="axis"></span></span>
+        <span class="c-tie"></span>
+        <span class="c-score" id="h-score">Puan</span>
+        <span class="c-murd" id="h-murd">μ ± RD</span>
+        <span class="c-rec">Rekor</span>
+        <span class="c-last">Son maç</span>
+      </div>
+      <ol id="rows" class="rows"></ol>
       <p id="empty" class="note" hidden>Bu ay ve kapsam için listelenecek dövüşçü yok.</p>
+      <p class="legend note" id="legend">
+        <span><i class="lg-dot"></i> nokta = μ</span>
+        <span><i class="lg-bar"></i> çubuk = μ ± 2·RD</span>
+        <span><i class="lg-tick"></i> kırmızı çizgi = sıralama puanı</span>
+        <span class="lg-tie">[ başa baş ] = komşu iki dövüşçünün birbirini yenme olasılığı %45–55</span>
+      </p>
     </section>
 
-    <section class="method">
-      <h2>Yöntem</h2>
+    <section id="profile-view" class="wrap" hidden aria-live="polite"></section>
+
+    <section class="wrap method" id="yontem">
+      <h2><span class="br">[</span> yöntem <span class="br">]</span></h2>
       <ul>
         <li><strong>Model:</strong> Glicko-1, tek global havuz. Bitiş yöntemine göre ağırlıklı sonuç (KO/SUB 1,0 · UD 0,9 · MD 0,6 · SD 0,55). DQ ve NC maçları dışarıda.</li>
         <li><strong>Başlangıç puanı:</strong> Yeni bir dövüşçü, ilk maçını yaptığı organizasyonda son 24 ayda dövüşmüş deneyimli dövüşçülerin o tarihteki ortalama puanının 100 altından başlar (az veri varsa 1500'e doğru çekilir). Böylece küçük organizasyonlarda çok sayıda galibiyet toplamak puanı şişirmez.</li>
-        <li><strong>Sıralama puanı:</strong> μ − 2·RD. Uzun süre dövüşmeyenlerin puanı düşmez; belirsizliği (RD) artar.</li>
-        <li><strong>Liste şartları:</strong> En az 3 derecelendirilmiş maç, son 24 ayda maç. Organizasyon listeleri: son 18 ayda o organizasyonda maç yapmış olmak (bir dövüşçü birden fazla listede olabilir).</li>
+        <li><strong>Sıralama puanı:</strong> μ − 2·RD − inaktivite cezası. Maç yapılmadıkça belirsizlik (RD) artar; ayrıca 12 aydan uzun süre maç yapmayan dövüşçünün sıralama puanından her ek ay için 20 puan düşülür. Bu ceza yalnızca sıralamayı etkiler, tahmin modelini değil. Emeklilik verisi kullanılmaz.</li>
+        <li><strong>Belirsizlik çubuğu:</strong> Her satırdaki çubuk μ ± 2·RD aralığıdır; çubukları üst üste binen dövüşçülerin sırası kesin değildir. <em>Başa baş</em> işareti, komşu iki dövüşçünün Glicko'ya göre birbirini yenme olasılığı %45 ile %55 arasındaysa konur.</li>
+        <li><strong>Liste şartları:</strong> En az 3 derecelendirilmiş maç, son 24 ayda maç. NC ve DQ maçları puanı değiştirmez ama aktiflik, organizasyon ve sıklet için sayılır. Organizasyon listeleri: son 18 ayda o organizasyonda maç yapmış olmak (bir dövüşçü birden fazla listede olabilir).</li>
+        <li><strong>P4P:</strong> Farklı sıkletler birbiriyle dövüşmediği için nesnel bir P4P yoktur. Buradaki P4P bir <em>sıklet içi üstünlük endeksi</em>dir: dövüşçünün kendi sıkletinin 5 numarasını yenme olasılığı. Yalnızca en az 10 sıralı dövüşçüsü olan sıkletler katılır; sığ sıkletlerin şampiyonları bu yüzden yüksek çıkabilir.</li>
         <li><strong>Sıklet:</strong> Dövüşçünün son 3 yıldaki son 3 etiketli maçının en sık sıkleti. Böyle maç yoksa <em>sonraki</em> ilk etiketli maçı kullanılır; bu durum listede <span class="mark">≈</span> ile işaretlenir (zayıf gelecek bilgisi).</li>
         <li><strong>Rekor:</strong> Yalnızca derecelendirilen maçlar (DQ/NC hariç), resmî rekordan farklı olabilir.</li>
+        <li><strong>Değişim:</strong> ▲/▼ aynı listede bir önceki aya göre sıra farkıdır; listeye yeni girenler "yeni" diye işaretlenir.</li>
       </ul>
       <div id="meta" class="note"></div>
     </section>
   </main>
 
+  <aside id="sheet" class="sheet" hidden aria-label="Dövüşçü özeti">
+    <div class="sheet-scrim" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-name">
+      <button type="button" class="sheet-close" data-close aria-label="Kapat">×</button>
+      <div class="sheet-grip" aria-hidden="true"></div>
+      <div id="sheet-body"></div>
+    </div>
+  </aside>
+
   <footer class="wrap note">
     Veri: <a href="https://github.com/jadevit/fight-canon-db">Fight Canon</a> (UFC Stats, Sherdog, Sofascore ve diğerlerinden derlenmiştir).
-    Cinsiyet bilgisinin bir kısmı: <a href="https://www.wikidata.org/">Wikidata</a> (CC0). Resmî bir sıralama değildir.
+    Cinsiyet ve ülke bilgisinin bir kısmı: <a href="https://www.wikidata.org/">Wikidata</a> (CC0).
+    Bayraklar: <a href="https://github.com/lipis/flag-icons">flag-icons</a> (MIT). Yazı tipi: <a href="https://github.com/jpt/barlow">Barlow</a> (OFL).
+    Resmî bir sıralama değildir.
   </footer>
 
   <script src="app.js"></script>

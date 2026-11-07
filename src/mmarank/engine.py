@@ -57,6 +57,7 @@ class FighterState:
     w: int = 0
     l: int = 0
     d: int = 0
+    u: int = 0  # unrated bouts (NC, DQ, ...)
 
     @property
     def n(self) -> int:
@@ -135,7 +136,10 @@ class _Timeline:
 
 
 def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
-        snapshots: bool = True, until: str | None = None) -> RunResult:
+        snapshots: bool = True, until: str | None = None, fight_log: dict | None = None) -> RunResult:
+    """fight_log: if a dict is given, it is filled with fighter -> list of
+    (date, fight_id, opponent, result W/L/D/NC, method class, mu change or None, promotion).
+    The mu change of a date is put on the fighter's last bout of that date."""
     states: dict[int, FighterState] = {}
     preds: list[Prediction] = []
     snaps: dict[str, list[dict]] = {}
@@ -196,9 +200,11 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
             key, src = timeline.division_key(f, t, rules)
             div = to_division(key, sex)
             rd = glicko.inflate(s.rd, _months_between(s.last, t), model.c, model.initial_rd)
+            idle = _months_between(active[f], t)
+            penalty = model.inactivity_penalty * max(0.0, idle - model.inactivity_grace_months)
             rows.append({
-                "id": f, "mu": s.mu, "rd": rd, "score": s.mu - model.display_k * rd,
-                "w": s.w, "l": s.l, "d": s.d, "last": active[f], "sex": sex,
+                "id": f, "mu": s.mu, "rd": rd, "score": s.mu - model.display_k * rd - penalty,
+                "penalty": penalty, "w": s.w, "l": s.l, "d": s.d, "u": s.u, "last": active[f], "sex": sex,
                 "div": div, "div_src": src, "orgs": timeline.orgs_at(f, t, rules),
             })
         snaps[ym] = rows
@@ -208,7 +214,15 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
             while _month_end(next_snap) < day:
                 snapshot(next_snap)
                 next_snap = _next_month(next_snap)
-        bouts = by_date[day]
+        unrated = [b for b in by_date[day] if not b.rated]
+        bouts = [b for b in by_date[day] if b.rated]
+        for b in unrated:  # NC / DQ: activity only
+            for f in (b.a, b.b):
+                state_at(f, day, b.promotion).u += 1
+                active[f] = day
+            if fight_log is not None:
+                fight_log.setdefault(b.a, []).append([day, b.fight_id, b.b, "NC", b.method_class, None, b.promotion])
+                fight_log.setdefault(b.b, []).append([day, b.fight_id, b.a, "NC", b.method_class, None, b.promotion])
         # Pre-period ratings with RD inflated to today.
         pre: dict[int, tuple[float, float]] = {}
         for b in bouts:
@@ -235,6 +249,15 @@ def run(ds: Dataset, model: ModelParams = MODEL, rules: RankingRules = RULES,
             s = states[f]
             s.mu, s.rd, s.last = new_mu, new_rd, day
             active[f] = day
+        if fight_log is not None:
+            seen: dict[int, list] = {}
+            for b in bouts:
+                for f, opp, res in ((b.a, b.b, "D" if b.draw else "W"), (b.b, b.a, "D" if b.draw else "L")):
+                    entry = [day, b.fight_id, opp, res, b.method_class, None, b.promotion]
+                    fight_log.setdefault(f, []).append(entry)
+                    seen[f] = entry
+            for f, entry in seen.items():
+                entry[5] = states[f].mu - pre[f][0]
         for b in bouts:
             promo_recent[b.promotion][b.a] = day
             promo_recent[b.promotion][b.b] = day

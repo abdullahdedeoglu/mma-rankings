@@ -145,3 +145,29 @@ def test_debut_prior_uses_promotion_strength():
     # both are debut vs debut, so 0.5 each, but the BIG debutants start higher
     assert big_debut.p_a == pytest.approx(0.5) and small_debut.p_a == pytest.approx(0.5)
     assert res.states[99].mu > res.states[98].mu
+
+
+# ---------- NC bouts keep a fighter active without moving the rating
+def test_nc_counts_for_activity_not_rating():
+    from mmarank import engine
+
+    rated = [_b(i, i, f"2020-0{i}-01", 1, 10 + i) for i in range(1, 4)]
+    nc = _b(9, 9, "2024-06-01", 1, 50, "No Contest")
+    nc.rated = False
+
+    class DS:
+        pass
+    with_nc = DS(); with_nc.bouts = rated + [nc]; with_nc.sex = {}
+    without = DS(); without.bouts = list(rated); without.sex = {}
+    a = engine.run(with_nc, snapshots=False)
+    b = engine.run(without, snapshots=False)
+    assert a.states[1].mu == pytest.approx(b.states[1].mu)  # rating unchanged
+    assert a.states[1].u == 1 and a.last_date == "2024-06-01"
+    assert len(a.predictions) == len(b.predictions) == 3
+
+
+# ---------- P4P index is the logistic win probability on the rating scale
+def test_p4p_index():
+    from mmarank.export import p4p_index
+    assert p4p_index(1500, 1500) == pytest.approx(0.5)
+    assert p4p_index(1900, 1500) == pytest.approx(10 / 11)

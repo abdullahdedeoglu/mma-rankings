@@ -396,7 +396,7 @@ async function renderProfile(id) {
     <div class="p-head">
       <div class="p-rank${r ? "" : " unranked"}">${r ? pad(r.rank) : "—"}</div>
       <div>
-        <div class="p-label">${r ? `${esc(meta.divisions[at.div])} · ${esc(scopeName)} · ${monthName(state.month)}` : `${monthName(state.month)} listelerinde yok`}</div>
+        <div class="p-label">${r ? `<span lang="en">${esc(meta.divisions[at.div])} · ${esc(scopeName)}</span> · ${monthName(state.month)}` : `${monthName(state.month)} listelerinde yok`}</div>
         <div class="p-name"><span lang="en">${esc(p.name)}</span> ${p.nat ? flag(p.nat) : ""} ${delta}</div>
         <div class="p-stats">
           <div><span class="lbl">Puan</span><span class="val big">${r ? r.score : last ? last[3] : "—"}</span></div>

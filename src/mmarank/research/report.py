@@ -77,6 +77,8 @@ COMPARISONS = [  # (a, b): a - b, negative means a is better
     ("M0/own", "M1/own"), ("M2/own", "M1/own"), ("M3/own", "M1/own"),
     ("M0/lambda", "M0/own"), ("M1/lambda", "M1/own"), ("M2/lambda", "M2/own"), ("M3/lambda", "M3/own"),
     ("M3/lambda", "M1/own"),
+    # M4 (protocol v0.10): decision, contribution of smoothing, lambda
+    ("M4/own", "M1/own"), ("M4/own", "M3/own"), ("M4/lambda", "M4/own"),
 ]
 
 
@@ -91,11 +93,15 @@ def run_s1(st: Stream, out: Path, models=("M0", "M1", "M2", "M3"), B: int = 2000
             p = res["procedures"][name]["primary"]
             print(name, {k: round(v, 5) for k, v in p.items() if k != "n"}, flush=True)
     for a, b in COMPARISONS:
+        if a not in etas or b not in etas:
+            continue
         c = compare(st, etas[a], etas[b], pops["primary"], B)
         c["checked_only"] = compare(st, etas[a], etas[b], pops["primary_checked_only"], 200)
         res["comparisons"][f"{a} - {b}"] = c
         if verbose:
             print(f"{a} - {b}: {c['mean']:+.5f} event {[round(x, 5) for x in c['event_ci']]} "
                   f"month {[round(x, 5) for x in c['month_ci']]} brier {c['brier_diff']:+.5f}", flush=True)
-    save(out / "report_s1.json", res)
+    # the M0-M3 report (E2.2) keeps its file; other model sets get their own
+    name = "report_s1.json" if tuple(models) == ("M0", "M1", "M2", "M3") else f"report_s1_{'_'.join(models)}.json"
+    save(out / name, res)
     return res

@@ -278,3 +278,94 @@ tarafın** modelin tahmininden ne kadar az ya da çok kazandığını ölçüyor
     son haftalar.
 - **Durum:** fizibilite
 
+
+### E3.2 · M4 ızgarası ve karşılaştırma (S1)
+
+- **Tarih / veri:** 2026-11-07 · `db-2026-11-04-1837` · ön kayıt commit'i `b97a8df` (protokol v0.10).
+- **Komutlar:** `uv run python -m mmarank.research grid M4`, `select M4`, `report M1 M3 M4` (rapor: `report_s1_M1_M3_M4.json`;
+  E2.2'nin `report_s1.json` dosyası değişmedi, M1 ve M3 satırları onunla birebir aynı).
+- **Süre:** 108 ayar, 11 çekirdek, ayar başına ≈ 2,2 saat, toplam ≈ 28 saat. Pilotun tahmini (≈ 1,2 saat) tek çekirdek, boş makine içindi;
+  11 paralel işte ayar başına süre neredeyse iki katına çıktı.
+- **Sızıntı denetimi (sonuçlar görüldükten sonra, ek):** fark beklenenden büyük çıktığı için `tests/test_research.py`'deki sızıntı testi bu kez
+  günlük yeniden yumuşatmayla (grid'deki tanım) üç kesim tarihinde tekrarlandı; kesimden sonraki maçlar silindiğinde de sonuçları rastgele
+  ters çevrildiğinde de kesim öncesi tahminler bit düzeyinde aynı kaldı.
+
+**Birincil popülasyon, 2008–2025, n = 114.911 maç** (M1 ve M3 satırları E2.2'den):
+
+| Yöntem | Log loss (iç içe) | Tam dizi | Brier | İsabet | Kalibrasyon eğimi | Kesişim |
+|---|---|---|---|---|---|---|
+| M1 Glicko-1 | 0,58649 | 0,58603 | 0,20176 | %68,1 | 1,058 | −0,116 |
+| M3 TrueSkill | 0,58633 | 0,58584 | 0,20184 | %68,1 | 1,002 | −0,113 |
+| M3 + λ | 0,58545 | 0,58521 | 0,20143 | %68,1 | 1,048 | −0,101 |
+| **M4 TTT** | **0,57910** | 0,57905 | 0,19880 | %68,7 | 0,944 | −0,154 |
+| M4 + λ | 0,57845 | 0,57841 | 0,19850 | %68,8 | 1,038 | −0,138 |
+
+**Seçilen ayarlar:**
+
+- M4: σ₀ = 2, γ = 0,15 (yalnızca 2008'de 0,2), beraberlik olasılığı %0,5 bütün yıllarda. Tam dizide de aynı ayar seçiliyor.
+- M4 + λ: σ₀ = 3, γ = 0,2, beraberlik olasılığı %3 bütün yıllarda; λ 0,717 (2008) → 0,749 (2025), yıllar içinde genel olarak artıyor.
+- λ'nın 0,72–0,75 çıkması M4'ün **belirgin biçimde aşırı özgüvenli** olduğunu gösteriyor (M3'te 0,78–0,84, M1'de ≈ 1).
+  λ'sız M4'ün kalibrasyon eğimi de 1'in altında (0,944).
+
+**Izgara sınırı (§6.1, madde 5):**
+
+- λ'sız M4: beraberlik olasılığı alt sınırda (%0,5); bir adım geçersiz bir değere düşüyor, **sınırda kaldı**.
+- M4 + λ: beraberlik olasılığı üst sınırda (%3); kural %4,6 ile genişletmeyi gerektiriyor. **Bu genişletme ertelendi** (2026-11-07):
+  makine müsait olduğunda çalıştırılacak (tur başına 36 ayar, ≈ 9 saat; en fazla üç tur).
+  Seçilen σ₀ ve γ için beraberlik olasılığının bir adımı log loss'u yalnızca 0,00002–0,00003 değiştiriyor (tam dizi: %0,5 → 0,57844,
+  %1,4 → 0,57843, %3 → 0,57841); genişletmenin aşağıdaki λ kararını değiştirmesi beklenmiyor, ama kural uygulanana kadar M4 + λ satırı geçicidir.
+
+**Eşleştirilmiş farklar** (a − b; negatif: a daha iyi; etkinlik ve ay düzeyinde kümelenmiş bootstrap, B = 2000):
+
+| Karşılaştırma | Fark | %95 GA (etkinlik) | %95 GA (ay) | Brier farkı | Profesyonelliği kontrol edilmiş maçlarda |
+|---|---|---|---|---|---|
+| M4 − M1 | −0,00739 | [−0,00819, −0,00660] | [−0,00824, −0,00656] | −0,00296 | −0,00757 |
+| M4 − M3 | −0,00723 | [−0,00797, −0,00649] | [−0,00805, −0,00645] | −0,00304 | −0,00727 |
+| M4+λ − M4 | −0,00065 | [−0,00104, −0,00024] | [−0,00107, −0,00024] | −0,00030 | −0,00033 |
+
+**§5 kurallarına göre:**
+
+- **M4, M1'den açıkça daha iyi:** fark 0,001 eşiğinin yedi katından büyük, güven aralığı sıfırdan çok uzak. Ay düzeyinde kümeleme, Brier ve
+  profesyonelliği kontrol edilmiş maçlar aynı yönü veriyor. Büyüklük olarak M0 ile M1 arasındaki farka (0,0093) yakın.
+- **Kazancın neredeyse tamamı yumuşatmadan geliyor:** M4 − M3 = −0,00723. Aynı model, aynı ızgara; tek fark, geçmişin her gün yeniden
+  hesaplanması. Rakiplerin geçmişteki güçleri sonradan gelen maçlarla düzeltildiği için bir galibiyetin değeri de geriye dönük düzeliyor;
+  ileri yönlü filtre (M1, M3) bunu yapamaz.
+- **λ kabul edilmiyor:** iyileşme sıfırdan farklı ama eşiğin altında (0,00065); profesyonelliği kontrol edilmiş maçlarda güven aralığı sıfırı
+  içeriyor (−0,00033). Izgara genişletmesi bekleniyor (yukarıda).
+
+**İkincil popülasyonlar (log loss):**
+
+| Popülasyon | n | M1 | M3 | M3+λ | M4 | M4+λ |
+|---|---|---|---|---|---|---|
+| Tüm maçlar | 296.208 | 0,61284 | 0,61289 | 0,61308 | 0,60720 | 0,60802 |
+| Erkek, 0 önceki maç (en az bir taraf) | 91.357 | 0,63764 | 0,63862 | 0,64002 | 0,63223 | 0,63541 |
+| 1–2 | 65.279 | 0,60820 | 0,60717 | 0,60770 | 0,60451 | 0,60503 |
+| 3–9 | 79.351 | 0,58921 | 0,58935 | 0,58863 | 0,58267 | 0,58166 |
+| 10+ | 35.560 | 0,58042 | 0,57960 | 0,57836 | 0,57114 | 0,57127 |
+| Birincil, 2008–09 | 9.036 | 0,58248 | 0,58328 | 0,58222 | 0,57594 | 0,57445 |
+| Birincil, 2010–14 | 30.769 | 0,58355 | 0,58467 | 0,58381 | 0,57543 | 0,57476 |
+| Birincil, 2015–19 | 36.749 | 0,58584 | 0,58636 | 0,58478 | 0,57841 | 0,57812 |
+| Birincil, 2020–25 | 38.357 | 0,59042 | 0,58835 | 0,58818 | 0,58346 | 0,58267 |
+
+- M4 her popülasyonda ve her dönemde M1'den iyi; ilk maçlarda bile (0,0054). Fark deneyim arttıkça büyüyor (10+ maçta 0,0093).
+- λ ilk maçlarda kötüleştiriyor (0,63223 → 0,63541); M3'te de aynıydı. Ölçek küçültme, yeni dövüşçüler için zaten belirsiz olan tahmini fazla
+  yarıya çekiyor.
+
+**Kesişim:** M4'te −0,154, bütün modellerin en büyüğü. Kariyerine daha önce başlamış tarafın beklenenden daha az kazanması (E2.2'deki keşif)
+M4'te kaybolmuyor, büyüyor. Yumuşatma eski güçleri düzelttiği hâlde bu etkiyi açıklamıyor; H5 (yaş) için işaret güçleniyor.
+
+**Yapılmayanlar:**
+
+- Belirsizlik bantlarına göre kalibrasyon: M4 için uygulanmadı (`models.run_ttt` bantları üretmiyor).
+- En kötü skorlanan maçların denetimi: M4'ün en kötü 50 maçı E2.2'deki birleşime eklenmedi.
+- M4 + λ'nın ızgara genişletmesi (beraberlik olasılığı %4,6): ertelendi, makine müsait olduğunda.
+
+**Karar (S1):**
+
+- **M4, §5 ve §6.1 madde 8'e göre seçilen model.** Parametre sayısı M1 ile aynı (3) olduğu için eşitlik kuralına gerek kalmıyor.
+- λ kabul edilmiyor (ertelenen genişletme yapılınca yeniden bakılacak; kararın değişmesi beklenmiyor).
+- Sonraki hipotezler (§7) M4 temel alınarak sınanır. Her ayar ≈ 2,2 saat sürdüğü için bu, Aşama 2'nin geri kalanını belirgin biçimde
+  uzatır; protokolde bu maliyet için önceden yazılmış bir kural yok.
+- **Site henüz değişmedi:** sıralamalar hâlâ M1 (Glicko-1) ile hesaplanıyor. Siteye geçiş ayrı bir karardır (ölçek, belirsizlik çubukları ve
+  sıralama puanı formülü TrueSkill ölçeğine taşınmalı).
+- **Durum:** geliştirme

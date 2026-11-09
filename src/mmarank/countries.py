@@ -1,7 +1,8 @@
 """Fighter country codes for the site's flags.
 
-Fight Canon's nationality (from Sherdog, free text) first; where it is missing or unreadable,
-Wikidata via the Sherdog id (data/external/wikidata_sherdog_country.csv, CC0; see
+Fight Canon's nationality (from Sherdog, free text) first; where Fight Canon's copy is empty, the
+same Sherdog field read by hand for listed fighters (data/external/sherdog_nationality_manual.csv);
+then Wikidata via the Sherdog id (data/external/wikidata_sherdog_country.csv, CC0; see
 scripts/wikidata_countries.py). Codes are lowercase ISO 3166-1 alpha-2, plus gb-eng, gb-sct,
 gb-wls and gb-nir for the home nations, as Sherdog lists them.
 """
@@ -71,13 +72,23 @@ def from_text(s: str | None) -> str | None:
     return _ALIASES.get(s.strip().lower()) if s else None
 
 
-def load(db: sqlite3.Connection, csv_path: Path = EXTERNAL_DIR / "wikidata_sherdog_country.csv") -> dict[int, str]:
+def _by_sherdog(path: Path, key: str, conv) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    with open(path, newline="") as fh:
+        return {r["sherdog"]: c for r in csv.DictReader(fh) if (c := conv(r[key]))}
+
+
+def load(db: sqlite3.Connection, csv_path: Path = EXTERNAL_DIR / "wikidata_sherdog_country.csv",
+         manual_path: Path = EXTERNAL_DIR / "sherdog_nationality_manual.csv") -> dict[int, str]:
     out = {f: c for f, s in db.execute("SELECT fighter_id, nationality FROM fighters") if (c := from_text(s))}
-    if csv_path.exists():
-        with open(csv_path, newline="") as fh:
-            wd = {r["sherdog"]: r["country"].lower() for r in csv.DictReader(fh)}
-        for f, sid in db.execute("SELECT fighter_id, source_id FROM fighter_aliases WHERE source='sherdog'"):
-            m = re.search(r"(\d+)$", sid)
-            if f not in out and m and m.group(1) in wd:
-                out[f] = wd[m.group(1)]
+    manual = _by_sherdog(manual_path, "nationality", from_text)
+    wd = _by_sherdog(csv_path, "country", str.lower)
+    for f, sid in db.execute("SELECT fighter_id, source_id FROM fighter_aliases WHERE source='sherdog'"):
+        m = re.search(r"(\d+)$", sid)
+        if f in out or not m:
+            continue
+        code = manual.get(m.group(1)) or wd.get(m.group(1))
+        if code:
+            out[f] = code
     return out

@@ -74,5 +74,9 @@ def test_country_names_and_wikidata_fallback(tmp_path):
     db.executemany("INSERT INTO fighter_aliases VALUES (?, 'sherdog', ?)", [(1, "a-1"), (2, "b-22"), (3, "c-33")])
     csv = tmp_path / "c.csv"
     csv.write_text("sherdog,country\n1,US\n22,AM\n")
-    got = countries.load(db, csv)
+    got = countries.load(db, csv, tmp_path / "none.csv")
     assert got == {1: "br", 2: "am"}  # Fight Canon first, Wikidata only where it has nothing
+    manual = tmp_path / "m.csv"
+    manual.write_text("sherdog,nationality,name,checked\n22,Russia,B,2026-11-09\n33,Georgia,C,2026-11-09\n")
+    got = countries.load(db, csv, manual)
+    assert got == {1: "br", 2: "ru", 3: "ge"}  # the hand-read Sherdog field comes before Wikidata

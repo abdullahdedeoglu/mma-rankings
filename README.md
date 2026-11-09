@@ -33,7 +33,8 @@ python3 -m http.server 8765 --directory build/site
 6. **Listeler** (`export.py`): ay sonu anlık görüntüleri, sıralama puanı μ − 2·RD.
 7. **Dövüşçü sayfaları** (`export.py`): herhangi bir listeye girmiş her dövüşçü için aylık μ/RD geçmişi ve
    her maçın puan değişimi (`data/fighters/<id>.json`, arama için `index.json`).
-8. **Ülke/bayrak** (`countries.py`): Fight Canon'un milliyet alanı; boşsa Wikidata (spor için ülke,
+8. **Ülke/bayrak** (`countries.py`): Fight Canon'un milliyet alanı; boşsa listede çıkan dövüşçüler için Sherdog'daki aynı alan elle
+   okunur (`data/external/sherdog_nationality_manual.csv`); o da yoksa Wikidata (spor için ülke,
    yoksa tek vatandaşlık; `data/external/wikidata_sherdog_country.csv`, CC0, `scripts/wikidata_countries.py`
    ile yenilenir). Birden çok vatandaşlığı olup spor ülkesi belirtilmemiş dövüşçülerde bayrak gösterilmez.
    Bayraklar flag-icons (MIT), yazı tipi Barlow (OFL); ikisi de `site/` içinde, dış istek yok.

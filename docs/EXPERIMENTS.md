@@ -369,3 +369,54 @@ M4'te kaybolmuyor, büyüyor. Yumuşatma eski güçleri düzelttiği hâlde bu e
 - **Site henüz değişmedi:** sıralamalar hâlâ M1 (Glicko-1) ile hesaplanıyor. Siteye geçiş ayrı bir karardır (ölçek, belirsizlik çubukları ve
   sıralama puanı formülü TrueSkill ölçeğine taşınmalı).
 - **Durum:** geliştirme
+
+### E3.3 · Keşif: sitedeki model M4'e karşı (önceden kayıtlı değil)
+
+- **Tarih / veri:** 2026-11-07 · `db-2026-11-04-1837`. Betik: `scripts/explore_site_vs_m4.py`, çıktı `explore_site_vs_m4.json`.
+- **Neden:** S1'deki M1 sade Glicko-1'di. Sitedeki model buna iki ek kullanıyor: bitiş şekline göre kesirli sonuç ve organizasyona göre
+  başlangıç puanı (ayarlar: c = 35, en küçük RD 30). M4'e geçmenin bu ikisini kaybettirip kaybettirmeyeceğini görmek için sitedeki model
+  aynı maçlarda ve aynı popülasyonda skorlandı.
+- **Sınırlılık:** sitedeki ayarlar iç içe seçilmedi; tek bir sabit ayar. Bu ayarlar 2015 sonuna kadarki verilerle (`tune.py`) seçildiği için
+  2008–2015 kısmı sitedeki model lehine örneklem içi sayılmalı. M4 iç içe seçildi.
+
+| Yöntem (birincil, n = 114.911) | Log loss | Brier | İsabet | Kalibrasyon eğimi |
+|---|---|---|---|---|
+| M1 (sade, iç içe) | 0,58649 | 0,20176 | %68,1 | 1,058 |
+| Site, iki ek kapalı | 0,58755 | 0,20225 | %68,0 | 1,040 |
+| Site, yalnızca organizasyon başlangıcı | 0,58332 | 0,20045 | %68,4 | 1,052 |
+| Site, yalnızca bitiş şekli | 0,58321 | 0,20030 | %68,4 | 1,156 |
+| **Site (ikisi de açık)** | **0,57916** | 0,19856 | %68,8 | 1,169 |
+| **M4 (iç içe)** | **0,57910** | 0,19880 | %68,7 | 0,944 |
+
+| Fark (a − b) | Fark | %95 GA (etkinlik) | %95 GA (ay) |
+|---|---|---|---|
+| Site − iki ek kapalı | −0,00838 | [−0,00909, −0,00770] | [−0,00915, −0,00765] |
+| Yalnızca organizasyon başlangıcı − iki ek kapalı | −0,00422 | [−0,00458, −0,00385] | [−0,00468, −0,00377] |
+| Yalnızca bitiş şekli − iki ek kapalı | −0,00434 | [−0,00497, −0,00372] | [−0,00496, −0,00377] |
+| **M4 − site** | **−0,00006** | [−0,00113, +0,00102] | [−0,00118, +0,00104] |
+
+| Popülasyon | Site | M4 |
+|---|---|---|
+| Tüm maçlar | 0,60635 | 0,60720 |
+| 0 önceki maç | 0,63497 | 0,63223 |
+| 1–2 | 0,59821 | 0,60451 |
+| 3–9 | 0,58100 | 0,58267 |
+| 10+ | 0,57505 | 0,57114 |
+| Birincil, 2008–09 | 0,57569 | 0,57594 |
+| Birincil, 2010–14 | 0,57762 | 0,57543 |
+| Birincil, 2015–19 | 0,57871 | 0,57841 |
+| Birincil, 2020–25 | 0,58166 | 0,58346 |
+
+**Yorum:**
+
+- **Sitedeki model ile M4 berabere.** Fark sıfıra çok yakın ve güven aralığı iki yönde de eşiği aşıyor. E3.2'deki "M4, M1'den 0,0074 iyi"
+  sonucu doğru, ama sitedeki model M1 değil: iki ek kendi başına aynı büyüklükte bir kazanç sağlıyor (0,0084).
+- İki ekin her biri ≈ 0,004 kazandırıyor ve etkileri neredeyse toplanıyor. Bunlar H1a ve H2 için güçlü bir ön işaret (henüz önceden kayıtlı
+  sınama değil).
+- **İki yaklaşım farklı yerlerde iyi:** site 1–9 maçlık dövüşçülerde ve 2020–25'te (ayar penceresinin dışında) önde; M4 deneyimli
+  dövüşçülerde (10+) ve 2010–14'te önde. Kazançların kaynağı farklı (yumuşatma ↔ başlangıç puanı ve bitiş şekli), bu yüzden M4'e bu iki ekin
+  eklenmesi ikisinden de iyi olabilir. Bu bir beklenti, sınanmadı.
+- Sitedeki model az özgüvenli (eğim 1,17); M4 aşırı özgüvenli (0,94).
+
+**Sonuç:** sitenin M4'e geçmesi bugünkü hâliyle tahmin başarısını artırmaz. Site Glicko'da kalır. Sıradaki adım (Aşama 2, §7): H2 ve
+H1a'nın M4 üzerinde önceden kayıtlı biçimde sınanması.
